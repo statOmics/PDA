@@ -6,12 +6,14 @@ on:
 
 ## If you need to clear the cache, update the number inside cache-version as
 ## discussed at https://github.com/r-lib/actions/issues/86.
+## Note that you can always run a GHA test without the cache by using the word
+## "/nocache" in the commit message.
 env:
-  cache-version: 1
+  cache-version: 3
 
 jobs:
   render:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Check out repo
@@ -27,13 +29,21 @@ jobs:
       - name: Set up pandoc
         uses: r-lib/actions/setup-pandoc@v2
 
-      - name: Set up TinyTex
-        uses: r-lib/actions/setup-tinytex@v2
+      # - name: Set up TinyTex
+      #   uses: r-lib/actions/setup-tinytex@v2
 
       - name: Install X11 dependencies on MacOS
         if: runner.os == 'macOS'
         run: |
           brew install --cask xquartz
+
+      - name: Install curl Headers
+        if: runner.os == 'linux'
+        run: sudo apt-get install libcurl4-openssl-dev
+
+      - name: Install magick on Linux
+        if: runner.os == 'linux'
+        run: sudo apt-get -y install libmagick++-dev
 
       - name: Set up renv
         uses: r-lib/actions/setup-renv@v2
@@ -48,25 +58,10 @@ jobs:
           sessioninfo::session_info(pkgs, include_base = TRUE)
         shell: Rscript {0}
 
-      - name: Render complete site
-        if: "contains(github.event.head_commit.message, '/complete')"
+      - name: Render site
         run: |
           rmarkdown::render_site()
         shell: Rscript {0}
-
-      - name: Render updated files only
-        if: "!contains(github.event.head_commit.message, '/complete')"
-        run: |
-          RMD_PATH=($(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '[.]Rmd$')) || echo "No files to render."
-          Rscript -e 'for (f in commandArgs(TRUE)) if (file.exists(f)) rmarkdown::render_site(f)' ${RMD_PATH[*]}
-
-      - name: Commit files (only on master)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        run: |
-          git config --local user.name "$GITHUB_ACTOR"
-          git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git commit -a -m 'Re-build Rmarkdown files' || echo "No changes to commit"
-          git push origin || echo "No changes to commit"
 
       - name: Deploy 🚀
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
@@ -75,11 +70,11 @@ jobs:
           BRANCH: gh-pages
           FOLDER: _site
 
-      - name: Upload LaTeX logs
-        if: failure()
-        uses: actions/upload-artifact@main
-        with:
-          name: latex-logs
-          path: |
-            *.log
-            *.tex
+      # - name: Upload LaTeX logs
+      #   if: failure()
+      #   uses: actions/upload-artifact@main
+      #   with:
+      #     name: latex-logs
+      #     path: |
+      #       *.log
+      #       *.tex

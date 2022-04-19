@@ -2,7 +2,6 @@ name : "PDA"
 title : "Proteomics Data Analysis (PDA)"
 navbar:
   title: "PDA"
-  type: inverse
   left:
     - icon: fa-home
       href: index.html

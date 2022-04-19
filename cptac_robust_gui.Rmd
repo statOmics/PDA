@@ -4,7 +4,7 @@ author: "Lieven Clement"
 date: "statOmics, Ghent University (https://statomics.github.io)"
 output:
     html_document:
-      theme: cosmo      
+      theme: flatly      
       code_download: false
       toc: false
       toc_float: false

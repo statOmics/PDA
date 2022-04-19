@@ -2,7 +2,6 @@
 title: Proteomics Data Analysis (PDA)
 output:
     html_document:
-      theme: cosmo      
       code_download: false
       toc: false
       toc_float: false

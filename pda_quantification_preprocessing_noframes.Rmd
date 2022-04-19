@@ -5,7 +5,7 @@ date: "[statOmics](https://statomics.github.io), Ghent University"
 output:
     html_document:
       code_download: true
-      theme: cosmo
+      theme: flatly
       toc: true
       toc_float: true
       highlight: tango

@@ -1,12 +1,12 @@
-name: "PDA"
-title: "Proteomics Data Analysis (PDA)"
+name : "PDA"
+title : "Proteomics Data Analysis (PDA)"
 navbar:
   title: "PDA"
   type: inverse
   left:
     - icon: fa-home
       href: index.html
-    - text: "Lectures"
+    - text: "Topics"
       icon: fa-chalkboard-teacher
       menu:
       - text: Quantification - Preprocessing
@@ -17,7 +17,7 @@ navbar:
         href: pda_quantification_inference.html
       - text: Wrap-up DA - Blocking
         href: pda_blocking_wrapup.html
-    - text: "tutorials"
+    - text: "Exercises"
       icon: fa-laptop
       menu:
       - text: Quantification - Preprocessing
@@ -43,4 +43,4 @@ output:
         after_body: footer.html
       css: style.css
 new_session: true
-exclude: ["renv.lock"]
+exclude: ["renv.lock", "update_install_R.R", "install.R"]

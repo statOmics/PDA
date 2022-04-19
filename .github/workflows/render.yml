@@ -1,0 +1,85 @@
+name: Render and Deploy
+
+on:
+  push:
+  pull_request:
+
+## If you need to clear the cache, update the number inside cache-version as
+## discussed at https://github.com/r-lib/actions/issues/86.
+env:
+  cache-version: 1
+
+jobs:
+  render:
+    runs-on: macos-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.1'
+
+      - name: Set up pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+
+      - name: Set up TinyTex
+        uses: r-lib/actions/setup-tinytex@v2
+
+      - name: Install X11 dependencies on MacOS
+        if: runner.os == 'macOS'
+        run: |
+          brew install --cask xquartz
+
+      - name: Set up renv
+        uses: r-lib/actions/setup-renv@v2
+        with:
+          cache-version: ${{ env.cache-version }}
+
+      - name: Session info
+        run: |
+          install.packages('sessioninfo')
+          options(width = 100)
+          pkgs <- installed.packages()[, "Package"]
+          sessioninfo::session_info(pkgs, include_base = TRUE)
+        shell: Rscript {0}
+
+      - name: Render complete site
+        if: "contains(github.event.head_commit.message, '/complete')"
+        run: |
+          rmarkdown::render_site()
+        shell: Rscript {0}
+
+      - name: Render updated files only
+        if: "!contains(github.event.head_commit.message, '/complete')"
+        run: |
+          RMD_PATH=($(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '[.]Rmd$')) || echo "No files to render."
+          Rscript -e 'for (f in commandArgs(TRUE)) if (file.exists(f)) rmarkdown::render_site(f)' ${RMD_PATH[*]}
+
+      - name: Commit files (only on master)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: |
+          git config --local user.name "$GITHUB_ACTOR"
+          git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git commit -a -m 'Re-build Rmarkdown files' || echo "No changes to commit"
+          git push origin || echo "No changes to commit"
+
+      - name: Deploy 🚀
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          BRANCH: gh-pages
+          FOLDER: _site
+
+      - name: Upload LaTeX logs
+        if: failure()
+        uses: actions/upload-artifact@main
+        with:
+          name: latex-logs
+          path: |
+            *.log
+            *.tex

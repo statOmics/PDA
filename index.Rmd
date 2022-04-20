@@ -80,6 +80,17 @@ If you encounter problems related to the course material (e.g. package installat
 
 ---
 
+### Previous Editions
+
+- [HUPO21](https://statomics.github.io/hupo21/)
+- [PDA21](https://statomics.github.io/PDA21/)
+- [PDA20](https://statomics.github.io/pda19-20/)
+- [Gulbenkian - PDA20](https://gtpb.github.io/PDA20/)
+- [Gulbenkian - PDA19](https://gtpb.github.io/PDA19/)
+- [Gulbenkian - PDA18](https://gtpb.github.io/PDA18/)
+
+---
+
 ### Acknowledgements 
 
 A special thanks to Pedro Fernandes, Coordinator of the GTPB Bioinformatics Training Programme, Instituto Gulbenkian de Ciencia, who radically changed our view on teaching and immersed us in the teaching method that we use in this course.

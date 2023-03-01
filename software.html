@@ -317,25 +317,33 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">2. Software for Proteomics Data Analysis (PDA)</h1>
+<h1 class="title toc-ignore">2. Software for Proteomics Data Analysis
+(PDA)</h1>
 <h4 class="author">Lieven Clement</h4>
-<h4 class="date"><a href="https://statomics.github.io">statOmics</a>, Ghent University</h4>
+<h4 class="date"><a href="https://statomics.github.io">statOmics</a>,
+Ghent University</h4>
 
 </div>
 
 
 <p><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></p>
 <ul>
-<li>Install [R version 4.1 or higher] (<a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>)</li>
-<li>Install <a href="https://www.rstudio.com/products/rstudio/download/">Rstudio</a></li>
-<li>Install <em>msqrob2</em>, start R and run the following command.</li>
+<li>Install [R version 4.1 or higher] (<a
+href="https://cran.r-project.org/"
+class="uri">https://cran.r-project.org/</a>)</li>
+<li>Install <a
+href="https://www.rstudio.com/products/rstudio/download/">Rstudio</a></li>
+<li>Install <em>msqrob2</em>, start R and run the following
+command.</li>
 </ul>
 <pre><code>if(!requireNamespace(&quot;BiocManager&quot;, quietly = TRUE)) {
  install.packages(&quot;BiocManager&quot;)
 }
 BiocManager::install(&quot;msqrob2&quot;)</code></pre>
 <ul>
-<li>Participants who want to use the graphical user interface (GUI) can install the msqrob2gui shiny app, start R and run the following commands</li>
+<li>Participants who want to use the graphical user interface (GUI) can
+install the msqrob2gui shiny app, start R and run the following
+commands</li>
 </ul>
 <pre><code>if(!requireNamespace(&quot;BiocManager&quot;, quietly = TRUE)) {
  install.packages(&quot;BiocManager&quot;)
@@ -345,7 +353,8 @@ if(!requireNamespace(&quot;remotes&quot;, quietly = TRUE)) {
 }
 BiocManager::install(&quot;statomics/msqrob2gui&quot;)</code></pre>
 <ul>
-<li>check if your installation is working with the following example</li>
+<li>check if your installation is working with the following
+example</li>
 </ul>
 <pre><code>library(msqrob2)
 data(pe)

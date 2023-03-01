@@ -25,6 +25,12 @@ bibliography: msqrob2.bib
 
 This is part of the online course [Proteomics Data Analysis (PDA)](https://statomics.github.io/PDA/)
 
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/HE4KWfIOVp0"
+frameborder="0"
+style="display: block; margin: auto;"
+allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
 # Import Data and Preprocessing 
 
 ## Data 

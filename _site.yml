@@ -8,6 +8,8 @@ navbar:
     - text: "Topics"
       icon: fa-chalkboard-teacher
       menu:
+      - text: Experimental Design
+        href: pda_experimentalDesign1.html
       - text: Quantification - Preprocessing
         href: pda_quantification_preprocessing.html
       - text: Wrap-up Preprocessing - Peptide-Level-Models

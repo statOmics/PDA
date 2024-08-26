@@ -3,6 +3,9 @@ title: "Experimental Design"
 author: "Lieven Clement"
 date: "[statOmics](https://statomics.github.io), Ghent University"
 output:
+    pdf_document:
+      toc: true
+      number_sections: true
     html_document:
       code_download: true
       theme: flatly
@@ -10,13 +13,9 @@ output:
       toc_float: true
       highlight: tango
       number_sections: true
-    pdf_document:
-      toc: true
-      number_sections: true
 linkcolor: blue
 urlcolor: blue
 citecolor: blue
-
 bibliography: msqrob2.bib
       
 ---
@@ -29,6 +28,7 @@ knitr::opts_chunk$set(
 )
 library(tidyverse)
 if(!requireNamespace("NHANES", quietly = TRUE)) {install.packages("NHANES")}
+library(Rfast)
 library(NHANES)
 library(gridExtra)
 ```
@@ -757,7 +757,7 @@ franc %>%
 
 ### Correct analysis 
 
-```{r echo = FALSE, warning = FALSE, message = FALSE}
+```{r}
 lmBiorep <- lm(intensityLog2 ~ -1 + biorep, franc)
 francSum <- data.frame(genotype = rep(c("D8","WT"),each=3) %>% as.factor %>% relevel("WT"), intensityLog2 = lmBiorep$coef)
 francSum

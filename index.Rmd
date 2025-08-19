@@ -47,12 +47,12 @@ or with R/markdowns scripts e.g.
 ### Software & Data 
 
 - [Install msqrob2 software](./software.html)
-- [Download data](https://github.com/statOmics/PDA/archive/refs/heads/data.zip)
+- [Download data](https://github.com/statOmics/PDA25EBI/archive/refs/heads/data.zip)
 
 Note, that users who develop R/markdown scripts can access data both from the web or from disk within their scripts. So they do not need to download the data first. The msqrob2gui Shiny App only works with data that is available on disk.  
 
 
-- More information on our tools can be found in our papers [@goeminne2016], [@goeminne2020] and [@sticker2020]. Please refer to our work when using our tools. 
+- More information on our tools can be found in our papers [@goeminne2016], [@goeminne2020], [@sticker2020] and [@vandenbulcke2025]. Please refer to our work when using our tools. 
 
 
 ### Instructor
@@ -68,28 +68,17 @@ If you encounter problems related to the course material (e.g. package installat
 ### Detailed Program
 
 
-  1. Introduction to experimental design: [Experimental Design](./pda_experimentalDesign1.html), [[PDF]](./pda_experimentalDesign1.pdf)
-
-  2. Preprocessing & Analysis of Label Free Quantitative Proteomics Experiments with Simple Designs
+  1. Preprocessing & Analysis of Label Free Quantitative Proteomics Experiments with Simple Designs
   - Lecture: [Preprocessing](./pda_quantification_preprocessing.html), [[PDF](./pda_quantification_preprocessing.pdf)]
   - Tutorial: [preprocessing](./pda_tutorialPreprocessing.html)
   - Wrap-up: [Peptide-based Models](./pda_robustSummarisation_peptideModels.html)[[PDF](./pda_robustSummarisation_peptideModels.pdf)]
 
-  3. Statistical Inference & Analysis of Experiments with Factorial Designs
+  2. Statistical Inference & Analysis of Experiments with Factorial Designs
   - Lecture: [Differential Abundance Analysis](./pda_quantification_inference.html), [[PDF](./pda_quantification_inference.pdf)]
   - Tutorial: [Design](pda_tutorialDesign.html)
-  - Wrap-up: [Blocking](./pda_blocking_wrapup.html)[[PDF](./pda_blocking_wrapup.pdf)]
-
----
-
-### Previous Editions
-
-- [HUPO21](https://statomics.github.io/hupo21/)
-- [PDA21](https://statomics.github.io/PDA21/)
-- [PDA20](https://statomics.github.io/pda19-20/)
-- [Gulbenkian - PDA20](https://gtpb.github.io/PDA20/)
-- [Gulbenkian - PDA19](https://gtpb.github.io/PDA19/)
-- [Gulbenkian - PDA18](https://gtpb.github.io/PDA18/)
+  
+  3. Additional Materials
+  - Vignette to analyse DIA-NN data [DIA-NN workflow](dia-nn_spike_in.html)
 
 ---
 
@@ -106,4 +95,5 @@ This project is licensed under the [Creative Commons Attribution-NonCommercial-S
 ---
 
 ### References 
+
 

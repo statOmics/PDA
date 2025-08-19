@@ -4,8 +4,6 @@
 .Ruserdata
 
 # Rmd output
-*.html
-*_files/
 *_cache/
 _site/
 

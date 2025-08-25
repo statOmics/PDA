@@ -129,6 +129,7 @@ text(8.5, 5, "ESTIMATION &\nINFERENCE (3)", col = "black", cex = 1.2)
 1. Define hypothesis
 2. Experimental design
   
+    - Population
     - Technology
     - Lab protocol
     - Think about sources of variation 
@@ -453,7 +454,7 @@ falseNeg5Box <- res %>%
 falseNeg5Box
 ```
 
-- There are `r sum(res$pvalue < 0.05 & res$verschil < 0)` samples for which we return a true positive $\righarrow$ The power is `r round(mean(res$pvalue < 0.05 & res$verschil < 0)*100,1)`%.
+- There are `r sum(res$pvalue < 0.05 & res$verschil < 0)` samples for which we return a true positive $\rightarrow$ The power is `r round(mean(res$pvalue < 0.05 & res$verschil < 0)*100,1)`%.
 - There are `r sum(res$pvalue > 0.05)` samples for which we cannot report a significant difference. 
 - There are `r  sum(res$pvalue < 0.05 & res$verschil>0)` for which we report a significant height difference between females and males that is positive.
 
@@ -873,7 +874,8 @@ Slide courtesy (Lisa Breckels)
 
 ## Mouse example
 
-- In 2021 Choa et al. published that the cytokine Thymic stromal lymphopoietin (TSLP) induced fat loss through sebum secretion (talg). [html] [PDF]
+- In 2021 Choa et al. published that the cytokine Thymic stromal lymphopoietin (TSLP) induced fat loss through sebum secretion (talg). [[html](https://www.science.org/doi/full/10.1126/science.abd2893)] [[PDF](https://www.science.org/doi/pdf/10.1126/science.abd2893)]
+
 
 - Suppose that you would like to set up a similar study to test if cytokine interleukin 25 (IL) also has beneficial effect.
 

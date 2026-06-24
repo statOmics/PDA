@@ -1,71 +1,70 @@
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<html>
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
 
-<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="author" content="Lieven Clement">
 
-
-
-
-<title>Proteomics Data Analysis (PDA)</title>
-
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/navigation-1.1/codefolding.js"></script>
-<script src="site_libs/navigation-1.1/sourceembed.js"></script>
-<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
-<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
-
-
-
-
-
-<style type="text/css">
-#rmd-source-code {
-  display: none;
+<title>Proteomics Data Analysis for Data-dependent and Data-independent acquisition at EBI 2026 (PDA26EBI)</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
 }
-</style>
-
-<style type="text/css">
-/* for pandoc --citeproc since 2.11 */
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -79,539 +78,712 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
-
-<link rel="stylesheet" href="style.css" type="text/css" />
+}</style>
 
 
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-img {
-  max-width:100%;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-summary {
-  display: list-item;
-}
-details > summary > p:only-child {
-  display: inline;
-}
-pre code {
-  padding: 0;
-}
-</style>
-
-
-<style type="text/css">
-.dropdown-submenu {
-  position: relative;
-}
-.dropdown-submenu>.dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
-}
-.dropdown-submenu:hover>.dropdown-menu {
-  display: block;
-}
-.dropdown-submenu>a:after {
-  display: block;
-  content: " ";
-  float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-.dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
-}
-.dropdown-submenu.pull-left {
-  float: none;
-}
-.dropdown-submenu.pull-left>.dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
-}
-</style>
-
-<script type="text/javascript">
-// manage active state of menu based on current page
-$(document).ready(function () {
-  // active menu anchor
-  href = window.location.pathname
-  href = href.substr(href.lastIndexOf('/') + 1)
-  if (href === "")
-    href = "index.html";
-  var menuAnchor = $('a[href="' + href + '"]');
-
-  // mark the anchor link active (and if it's in a dropdown, also mark that active)
-  var dropdown = menuAnchor.closest('li.dropdown');
-  if (window.bootstrap) { // Bootstrap 4+
-    menuAnchor.addClass('active');
-    dropdown.find('> .dropdown-toggle').addClass('active');
-  } else { // Bootstrap 3
-    menuAnchor.parent().addClass('active');
-    dropdown.addClass('active');
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./figs/msqrob2.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ac1b6a99fa653f88043b785012da591b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
-});
-</script>
-
-<!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-  background-color: transparent;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
-<!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
-
-
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
+}</script>
 
 
 </head>
 
-<body>
+<body class="floating nav-fixed quarto-light">
 
-
-<div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-fa-chalkboard-teacher" role="img">
+</i> 
+ <span class="menu-text">Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-topics">    
+        <li>
+    <a class="dropdown-item" href="./01-dataprocessing.html">
+ <span class="dropdown-text">1. Basic concepts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./02-workflow-optimisation.html">
+ <span class="dropdown-text">1.1 Wrapup Data Processing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./03-inference.html">
+ <span class="dropdown-text">2.1. Inference</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./03-blocking-wrapup.html">
+ <span class="dropdown-text">2.2. Wrapup Blocking</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tutorials" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-fa-chalkboard-teacher" role="img">
+</i> 
+ <span class="menu-text">Tutorials</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tutorials">    
+        <li>
+    <a class="dropdown-item" href="./01-tutorial-data-processing.html">
+ <span class="dropdown-text">1. Tutorial Data Processing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./03-tutorial-Design.html">
+ <span class="dropdown-text">2. Tutorial Differential Analysis and Design</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
 </div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
-
-
-
-
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html">PDA25EBI</a>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#why-msqrob2" id="toc-why-msqrob2" class="nav-link active" data-scroll-target="#why-msqrob2">Why msqrob2?</a></li>
+  <li><a href="#outline" id="toc-outline" class="nav-link" data-scroll-target="#outline">Outline</a></li>
+  <li><a href="#data-processing" id="toc-data-processing" class="nav-link" data-scroll-target="#data-processing"><span class="header-section-number">1</span> Data Processing</a></li>
+  <li><a href="#statistical-inference-design-concepts" id="toc-statistical-inference-design-concepts" class="nav-link" data-scroll-target="#statistical-inference-design-concepts"><span class="header-section-number">2</span> Statistical Inference &amp; Design concepts</a></li>
+  <li><a href="#vignettes" id="toc-vignettes" class="nav-link" data-scroll-target="#vignettes"><span class="header-section-number">3</span> Vignettes</a></li>
+  <li><a href="#targeted-audience-and-assumed-background" id="toc-targeted-audience-and-assumed-background" class="nav-link" data-scroll-target="#targeted-audience-and-assumed-background"><span class="header-section-number">4</span> Targeted audience and assumed background</a></li>
+  <li><a href="#software-and-data" id="toc-software-and-data" class="nav-link" data-scroll-target="#software-and-data"><span class="header-section-number">5</span> Software and data</a>
+  <ul class="collapse">
+  <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license">License</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li>
-  <a href="index.html">
-    <span class="fa fa-home"></span>
-     
-  </a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-chalkboard-teacher"></span>
-     
-    Topics
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="pda_quantification_preprocessing.html">Quantification - Preprocessing</a>
-    </li>
-    <li>
-      <a href="pda_robustSummarisation_peptideModels.html">Wrap-up Preprocessing - Peptide-Level-Models</a>
-    </li>
-    <li>
-      <a href="pda_quantification_inference.html">Quantification - Differential Abundance Analysis</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-laptop"></span>
-     
-    Exercises
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="pda_tutorialPreprocessing.html">Quantification - Preprocessing</a>
-    </li>
-    <li>
-      <a href="pda_tutorialDesign.html">Quantification - Design</a>
-    </li>
-  </ul>
-</li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/statOmics/PDA25EBI">
-    <span class="fab fa-github"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="http://statomics.github.io/">statOmics</a>
-</li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
+<!-- main -->
+<main class="content" id="quarto-document-content">
 
-<div id="header">
-
-<div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-<li role="separator" class="divider"></li>
-<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
-</ul>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Proteomics Data Analysis for Data-dependent and Data-independent acquisition at EBI 2026 (PDA26EBI)</h1>
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Lieven Clement <a href="https://orcid.org/0000-0002-9050-4370" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Ghent University
+          </p>
+      </div>
+  </div>
 
-<h1 class="title toc-ignore">Proteomics Data Analysis (PDA)</h1>
+<div class="quarto-title-meta">
 
-</div>
+      
+  
+    
+  </div>
+  
 
 
-<hr />
-<p><img src="figures/IntroFig.png" alt="" width="1440" /></p>
-<div id="course-description" class="section level3" number="1">
-<h3><span class="header-section-number">1</span> Course Description</h3>
-<p>Mass spectrometry based proteomic experiments generate ever larger datasets and, as a consequence, complex data interpretation challenges. This course focuses on the statistical concepts for peptide identification, quantification, and differential analysis. Moreover, more advanced experimental designs and blocking will also be introduced. The core focus will be on shotgun proteomics data, and quantification using label-free precursor peptide (MS1) ion intensities. The course will rely exclusively on free and userfriendly opensource tools in R/Bioconductor. The course will provide a solid basis for beginners, but will also bring new perspectives to those already familiar with standard data interpretation procedures in proteomics.</p>
-<p>Students can sharpen their background knowledge on Mass Spectrometry, Proteomics &amp; Bioinformatics for Proteomics
-here:
-<a href="./techvid.html">Mass Spectrometry and Bioinformatics for Proteomics</a></p>
+</header>
+
+
+<p>This course provides comprehensive hands-on tutorials on how to apply the <code>msqrob2</code> software for the statistical analysis of mass spectrometry (MS)-based proteomics data.<br>
+The course first introduces general concepts of statistical proteomics data analysis and <code>msqrob2</code>. Further chapters will demonstrate the application of <code>msqrob2</code> for assessing different biological questions starting from datasets with different experimental designs, acquisition strategies, instruments, and search engines. The book aims to help proteomics researchers and data analysists tailoring their statistical analysis workflow to their specific datasets and research questions.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/msqrob2.png" class="img-fluid figure-img" style="width:30.0%"></p>
+<figcaption>The sticker is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</figcaption>
+</figure>
 </div>
-<div id="target-audience" class="section level3" number="2">
-<h3><span class="header-section-number">2</span> Target Audience</h3>
-<p>This course is oriented towards biologists and bioinformaticians with a particular interest in differential analysis for quantitative proteomics.</p>
-<p>According to the target audience of the course we either work with a graphical user interface (GUI) in a R/shiny App msqrob2gui e.g. </p>
-<ul>
-<li>Proteomics Data Analysis course at the Gulbenkian institute</li>
-<li>Proteomics Bioinformatics course of the EBI</li>
-<li>BePA introduction: What can proteomics do for you?</li>
-</ul>
-<p>or with R/markdowns scripts e.g. </p>
-<ul>
-<li>Bioinformatics Summer School at UCLouvain</li>
-<li>Statistical Genomics Course at Ghent University.</li>
-</ul>
 </div>
-<div id="software-data" class="section level3" number="3">
-<h3><span class="header-section-number">3</span> Software &amp; Data</h3>
-<ul>
-<li><a href="./software.html">Install msqrob2 software</a></li>
-<li><a href="https://github.com/statOmics/PDA25EBI/archive/refs/heads/data.zip">Download data</a></li>
-</ul>
-<p>Note, that users who develop R/markdown scripts can access data both from the web or from disk within their scripts. So they do not need to download the data first. The msqrob2gui Shiny App only works with data that is available on disk.</p>
-<ul>
-<li>More information on our tools can be found in our papers <span class="citation">(L. J. Goeminne, Gevaert, and Clement 2016)</span>, <span class="citation">(L. J. E. Goeminne et al. 2020)</span>, <span class="citation">(Sticker et al. 2020)</span> and <span class="citation">(Vandenbulcke and Clement 2025)</span>. Please refer to our work when using our tools.</li>
-</ul>
 </div>
-<div id="instructor" class="section level3" number="4">
-<h3><span class="header-section-number">4</span> Instructor</h3>
-<ul>
-<li><a href="https://statomics.github.io/pages/about.html">Lieven Clement</a>, Associate Professor of Statistical Genomics, <a href="https://statomics.github.io/">statOmics</a>, <a href="https://www.ugent.be/">Ghent University</a>, Belgium</li>
-</ul>
-</div>
-<div id="issues" class="section level3" number="5">
-<h3><span class="header-section-number">5</span> Issues</h3>
-<p>If you encounter problems related to the course material (e.g. package installation problems, bugs in the code, typos, …), please consider <a href="https://github.com/statOmics/PDA/issues">posting an issue on GitHub</a>.</p>
-<hr />
-</div>
-<div id="detailed-program" class="section level3" number="6">
-<h3><span class="header-section-number">6</span> Detailed Program</h3>
-<ol style="list-style-type: decimal">
-<li><p>Introduction to experimental design: <a href="./pda_experimentalDesign1.html">Experimental Design</a></p></li>
-<li><p>Preprocessing &amp; Analysis of Label Free Quantitative Proteomics Experiments with Simple Designs</p></li>
+<section id="why-msqrob2" class="level1 unnumbered">
+<h1 class="unnumbered">Why msqrob2?</h1>
+<p>MS-based proteomics experiments often imposes a complex correlation structure among observations. Addressing this correlation is key for correct statistical inference and reliable biomarker discovery. This <code>msqrob2</code> course provides a set of model-based workflows dedicated to differential abundance analysis for label-free as well as labeled MS-based proteomics data. The key features of <code>msqrob2</code> workflows are:</p>
+<ol type="1">
+<li>Modularity: all core functions rely on the <code>QFeatures</code> class, a standardised data structure, meaning that output of a function can be fed as input to any other function. Hence, different functions are assembled as modular blocks into a complete data analysis workflows that can be easily adapted to the peculiarities of any MS-based proteomics data set. Therefore, the approach extends well beyond the use case presented in this chapter</li>
+<li>Flexibility: the <code>msqrob2</code> modelling approach relies on the <code>lme4::lmer()</code> model specification syntax, meaning that any linear model can be specified. For fixed effects, this includes modelling categorical and numerical variables, as well as their interaction. Moreover, <code>msqrob2</code> can model both sample-specific and feature-specific (e.g.&nbsp;peptide or protein) covariates, which unlocks the inference to experiments with arbitrarily complex designs as well as to correct explicitly for feature-specific properties.</li>
+<li>Performance: thanks to the inclusion of robust ridge regression, we demonstrated improved performance of <code>msqrob2</code> workflows upon the competing software <span class="citation" data-cites="Goeminne2016-tr Sticker2020-rl Vandenbulcke2025-sj">(<a href="#ref-Goeminne2016-tr" role="doc-biblioref">Goeminne et al. 2016</a>; <a href="#ref-Sticker2020-rl" role="doc-biblioref">Sticker et al. 2020</a>; <a href="#ref-Vandenbulcke2025-sj" role="doc-biblioref">Vandenbulcke et al. 2025</a>)</span>.</li>
 </ol>
+</section>
+<section id="outline" class="level1 unnumbered">
+<h1 class="unnumbered">Outline</h1>
+<p>The course is divided in two parts.</p>
+</section>
+<section id="data-processing" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Data Processing</h1>
+<p>This parts introduces the user to the key concepts for data processing in differential proteomics data analysis and provides extensive description of the code. While this part is conceptual, the concepts are illustrated using a real spike-in study.</p>
 <ul>
-<li>Lecture: <a href="./pda_quantification_preprocessing.html">Preprocessing</a>, [<a href="./pda_quantification_preprocessing.pdf">PDF</a>]</li>
-<li>Tutorial: <a href="./pda_tutorialPreprocessing.html">preprocessing</a></li>
-<li>Wrap-up: <a href="./pda_robustSummarisation_peptideModels.html">Peptide-based Models</a>[<a href="./pda_robustSummarisation_peptideModels.pdf">PDF</a>]</li>
+<li><a href="01-dataprocessing.html">Basic concepts</a></li>
+<li><a href="01-tutorial-data-processing.html">Tutorial data processing</a></li>
+<li><a href="02-workflow-optimisation.html">Wrap-up data processing</a></li>
 </ul>
-<ol start="3" style="list-style-type: decimal">
-<li>Statistical Inference &amp; Analysis of Experiments with Factorial Designs</li>
+</section>
+<section id="statistical-inference-design-concepts" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Statistical Inference &amp; Design concepts</h1>
+<ul>
+<li><a href="03-inference.html">Basics of Statistical Inference</a></li>
+<li><a href="03-tutorial-Design.html">Tutorial Differential Analysis and Design Aspects</a></li>
+<li><a href="03-blocking-wrapup.html">Wrapup Blocking</a></li>
+</ul>
+</section>
+<section id="vignettes" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Vignettes</h1>
+<ul>
+<li><a href="./staes-medianOfRatios-maxLFQ.html">Quarto script for DIA</a></li>
+<li><a href="./cptac.html">Quarto script for DDA</a></li>
+<li><a href="./staes248-GUI.html">Data analysis with msqrob2gui</a></li>
+</ul>
+<p>More example scripts for case-studies from various technologies, search engines and experimental designs can be found in our e-book: <a href="https://statomics.github.io/msqrob2book">msqrob2book</a></p>
+</section>
+<section id="targeted-audience-and-assumed-background" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Targeted audience and assumed background</h1>
+<p>The course material is targeted to either proteomics practitioners or data analysts/bioinformaticians that would like to learn how to analyse proteomics data.</p>
+<p>Familiarity with MS or proteomics in general is recommended, this would allow for a better understanding of the modelling assumptions taken throughout this course.</p>
+<p>The course is available in two different tracks.</p>
+<ol type="1">
+<li>Using a graphical user interface. Here, there is a focus on general modeling concepts for proteomics data analysis.<br>
+</li>
+<li>Using Rmarkdown/Quarto scripts. In this track, learners will learn both the general modeling concepts as well as how to implement these concepts in the R/Bioconductor coding language.</li>
 </ol>
+<p>For learning that want to follow the course using scripts:</p>
 <ul>
-<li>Lecture: <a href="./pda_quantification_inference.html">Differential Abundance Analysis</a>, [<a href="./pda_quantification_inference.pdf">PDF</a>]</li>
-<li>Tutorial: <a href="pda_tutorialDesign.html">Design</a></li>
+<li><p>A working knowledge of R (R syntax, commonly used functions, basic data structures such as data frames, vectors, matrices, … and their manipulation) is required for .</p></li>
+<li><p>Familiarity with other Bioconductor omics data classes and the tidyverse syntax is useful.</p></li>
+<li><p>We recommend reading the <a href="https://rformassspectrometry.github.io/book/sec-quant.html">quantitative proteomics chapter</a> of the R for mass spectrometry book.</p></li>
+<li><p>We <strong>highly recommend</strong> reading our msqrob2book for more in dept modeling concepts and case studies <a href="https://statomics.github.io/msqrob2book">msqrob2book</a>.</p></li>
 </ul>
-<ol start="4" style="list-style-type: decimal">
-<li>Additional Materials</li>
-</ol>
-<ul>
-<li>Vignette to analyse DIA-NN data <a href="dia-nn_spike_in.html">DIA-NN workflow</a></li>
-</ul>
-<hr />
+</section>
+<section id="software-and-data" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Software and data</h1>
+<p>To install all the necessary package, please use <strong>R 4.6 or higher</strong> and execute the code chunk below in the RStudio Console/R console:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"BiocManager"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>   <span class="st">"arrow"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>   <span class="st">"BiocParallel"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>   <span class="st">"BiocFileCache"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>   <span class="st">"ComplexHeatmap"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>   <span class="st">"dplyr"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>   <span class="st">"ExploreModelMatrix"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>   <span class="st">"ggpattern"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>   <span class="st">"ggplot2"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>   <span class="st">"ggrepel"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>   <span class="st">"impute"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>   <span class="st">"MsDataHub"</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>   <span class="st">"patchwork"</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>   <span class="st">"scater"</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>   <span class="st">"tidyr"</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>   <span class="st">"bookdown"</span>, </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>   <span class="st">"iq"</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>   <span class="st">"QFeatures"</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>   <span class="st">"msqrob2"</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>   <span class="st">"kableExtra"</span>,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>   <span class="st">"data.table"</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>   <span class="st">"ggcorrplot"</span>,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>   <span class="st">"ggpubr"</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="acknowledgements" class="section level3" number="7">
-<h3><span class="header-section-number">7</span> Acknowledgements</h3>
-<p>A special thanks to</p>
-<ul>
-<li><p>Pedro Fernandes, Coordinator of the GTPB Bioinformatics Training Programme, Instituto Gulbenkian de Ciencia, who radically changed our view on teaching and immersed us in the teaching method that we use in this course.</p></li>
-<li><p>Léopold Guyot, Loïc Guille and the Laurent Gatto lab for the development of <a href="https://github.com/UCLouvain-CBIO/QFeaturesGUI">QFeaturesGUI</a>, which we temporarily forked because we needed some additional functionalities for this course.</p></li>
-</ul>
+<p>Users that would like to make use of the msqrob2gui should also install:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"remotes"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"statomics/msqrob2gui"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="license" class="section level3" number="8">
-<h3><span class="header-section-number">8</span> License</h3>
-<p><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></p>
-<p>This project is licensed under the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a></p>
-<hr />
+<p>All data for this course can be directly accessed from the web <a href="https://github.com/statOmics/msqrob2data">msqrob2data</a> if you use R scripting or can be downloaded locally: <a href="https://github.com/statOmics/msqrob2data/archive/refs/heads/main.zip">Download data</a></p>
+<section id="license" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="license">License</h2>
+<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br>This material is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. You are free to <strong>share</strong> (copy and redistribute the material in any medium or format) and <strong>adapt</strong> (remix, transform, and build upon the material) for any purpose, even commercially, as long as you give appropriate credit and distribute your contributions under the same license as the original.</p>
+
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Goeminne2016-tr" class="csl-entry" role="listitem">
+Goeminne, Ludger J E, Kris Gevaert, and Lieven Clement. 2016. <span>“Peptide-Level Robust Ridge Regression Improves Estimation, Sensitivity, and Specificity in Data-Dependent Quantitative Label-Free Shotgun Proteomics.”</span> <em>Mol. Cell. Proteomics</em> 15 (2): 657–68.
 </div>
-<div id="references" class="section level3 unnumbered">
-<h3>References</h3>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
-<div id="ref-goeminne2020" class="csl-entry">
-Goeminne, L. J. E., A. Sticker, L. Martens, K. Gevaert, and L. Clement. 2020. <span>“<span class="nocase"><span>M</span><span>S</span>q<span>R</span>ob <span>T</span>akes the <span>M</span>issing <span>H</span>urdle: <span>U</span>niting <span>I</span>ntensity- and <span>C</span>ount-<span>B</span>ased <span>P</span>roteomics</span>.”</span> <em>Anal Chem</em> 92 (9): 6278–87.
+<div id="ref-Sticker2020-rl" class="csl-entry" role="listitem">
+Sticker, Adriaan, Ludger Goeminne, Lennart Martens, and Lieven Clement. 2020. <span>“Robust Summarization and Inference in Proteome-Wide Label-Free Quantification.”</span> <em>Mol. Cell. Proteomics</em> 19 (7): 1209–19.
 </div>
-<div id="ref-goeminne2016" class="csl-entry">
-Goeminne, L. J., K. Gevaert, and L. Clement. 2016. <span>“<span class="nocase"><span>P</span>eptide-level <span>R</span>obust <span>R</span>idge <span>R</span>egression <span>I</span>mproves <span>E</span>stimation, <span>S</span>ensitivity, and <span>S</span>pecificity in <span>D</span>ata-dependent <span>Q</span>uantitative <span>L</span>abel-free <span>S</span>hotgun <span>P</span>roteomics</span>.”</span> <em>Mol Cell Proteomics</em> 15 (2): 657–68.
+<div id="ref-Vandenbulcke2025-sj" class="csl-entry" role="listitem">
+Vandenbulcke, Stijn, Christophe Vanderaa, Oliver Crook, Lennart Martens, and Lieven Clement. 2025. <span>“<span>Msqrob2TMT</span>: Robust Linear Mixed Models for Inferring Differential Abundant Proteins in Labeled Experiments with Arbitrarily Complex Design.”</span> <em>Mol. Cell. Proteomics</em> 24 (7): 101002.
 </div>
-<div id="ref-sticker2020" class="csl-entry">
-Sticker, A., L. Goeminne, L. Martens, and L. Clement. 2020. <span>“<span class="nocase"><span>R</span>obust <span>S</span>ummarization and <span>I</span>nference in <span>P</span>roteome-wide <span>L</span>abel-free <span>Q</span>uantification</span>.”</span> <em>Mol Cell Proteomics</em> 19 (7): 1209–19.
-</div>
-<div id="ref-vandenbulcke2025" class="csl-entry">
-Vandenbulcke, C., S. Vanderaa, and L. Clement. 2025. <span>“msqrob2TMT: Robust Linear Mixed Models for Inferring Differential Signals in Tandem Mass Tag-Based Proteomics.”</span> <em>Molecular &amp; Cellular Proteomics</em> 24 (3): e10101–1. <a href="https://doi.org/10.1016/j.mcpro.2025.00101-X">https://doi.org/10.1016/j.mcpro.2025.00101-X</a>.
-</div>
-</div>
-</div>
-
-<div id="rmd-source-code">LS0tCnRpdGxlOiBQcm90ZW9taWNzIERhdGEgQW5hbHlzaXMgKFBEQSkKb3V0cHV0OgogICAgaHRtbF9kb2N1bWVudDoKICAgICAgY29kZV9kb3dubG9hZDogZmFsc2UKICAgICAgdG9jOiBmYWxzZQogICAgICB0b2NfZmxvYXQ6IGZhbHNlCiAgICAgIG51bWJlcl9zZWN0aW9uczogZmFsc2UKYmlibGlvZ3JhcGh5OiBtc3Fyb2IyLmJpYgoKLS0tCgoKYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0UsIGNhY2hlPUZBTFNFfQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IEZBTFNFKQpgYGAKCioqKgoKYGBge3IgZWNobz1GQUxTRX0Ka25pdHI6OmluY2x1ZGVfZ3JhcGhpY3MoIi4vZmlndXJlcy9JbnRyb0ZpZy5wbmciKQpgYGAKCgojIyMgQ291cnNlIERlc2NyaXB0aW9uCgpNYXNzIHNwZWN0cm9tZXRyeSBiYXNlZCBwcm90ZW9taWMgZXhwZXJpbWVudHMgZ2VuZXJhdGUgZXZlciBsYXJnZXIgZGF0YXNldHMgYW5kLCBhcyBhIGNvbnNlcXVlbmNlLCBjb21wbGV4IGRhdGEgaW50ZXJwcmV0YXRpb24gY2hhbGxlbmdlcy4gVGhpcyBjb3Vyc2UgZm9jdXNlcyBvbiB0aGUgc3RhdGlzdGljYWwgY29uY2VwdHMgZm9yIHBlcHRpZGUgaWRlbnRpZmljYXRpb24sIHF1YW50aWZpY2F0aW9uLCBhbmQgZGlmZmVyZW50aWFsIGFuYWx5c2lzLiBNb3Jlb3ZlciwgbW9yZSBhZHZhbmNlZCBleHBlcmltZW50YWwgZGVzaWducyBhbmQgYmxvY2tpbmcgd2lsbCBhbHNvIGJlIGludHJvZHVjZWQuIFRoZSBjb3JlIGZvY3VzIHdpbGwgYmUgb24gc2hvdGd1biBwcm90ZW9taWNzIGRhdGEsIGFuZCBxdWFudGlmaWNhdGlvbiB1c2luZyBsYWJlbC1mcmVlIHByZWN1cnNvciBwZXB0aWRlIChNUzEpIGlvbiBpbnRlbnNpdGllcy4gVGhlIGNvdXJzZSB3aWxsIHJlbHkgZXhjbHVzaXZlbHkgb24gZnJlZSBhbmQgdXNlcmZyaWVuZGx5IG9wZW5zb3VyY2UgdG9vbHMgaW4gUi9CaW9jb25kdWN0b3IuIFRoZSBjb3Vyc2Ugd2lsbCBwcm92aWRlIGEgc29saWQgYmFzaXMgZm9yIGJlZ2lubmVycywgYnV0IHdpbGwgYWxzbyBicmluZyBuZXcgcGVyc3BlY3RpdmVzIHRvIHRob3NlIGFscmVhZHkgZmFtaWxpYXIgd2l0aCBzdGFuZGFyZCBkYXRhIGludGVycHJldGF0aW9uIHByb2NlZHVyZXMgaW4gcHJvdGVvbWljcy4KClN0dWRlbnRzIGNhbiBzaGFycGVuIHRoZWlyIGJhY2tncm91bmQga25vd2xlZGdlIG9uIE1hc3MgU3BlY3Ryb21ldHJ5LCBQcm90ZW9taWNzICYgQmlvaW5mb3JtYXRpY3MgZm9yIFByb3Rlb21pY3MKIGhlcmU6CltNYXNzIFNwZWN0cm9tZXRyeSBhbmQgQmlvaW5mb3JtYXRpY3MgZm9yIFByb3Rlb21pY3NdKC4vdGVjaHZpZC5odG1sKQoKIyMjIFRhcmdldCBBdWRpZW5jZQpUaGlzIGNvdXJzZSBpcyBvcmllbnRlZCB0b3dhcmRzIGJpb2xvZ2lzdHMgYW5kIGJpb2luZm9ybWF0aWNpYW5zIHdpdGggYSBwYXJ0aWN1bGFyIGludGVyZXN0IGluIGRpZmZlcmVudGlhbCBhbmFseXNpcyBmb3IgcXVhbnRpdGF0aXZlIHByb3Rlb21pY3MuCgpBY2NvcmRpbmcgdG8gdGhlIHRhcmdldCBhdWRpZW5jZSBvZiB0aGUgY291cnNlIHdlIGVpdGhlciB3b3JrIHdpdGggYSBncmFwaGljYWwgdXNlciBpbnRlcmZhY2UgKEdVSSkgaW4gYSBSL3NoaW55IEFwcCBtc3Fyb2IyZ3VpIGUuZy4gCgotIFByb3Rlb21pY3MgRGF0YSBBbmFseXNpcyBjb3Vyc2UgYXQgdGhlIEd1bGJlbmtpYW4gaW5zdGl0dXRlIAotIFByb3Rlb21pY3MgQmlvaW5mb3JtYXRpY3MgY291cnNlIG9mIHRoZSBFQkkKLSBCZVBBIGludHJvZHVjdGlvbjogV2hhdCBjYW4gcHJvdGVvbWljcyBkbyBmb3IgeW91PwoKb3Igd2l0aCBSL21hcmtkb3ducyBzY3JpcHRzIGUuZy4gCgotIEJpb2luZm9ybWF0aWNzIFN1bW1lciBTY2hvb2wgYXQgVUNMb3V2YWluIAotIFN0YXRpc3RpY2FsIEdlbm9taWNzIENvdXJzZSBhdCBHaGVudCBVbml2ZXJzaXR5LiAKCiMjIyBTb2Z0d2FyZSAmIERhdGEgCgotIFtJbnN0YWxsIG1zcXJvYjIgc29mdHdhcmVdKC4vc29mdHdhcmUuaHRtbCkKLSBbRG93bmxvYWQgZGF0YV0oaHR0cHM6Ly9naXRodWIuY29tL3N0YXRPbWljcy9QREEyNUVCSS9hcmNoaXZlL3JlZnMvaGVhZHMvZGF0YS56aXApCgpOb3RlLCB0aGF0IHVzZXJzIHdobyBkZXZlbG9wIFIvbWFya2Rvd24gc2NyaXB0cyBjYW4gYWNjZXNzIGRhdGEgYm90aCBmcm9tIHRoZSB3ZWIgb3IgZnJvbSBkaXNrIHdpdGhpbiB0aGVpciBzY3JpcHRzLiBTbyB0aGV5IGRvIG5vdCBuZWVkIHRvIGRvd25sb2FkIHRoZSBkYXRhIGZpcnN0LiBUaGUgbXNxcm9iMmd1aSBTaGlueSBBcHAgb25seSB3b3JrcyB3aXRoIGRhdGEgdGhhdCBpcyBhdmFpbGFibGUgb24gZGlzay4gIAoKCi0gTW9yZSBpbmZvcm1hdGlvbiBvbiBvdXIgdG9vbHMgY2FuIGJlIGZvdW5kIGluIG91ciBwYXBlcnMgW0Bnb2VtaW5uZTIwMTZdLCBbQGdvZW1pbm5lMjAyMF0sIFtAc3RpY2tlcjIwMjBdIGFuZCBbQHZhbmRlbmJ1bGNrZTIwMjVdLiBQbGVhc2UgcmVmZXIgdG8gb3VyIHdvcmsgd2hlbiB1c2luZyBvdXIgdG9vbHMuIAoKCiMjIyBJbnN0cnVjdG9yCgotIFtMaWV2ZW4gQ2xlbWVudF0oaHR0cHM6Ly9zdGF0b21pY3MuZ2l0aHViLmlvL3BhZ2VzL2Fib3V0Lmh0bWwpLCBBc3NvY2lhdGUgUHJvZmVzc29yIG9mIFN0YXRpc3RpY2FsIEdlbm9taWNzLCBbc3RhdE9taWNzXShodHRwczovL3N0YXRvbWljcy5naXRodWIuaW8vKSwgW0doZW50IFVuaXZlcnNpdHldKGh0dHBzOi8vd3d3LnVnZW50LmJlLyksIEJlbGdpdW0KCiMjIyBJc3N1ZXMKCklmIHlvdSBlbmNvdW50ZXIgcHJvYmxlbXMgcmVsYXRlZCB0byB0aGUgY291cnNlIG1hdGVyaWFsIChlLmcuIHBhY2thZ2UgaW5zdGFsbGF0aW9uIHByb2JsZW1zLCBidWdzIGluIHRoZSBjb2RlLCB0eXBvcywgLi4uKSwgcGxlYXNlIGNvbnNpZGVyIFtwb3N0aW5nIGFuIGlzc3VlIG9uIEdpdEh1Yl0oaHR0cHM6Ly9naXRodWIuY29tL3N0YXRPbWljcy9QREEvaXNzdWVzKS4KCi0tLQoKIyMjIERldGFpbGVkIFByb2dyYW0KCiAgMS4gSW50cm9kdWN0aW9uIHRvIGV4cGVyaW1lbnRhbCBkZXNpZ246IFtFeHBlcmltZW50YWwgRGVzaWduXSguL3BkYV9leHBlcmltZW50YWxEZXNpZ24xLmh0bWwpCgogIDIuIFByZXByb2Nlc3NpbmcgJiBBbmFseXNpcyBvZiBMYWJlbCBGcmVlIFF1YW50aXRhdGl2ZSBQcm90ZW9taWNzIEV4cGVyaW1lbnRzIHdpdGggU2ltcGxlIERlc2lnbnMKICAtIExlY3R1cmU6IFtQcmVwcm9jZXNzaW5nXSguL3BkYV9xdWFudGlmaWNhdGlvbl9wcmVwcm9jZXNzaW5nLmh0bWwpLCBbW1BERl0oLi9wZGFfcXVhbnRpZmljYXRpb25fcHJlcHJvY2Vzc2luZy5wZGYpXQogIC0gVHV0b3JpYWw6IFtwcmVwcm9jZXNzaW5nXSguL3BkYV90dXRvcmlhbFByZXByb2Nlc3NpbmcuaHRtbCkKICAtIFdyYXAtdXA6IFtQZXB0aWRlLWJhc2VkIE1vZGVsc10oLi9wZGFfcm9idXN0U3VtbWFyaXNhdGlvbl9wZXB0aWRlTW9kZWxzLmh0bWwpW1tQREZdKC4vcGRhX3JvYnVzdFN1bW1hcmlzYXRpb25fcGVwdGlkZU1vZGVscy5wZGYpXQoKICAzLiBTdGF0aXN0aWNhbCBJbmZlcmVuY2UgJiBBbmFseXNpcyBvZiBFeHBlcmltZW50cyB3aXRoIEZhY3RvcmlhbCBEZXNpZ25zCiAgLSBMZWN0dXJlOiBbRGlmZmVyZW50aWFsIEFidW5kYW5jZSBBbmFseXNpc10oLi9wZGFfcXVhbnRpZmljYXRpb25faW5mZXJlbmNlLmh0bWwpLCBbW1BERl0oLi9wZGFfcXVhbnRpZmljYXRpb25faW5mZXJlbmNlLnBkZildCiAgLSBUdXRvcmlhbDogW0Rlc2lnbl0ocGRhX3R1dG9yaWFsRGVzaWduLmh0bWwpCiAgCiAgNC4gQWRkaXRpb25hbCBNYXRlcmlhbHMKICAtIFZpZ25ldHRlIHRvIGFuYWx5c2UgRElBLU5OIGRhdGEgW0RJQS1OTiB3b3JrZmxvd10oZGlhLW5uX3NwaWtlX2luLmh0bWwpCgotLS0KCiMjIyBBY2tub3dsZWRnZW1lbnRzIAoKQSBzcGVjaWFsIHRoYW5rcyB0byAKCi0gUGVkcm8gRmVybmFuZGVzLCBDb29yZGluYXRvciBvZiB0aGUgR1RQQiBCaW9pbmZvcm1hdGljcyBUcmFpbmluZyBQcm9ncmFtbWUsIEluc3RpdHV0byBHdWxiZW5raWFuIGRlIENpZW5jaWEsIHdobyByYWRpY2FsbHkgY2hhbmdlZCBvdXIgdmlldyBvbiB0ZWFjaGluZyBhbmQgaW1tZXJzZWQgdXMgaW4gdGhlIHRlYWNoaW5nIG1ldGhvZCB0aGF0IHdlIHVzZSBpbiB0aGlzIGNvdXJzZS4KCgotIEzDqW9wb2xkIEd1eW90LCBMb8OvYyBHdWlsbGUgYW5kIHRoZSBMYXVyZW50IEdhdHRvIGxhYiBmb3IgdGhlIGRldmVsb3BtZW50IG9mIFtRRmVhdHVyZXNHVUldKGh0dHBzOi8vZ2l0aHViLmNvbS9VQ0xvdXZhaW4tQ0JJTy9RRmVhdHVyZXNHVUkpLCB3aGljaCB3ZSB0ZW1wb3JhcmlseSBmb3JrZWQgYmVjYXVzZSB3ZSBuZWVkZWQgc29tZSBhZGRpdGlvbmFsIGZ1bmN0aW9uYWxpdGllcyBmb3IgdGhpcyBjb3Vyc2UuIAoKIyMjIExpY2Vuc2UKCjxhIHJlbD0ibGljZW5zZSIgaHJlZj0iaHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMCI+PGltZyBhbHQ9IkNyZWF0aXZlIENvbW1vbnMgTGljZW5zZSIgc3R5bGU9ImJvcmRlci13aWR0aDowIiBzcmM9Imh0dHBzOi8vaS5jcmVhdGl2ZWNvbW1vbnMub3JnL2wvYnktbmMtc2EvNC4wLzg4eDMxLnBuZyIgLz48L2E+CgpUaGlzIHByb2plY3QgaXMgbGljZW5zZWQgdW5kZXIgdGhlIFtDcmVhdGl2ZSBDb21tb25zIEF0dHJpYnV0aW9uLU5vbkNvbW1lcmNpYWwtU2hhcmVBbGlrZSA0LjAgSW50ZXJuYXRpb25hbCAoQ0MgQlktTkMtU0EgNC4wKV0oaHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMCkKCi0tLQoKIyMjIFJlZmVyZW5jZXMgCgoK</div>
-<div class="footer">
-    <hr>
-    This work is licensed under the <a href= "https://creativecommons.org/licenses/by-nc-sa/4.0">
-    CC BY-NC-SA 4.0</a> licence.
-</div>
-
-
-</div>
-</div>
-
-</div>
-
-<script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
-}
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
-</script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
-  });
-});
-</script>
-
-<!-- code folding -->
-<script>
-$(document).ready(function () {
-  window.initializeSourceEmbed("index.Rmd");
-  window.initializeCodeFolding("show" === "show");
-});
-</script>
-
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
     };
-    options.showAndHide = true;
-    options.smoothScroll = true;
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
 
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 
-</body>
-</html>
+
+</body></html>

@@ -611,14 +611,14 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Proteomics Data Analysis for Data-dependent and Data-independent acquisition at EBI 2026 (PDA26EBI)",
+    "title": "Proteomics Data Analysis for Data-dependent and Data-independent acquisition (PDA)",
     "section": "",
     "text": "This course provides comprehensive hands-on tutorials on how to apply the msqrob2 software for the statistical analysis of mass spectrometry (MS)-based proteomics data.\nThe course first introduces general concepts of statistical proteomics data analysis and msqrob2. Further chapters will demonstrate the application of msqrob2 for assessing different biological questions starting from datasets with different experimental designs, acquisition strategies, instruments, and search engines. The book aims to help proteomics researchers and data analysists tailoring their statistical analysis workflow to their specific datasets and research questions.\nThe sticker is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License."
   },
   {
     "objectID": "index.html#license",
     "href": "index.html#license",
-    "title": "Proteomics Data Analysis for Data-dependent and Data-independent acquisition at EBI 2026 (PDA26EBI)",
+    "title": "Proteomics Data Analysis for Data-dependent and Data-independent acquisition (PDA)",
     "section": "License",
     "text": "License\nThis material is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. You are free to share (copy and redistribute the material in any medium or format) and adapt (remix, transform, and build upon the material) for any purpose, even commercially, as long as you give appropriate credit and distribute your contributions under the same license as the original."
   },
@@ -768,5 +768,40 @@
     "title": "Introduction to proteomics data analysis - MaxQuant Data Dependent Acquisition spike-in study",
     "section": "3.2 Data Processing",
     "text": "3.2 Data Processing\nWe now proceed to the data processing tab. The data processing tab already contains some pre-filled in options for filtering and data aggregation as we indicated that we imported data from DIA-NN software.\n\n\n\nFigure 7. Data Processing 1\n\n\n\n\n\nFigure 6. Data Processing 2\n\n\n\nFirst we can restore the QFeatures object from import. This is something that we always have to do if we change the data processing settings and want to redo the data processing.\nWe can convert zeros to NA. This is important. Many softwares encode missing data with 0 intensity. If we want to address missingness and/or want to log-transfrom the data we have to convert the zeros to NA. You can hit the test button to test this setting.\nWe filter the data. We can add filters to the data based on the columns that contain information on the imported quant features. For DIA-NN, Spectronaut and MaxQuant we already provide sensible defaults. E.g.\n\nPrecursor.Id != ’’: we remove features for which the precursor was not set\nDecoy == 0: we keep precursors that map to target sequences (decoys are indicated with 1)\nProteotypic == 1: we only keep precursors that are proteotypic (uniquely map to a single protein)\nQ.Value &lt;= 0.01: we keep features for which the Q-Value for identification is below an 1% FDR threshold.\nPG.Q.Value &lt;= 0.01: we keep features for which the protein group level Q-Value for identification is below an 1% FDR threshold\nLib.Q.Value &lt;= 0.01: we keep features that were identified by matching between runs if their Q-Value for identification is below an 1% FDR threshold\nLib.PG.Q.Value &lt;= 0.01: we keep features that were identified by matching between runs if their protein group level Q-Value for identification is below an 1% FDR threshold\nUsers can add additional filtering criteria.\n\n\n\nFor maxQuant this for instance becomes\n\nProteins != ’’: we remove precursors that have not been mapped to a protein (!= –&gt; is not equal to)\nReverse != ‘+’: we remove precursors that are matched to decoys sequences\nContaminants != ‘+’ or Potential.contaminant != ‘+’: we remove precursors are matched to contaminants (variable name for contaminants depends on MaxQuant version and is automatically detected).\n\n\n\nJoin assays: DIA-NN parquet files are in long format, then each run is stored in a different set. The sets can be joined so that we have all data for all samples/runs in the same set. By default we join the sets by using the Precursor.Id column. The joined set is by default stored as the set named quants. Users however can change this name.\nFilter missing values: we can only estimate precursor or peptide characteristics if we have observed them in multiple samples. Here we will set this . If you have launched the previous test buttons, you will also see the number of features that were observed in 1, 2, 3, … samples. Here we will set the minimum number observations at 3.\nLog-transformation. Intensities quantified with MS are typically heteroscedastic (variance increase with the mean) and log-transformation is known to stabilise this. So by default we contact log-tranformation. Note, that you can switch this off if the data were already log-transformed.\nNormalisation. By default we conduct Median of Ratios normalisation, which corrects for differences in loading between runs, as well as for differences in composition. If you use internal normalisation in DIA-NN, e.g. by starting from Precursor.Normalised intensities you can also put the normalisation method on None.\nAggregation. The data are often at the precursor, PSM or peptide level. However we want typically want to conduct the differential analysis at the protein level. So we first aggregate the data. We typically use a method that does the aggregation while accounting for the feature characteristics. MaxLFQ is a popular choice as Method for aggregation. The implementation in R is rather slow, so for large datasets we advice medianPolish. If the data are already summarized or if you would like to do inference at the precursor or peptide level you can omit the Aggregation by selecting None. Note that we also have to indicate the variable that contains information of features that belong to the same protein. For DIA-NN we set this Aggregation column to Protein.Group by default. We can again select the Name of the assay, which is by default set at proteins. Note, that we can also adopt an N-peptides rule. If we set it higher than 1, we will require at least #n peptides to be identified for each summarised protein quantity otherwise the protein quantity is set at NA.\nThe last step is again filtering missing values post-aggregation. Here, we want to do a two group comparison, so we would need to have at least 4 protein level summaries to be able to compare two groups."
+  },
+  {
+    "objectID": "index.html#previous-editions-of-the-course",
+    "href": "index.html#previous-editions-of-the-course",
+    "title": "Proteomics Data Analysis for Data-dependent and Data-independent acquisition (PDA)",
+    "section": "5.1 Previous editions of the course",
+    "text": "5.1 Previous editions of the course\n\nPDA25\nPDA24\nHUPO21\nPDA21\nPDA20\nPDA26EBI\nPDA25EBI\nPDA24EBI\nPDA23EBI\nPDA22EBI\nGulbenkian - PDA20\nGulbenkian - PDA19\nGulbenkian - PDA18"
+  },
+  {
+    "objectID": "index.html#pda",
+    "href": "index.html#pda",
+    "title": "Proteomics Data Analysis for Data-dependent and Data-independent acquisition (PDA)",
+    "section": "6.1 PDA",
+    "text": "6.1 PDA\n\nPDA25\nPDA24\nPDA21-23\nPDA20"
+  },
+  {
+    "objectID": "index.html#pda-ebi",
+    "href": "index.html#pda-ebi",
+    "title": "Proteomics Data Analysis for Data-dependent and Data-independent acquisition (PDA)",
+    "section": "6.2 PDA @ EBI",
+    "text": "6.2 PDA @ EBI\n\nPDA26EBI\nPDA25EBI\nPDA24EBI\nPDA23EBI\nPDA22EBI"
+  },
+  {
+    "objectID": "index.html#pda-hupo",
+    "href": "index.html#pda-hupo",
+    "title": "Proteomics Data Analysis for Data-dependent and Data-independent acquisition (PDA)",
+    "section": "6.3 PDA @ HUPO",
+    "text": "6.3 PDA @ HUPO\n\nHUPO21"
+  },
+  {
+    "objectID": "index.html#pda-gulbenkian",
+    "href": "index.html#pda-gulbenkian",
+    "title": "Proteomics Data Analysis for Data-dependent and Data-independent acquisition (PDA)",
+    "section": "6.4 PDA @ Gulbenkian",
+    "text": "6.4 PDA @ Gulbenkian\n\nGulbenkian - PDA20\nGulbenkian - PDA19\nGulbenkian - PDA18\n\nWhere it all started …\nWith Pedro Fernandes, Coordinator of the GTPB Bioinformatics Training Programme, Instituto Gulbenkian de Ciencia, who radically changed my view on teaching and immersed us in the teaching method that we use in this course."
   }
 ]

@@ -148,6 +148,37 @@ BiocManager::install("statomics/msqrob2gui")
 All data for this course can be directly accessed from the web [msqrob2data](https://github.com/statOmics/msqrob2data) if you use R scripting 
 or can be downloaded locally: [Download data](https://github.com/statOmics/msqrob2data/archive/refs/heads/main.zip)
 
+
+# Previous editions of the course 
+
+## PDA 
+- [PDA25](https://statomics.github.io/PDA24/)
+- [PDA24](https://statomics.github.io/PDA24/)
+- [PDA21-23](https://statomics.github.io/PDA21/)
+- [PDA20](https://statomics.github.io/pda19-20/)
+
+## PDA @ EBI
+- [PDA26EBI](https://statomics.github.io/PDA26EBI/)
+- [PDA25EBI](https://statomics.github.io/PDA25EBI/)
+- [PDA24EBI](https://statomics.github.io/PDA24EBI/)
+- [PDA23EBI](https://statomics.github.io/PDA23EBI/)
+- [PDA22EBI](https://statomics.github.io/PDA22EBI/)
+
+## PDA @ HUPO
+- [HUPO21](https://statomics.github.io/hupo21/)
+
+## PDA @ Gulbenkian
+
+
+- [Gulbenkian - PDA20](https://gtpb.github.io/PDA20/)
+- [Gulbenkian - PDA19](https://gtpb.github.io/PDA19/)
+- [Gulbenkian - PDA18](https://gtpb.github.io/PDA18/)
+
+
+Where it all started ...
+
+With Pedro Fernandes, Coordinator of the GTPB Bioinformatics Training Programme, Instituto Gulbenkian de Ciencia, who radically changed my view on teaching and immersed us in the teaching method that we use in this course.
+
 ## License {-}
 
 <a rel="license"

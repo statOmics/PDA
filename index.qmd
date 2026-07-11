@@ -134,7 +134,10 @@ BiocManager::install(c(
    "kableExtra",
    "data.table",
    "ggcorrplot",
-   "ggpubr"
+   "ggpubr",
+   "callr",
+   "curl",
+   "httpuv"
 ))
 ```
 
@@ -145,17 +148,25 @@ BiocManager::install("remotes")
 BiocManager::install("statomics/msqrob2gui")
 ```
 
-All data for this course can be directly accessed from the web [msqrob2data](https://github.com/statOmics/msqrob2data) if you use R scripting 
+You can verify that your installation was successful by running our
+[installation check script](https://raw.githubusercontent.com/statOmics/PDA/main/R/check_installation.R)
+in R:
+
+```{r, eval = FALSE}
+source("https://raw.githubusercontent.com/statOmics/PDA/main/R/check_installation.R")
+```
+
+All data for this course can be directly accessed from the web [msqrob2data](https://github.com/statOmics/msqrob2data) if you use R scripting
 or can be downloaded locally: [Download data](https://github.com/statOmics/msqrob2data/archive/refs/heads/main.zip)
 
 
-# Previous editions of the course 
+# Previous editions of the course
 
 ## PDA 
-- [PDA25](https://statomics.github.io/PDA24/)
+- [PDA25](https://statomics.github.io/PDA25/)
 - [PDA24](https://statomics.github.io/PDA24/)
 - [PDA21-23](https://statomics.github.io/PDA21/)
-- [PDA20](https://statomics.github.io/pda19-20/)
+- [PDA19-20](https://statomics.github.io/pda19-20/)
 
 ## PDA @ EBI
 - [PDA26EBI](https://statomics.github.io/PDA26EBI/)
@@ -169,7 +180,7 @@ or can be downloaded locally: [Download data](https://github.com/statOmics/msqro
 
 ## PDA @ Gulbenkian
 
-
+- [Gulbenkian - PDA22](https://gtpb.github.io/PDA22/)
 - [Gulbenkian - PDA20](https://gtpb.github.io/PDA20/)
 - [Gulbenkian - PDA19](https://gtpb.github.io/PDA19/)
 - [Gulbenkian - PDA18](https://gtpb.github.io/PDA18/)

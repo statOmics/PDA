@@ -159,11 +159,11 @@ answering biological questions.
 
 ## DIA workflow
 
-DIA-NN provides multiple quantifications, e.g. derived from the MS1 or MS2 spectra, and at precursor or protein (protein group) level. The term 'precursor' refers to a charged peptide species and is the basic unit of identification and quantification in DIA. Hence, in the context of DIA we refer to a precursor table, instead of to a PSM table in DDA. 
+DIA-NN provides multiple quantifications, e.g. derived from the MS1, MS2 or MS1 combined with MS2 spectra, and at precursor or protein (protein group) level. The term 'precursor' refers to a charged peptide species and is the basic unit of identification and quantification in DIA. Hence, in the context of DIA we refer to a precursor table, instead of to a PSM table in DDA.
 
 Examples of different quantities are:
 
-- raw MS1 area: Ms1.Area, normalised MS1 Area: Ms1.Normalised, MS2 Precursor quantities: Precursor.Quantity, Normalised MS2 Precursor quantities: Precursor.Normalised, etc., which are all at the precursor level 
+- raw MS1 area: Ms1.Area, normalised MS1 Area: Ms1.Normalised, MS1 and MS2 Precursor (fragment) Quantities: Precursor.Quantity, Normalised Precursor quantities: Precursor.Normalised, etc., which are all at the precursor level
 - MS2 based summary at the protein (protein group)-level: PG.MaxLFQ
 
 Here, we will use the `Precursor.Quantity` column.
@@ -647,20 +647,27 @@ function of the known spike-in ratio. We first define a common
 plot from which we generate two plots, one without and the other with
 log2 transformation of the quantitative values.
 
-```{r basics_log_plot, echo=FALSE, fig.cap="MS-data is heteroskedastic, but log transformation achieves homoskedasticity. Peptide intensities (left) or log2 intensities (right) are plotted in function of spike-in concentration."}
+```{r basics_log_plot,  fig.cap="MS-data is heteroskedastic, but log transformation achieves homoskedasticity. Peptide intensities (left) or log2 intensities (right) are plotted in function of spike-in concentration."}
 ## Common plot
 p <- ggplot(dat) +
   aes(x = ratio) +
   geom_point() +
   theme_minimal()
 ## Add the x and y axis as linear or log2-transformed
-p2 <- p + aes(y = value) + 
+p2 <-
   p + aes(y = log2(value), x = log2(ratio)) +
   plot_annotation(title = "ups precursor ADSRDPASDQMQHWK3") +
-  plot_layout(axis_titles = "collect_x") + 
-  labs(x = "UPS ratio (left original, right (log2)")
+  plot_layout(axis_titles = "collect_x")
 ```
 </p></details>
+
+
+Original plot
+```{r}
+p + aes(y = value)
+```
+
+Plot upon log2 -transformation
 
 ```{r}
 p2

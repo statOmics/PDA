@@ -34,7 +34,7 @@ centers all samples (columns) so that they all match the grand median by subtrac
 
 [1.c] Repeat the analysis starting from the `Precursor.Normalised` column. What do you observe? Are all data processing steps needed?
 
-[1.d] Repeat the analysis, again use the basis script with median of ratio's normalisation factors (`nfLogMedianOfRatios` function). First change the summarisation with the `aggregateFeatures` function by replacing maxLFQ with median polish (in scripts: `fun = MsCoreUtils::medianPolish`), then use simple median summarisation (in scripts: `fun = matrixStats::colMedians`).   What do you observe and try to explain this. (Note, that if you use scripts, you also have to add an additional argument for median polish and median summarisation to handle missing values, i.e. add an additional argument `na.rm = TRUE`, i.e. replace `fun = function(X) iq::maxLFQ(X)$estimate` with `fun = function(X) MsCoreUtils::medianPolish(X, na.rm = TRUE`).
+[1.d] Repeat the analysis, again use the GUI or the basis script with median of ratio's normalisation factors (`nfLogMedianOfRatios` function). First change the summarisation by replacing maxLFQ with median polish (in scripts: `fun = MsCoreUtils::medianPolish` in the `aggregateFeatures` function), then use simple median summarisation (in scripts: `fun = matrixStats::colMedians`).   What do you observe and try to explain this. (Note, that if you use scripts, you also have to add an additional argument for median polish and median summarisation to handle missing values, i.e. add an additional argument `na.rm = TRUE`, i.e. replace `fun = function(X) iq::maxLFQ(X)$estimate` with `fun = function(X) MsCoreUtils::medianPolish(X, na.rm = TRUE`).
 
 # Breast cancer example
 
@@ -52,7 +52,7 @@ Three peptides txt files are available:
 3. For a 9 vs 9 comparison
 
 Note, that the data are from data dependent acquistion and searched with maxQuant data, so the data processing will be slightly different. 
-Users that work with scripts can modify the [cptac Rmarkdown script](./cptac.html). 
+Users who work with scripts can modify the [cptac Rmarkdown script](./cptac.html).
 
 ```
 https://github.com/statOmics/msqrob2data/raw/refs/heads/main/dda/cancer/peptides3vs3.txt

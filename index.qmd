@@ -148,12 +148,10 @@ BiocManager::install("remotes")
 BiocManager::install("statomics/msqrob2gui")
 ```
 
-You can verify that your installation was successful by running our
-[installation check script](https://raw.githubusercontent.com/statOmics/PDA/main/R/check_installation.R)
-in R:
+You can verify that your installation was successful by running our installation check script in R:
 
 ```{r, eval = FALSE}
-source("https://raw.githubusercontent.com/statOmics/PDA/main/R/check_installation.R")
+source("https://raw.githubusercontent.com/statOmics/PDA/refs/heads/master/R/check_installation.R")
 ```
 
 All data for this course can be directly accessed from the web [msqrob2data](https://github.com/statOmics/msqrob2data) if you use R scripting

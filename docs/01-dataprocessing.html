@@ -1927,7 +1927,28 @@ Click to Details for plot
 </div>
 <p>Even in this clean synthetic data set (same yeast background with some spiked UPS proteins), the marginal precursor intensity distributions across samples are not well aligned. Ignoring this effect will increase the noise and reduce the statistical power of the experiment, and may also, in case of unbalanced designs, introduce confounding effects that will bias the results.</p>
 <p>There are many ways to perform the normalisation, e.g.&nbsp;median centering is a popular choice. If we subtract the sample median at the log scale from each precursor log2 intensity, this basically boils down to calculating log-ratio’s between the precursor intensity and its sample median.</p>
-<p>Here, we will use the Median of Ratios method of DESeq2, which was originally developed for RNA-seq data analysis and can also correct for differences in composition of the proteomes in the different samples. The method first calculates pseudo-reference sample (row-wise mean of log2 intensities, which corresponds to the log2 transformed geometric mean). Then calculates log2 ratios of each sample w.r.t. the pseudo-reference. Finally the column wise median of these log2 ratios is taken to obtain the sample based normalisation factor on the log2 scale. This procedure is implemented in the <code>msqrob2</code> function <code>nfLogMedianOfRatios</code>.</p>
+<p>Here, we will use the Median of Ratios method of DESeq2, which was originally developed for RNA-seq data analysis and can also correct for differences in composition of the proteomes in the different samples. The method:</p>
+<ol type="1">
+<li>First calculates pseudo-reference sample (row-wise mean of log2 intensities, which corresponds to the log2 transformed geometric mean).</li>
+<li>Then calculates log2 ratios of each sample w.r.t. the pseudo-reference.</li>
+<li>Finally the column wise median of these log2 ratios is taken to obtain the sample based normalisation factor on the log2 scale.</li>
+</ol>
+<p>The figure below illustrates the procedure on a small toy example with four features (rows) and three samples (columns).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-mor-illustration" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mor-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="01-dataprocessing_files/figure-html/fig-mor-illustration-1.png" class="img-fluid figure-img" width="1008">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mor-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Illustration of the median-of-ratios normalisation on a toy example with four features and three samples. Starting from the matrix of log2 intensities (left), a pseudo-reference sample is obtained by taking the row-wise (feature-wise) mean. Log2 fold changes of every sample relative to this reference are then calculated (middle). Finally, the sample-specific normalisation factor is obtained as the median of these log2 fold changes over all features (right).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>This procedure is implemented in the <code>msqrob2</code> function <code>nfLogMedianOfRatios</code>.</p>
 <ol type="1">
 <li>We calculate the log transformed normalisation factor from the Median of Ratios method.</li>
 <li>Subtract these log2-norm factors from the intensities of each corresponding column of the assay data and store the result in the new assay peptides_norm. (We adopt the sweep function to the <code>precursors_log</code> assay of the spikein QFeatures object with as statistic the log2 normfactor <code>STATS = nfLog</code> the default function <code>FUN = "-"</code>, <code>MARGIN = 2</code> to substract the column wise log2 norm factor from each entry of the corresponding assay data).</li>

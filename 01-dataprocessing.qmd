@@ -757,11 +757,134 @@ If we subtract the sample median at the log scale from each precursor log2 inten
 Here, we will use the Median of Ratios method of DESeq2, which was originally 
 developed for RNA-seq data analysis and can also correct for differences in 
 composition of the proteomes in the different samples. 
-The method first calculates pseudo-reference sample (row-wise mean of log2 
-intensities, which corresponds to the log2 transformed geometric mean).
-Then calculates log2 ratios of each sample w.r.t. the pseudo-reference.
-Finally the column wise median of these log2 ratios is taken to obtain 
-the sample based normalisation factor on the log2 scale.
+The method: 
+
+1. First calculates pseudo-reference sample (row-wise mean of log2 intensities, which corresponds to the log2 transformed geometric mean).
+2. Then calculates log2 ratios of each sample w.r.t. the pseudo-reference.
+3. Finally the column wise median of these log2 ratios is taken to obtain  the sample based normalisation factor on the log2 scale.
+
+The figure below illustrates the procedure on a small toy example with
+four features (rows) and three samples (columns).
+
+```{r fig-mor-illustration, echo = FALSE, fig.width = 10.5, fig.height = 4.6, fig.cap = "Illustration of the median-of-ratios normalisation on a toy example with four features and three samples. Starting from the matrix of log2 intensities (left), a pseudo-reference sample is obtained by taking the row-wise (feature-wise) mean. Log2 fold changes of every sample relative to this reference are then calculated (middle). Finally, the sample-specific normalisation factor is obtained as the median of these log2 fold changes over all features (right)."}
+set.seed(2)
+n_feat <- 4
+n_samp <- 3
+
+Y <- matrix(round(rnorm(n_feat * n_samp, mean = 20, sd = 1.2), 1),
+            nrow = n_feat, ncol = n_samp)
+rownames(Y) <- paste0("feature", seq_len(n_feat))
+colnames(Y) <- paste0("sample", seq_len(n_samp))
+
+ref <- rowMeans(Y)
+logratio <- sweep(Y, 1, ref, FUN = "-")
+nf <- apply(logratio, 2, median)
+
+to_long <- function(mat, x_offset = 0) {
+  df <- as.data.frame(mat)
+  df$row <- rownames(mat)
+  df <- pivot_longer(df, -row, names_to = "col", values_to = "value")
+  df$row <- factor(df$row, levels = rev(rownames(mat)))
+  df$col <- factor(df$col, levels = colnames(mat))
+  df$x <- x_offset + as.numeric(df$col)
+  df$y <- as.numeric(df$row)
+  df
+}
+
+neutral_fill <- "#f4f4f2"
+neutral_border <- "#c8c7c0"
+accent_fill <- "#dbe9fb"
+
+## Block 1: log2 intensities Y (samples only)
+df1 <- to_long(round(Y, 1), x_offset = 0)
+df1$highlight <- FALSE
+
+## Pseudo-reference column (row-wise / feature-wise mean), its own mini-block
+ref_mat <- matrix(round(ref, 1), ncol = 1, dimnames = list(rownames(Y), "reference"))
+df_ref <- to_long(ref_mat, x_offset = 5)
+df_ref$highlight <- TRUE
+
+## Block 2: log2 fold change vs reference
+df2 <- to_long(round(logratio, 1), x_offset = 8)
+df2$highlight <- FALSE
+
+## Block 3: normalisation factor (column-wise median)
+df3 <- data.frame(
+  row = "median",
+  col = factor(names(nf), levels = names(nf)),
+  value = round(nf, 2)
+)
+df3$x <- 13 + as.numeric(df3$col)
+df3$y <- mean(range(df1$y))
+df3$highlight <- TRUE
+
+cell_df <- bind_rows(df1, df_ref, df2, df3)
+
+hdr1 <- data.frame(x = unique(df1$x), y = max(df1$y) + 0.9,
+                    label = levels(df1$col))
+hdr_ref <- data.frame(x = unique(df_ref$x), y = max(df_ref$y) + 0.9,
+                       label = "reference")
+hdr2 <- data.frame(x = unique(df2$x), y = max(df2$y) + 0.9,
+                    label = levels(df2$col))
+hdr3 <- data.frame(x = unique(df3$x), y = df3$y[1] + 1.4,
+                    label = as.character(df3$col))
+
+rowhdr <- data.frame(x = min(df1$x) - 1, y = unique(df1$y),
+                      label = rownames(Y))
+
+block_titles <- data.frame(
+  x = c(mean(range(df1$x)), mean(range(df2$x)), mean(range(df3$x))),
+  y = min(df1$y) - 1.2,
+  label = c("log2 intensities Y",
+            "log2 fold change vs reference\nlog2(Y) - log2(reference)",
+            "log2 normalisation factor\n(median per sample)")
+)
+
+arrow_y <- mean(range(df1$y))
+arrows_df <- data.frame(
+  x    = c(max(df1$x) + 0.35, unique(df_ref$x) + 0.35, max(df2$x) + 0.35),
+  xend = c(unique(df_ref$x) - 0.55, min(df2$x) - 0.55, min(df3$x) - 0.55),
+  y = arrow_y, yend = arrow_y
+)
+arrow_labels <- data.frame(
+  x = c(mean(c(max(df1$x), unique(df_ref$x))),
+        mean(c(unique(df_ref$x), min(df2$x))),
+        mean(c(max(df2$x), min(df3$x)))),
+  y = arrow_y + 0.55,
+  label = c("row-wise /\nfeature-wise mean",
+            "subtract reference\n(per feature)",
+            "median\n(per sample)")
+)
+
+ggplot() +
+  geom_tile(data = cell_df, aes(x = x, y = y, fill = highlight),
+            color = neutral_border, linewidth = 0.4, width = 0.92, height = 0.8) +
+  geom_text(data = cell_df, aes(x = x, y = y, label = value),
+            size = 3.2, color = "#1a1a19") +
+  geom_text(data = hdr1, aes(x = x, y = y, label = label),
+            size = 3.2, fontface = "bold", color = "#52514e") +
+  geom_text(data = hdr_ref, aes(x = x, y = y, label = label),
+            size = 3.2, fontface = "bold", color = "#52514e") +
+  geom_text(data = hdr2, aes(x = x, y = y, label = label),
+            size = 3.2, fontface = "bold", color = "#52514e") +
+  geom_text(data = hdr3, aes(x = x, y = y, label = label),
+            size = 3.2, fontface = "bold", color = "#52514e") +
+  geom_text(data = rowhdr, aes(x = x, y = y, label = label),
+            size = 3.0, color = "#52514e", hjust = 1) +
+  geom_text(data = block_titles, aes(x = x, y = y, label = label),
+            size = 3.3, color = "#1a1a19", lineheight = 0.95) +
+  geom_segment(data = arrows_df, aes(x = x, xend = xend, y = y, yend = yend),
+               arrow = arrow(length = unit(0.2, "cm"), type = "closed"),
+               color = "#52514e", linewidth = 0.6) +
+  geom_text(data = arrow_labels, aes(x = x, y = y, label = label),
+            size = 2.9, color = "#52514e", lineheight = 0.95) +
+  scale_fill_manual(values = c(`FALSE` = neutral_fill, `TRUE` = accent_fill),
+                     guide = "none") +
+  coord_equal(clip = "off") +
+  theme_void() +
+  theme(plot.margin = margin(10, 10, 10, 30))
+```
+
 This procedure is implemented in the `msqrob2` function `nfLogMedianOfRatios`.
 
 1. We calculate the log transformed normalisation factor from the Median of 

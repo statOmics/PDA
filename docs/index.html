@@ -331,7 +331,11 @@ The course first introduces general concepts of statistical proteomics data anal
 </section>
 <section id="software-and-data" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Software and data</h1>
-<p>To install all the necessary package, please use <strong>R 4.6 or higher</strong> and execute the code chunk below in the RStudio Console/R console:</p>
+<ol type="1">
+<li><p>For the course you need to install <strong>R 4.6 or higher</strong> from <a href="https://cran.r-project.org/">cran</a>.</p></li>
+<li><p>We also recommend you to use <a href="https://posit.co/products/open-source/rstudio">rstudio</a> (optional)</p></li>
+<li><p>To install all the necessary package, please use <strong>R 4.6 or higher</strong> and execute the code chunk below in the RStudio Console/R console:</p></li>
+</ol>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"BiocManager"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
@@ -363,16 +367,22 @@ The course first introduces general concepts of statistical proteomics data anal
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>   <span class="st">"httpuv"</span></span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Users that would like to make use of the msqrob2gui should also install:</p>
+<ol start="4" type="1">
+<li>Users who would like to make use of the msqrob2gui should also install:</li>
+</ol>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"remotes"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"statomics/msqrob2gui"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>You can verify that your installation was successful by running our installation check script in R:</p>
+<ol start="5" type="1">
+<li>You can verify that your installation was successful by running our installation check script in R:</li>
+</ol>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"https://raw.githubusercontent.com/statOmics/PDA/refs/heads/master/R/check_installation.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>All data for this course can be directly accessed from the web <a href="https://github.com/statOmics/msqrob2data">msqrob2data</a> if you use R scripting or can be downloaded locally: <a href="https://github.com/statOmics/msqrob2data/archive/refs/heads/main.zip">Download data</a></p>
+<ol start="6" type="1">
+<li>All data for this course can be directly accessed from the web <a href="https://github.com/statOmics/msqrob2data">msqrob2data</a> if you use R scripting or can be downloaded locally: <a href="https://github.com/statOmics/msqrob2data/archive/refs/heads/main.zip">Download data</a></li>
+</ol>
 </section>
 <section id="previous-editions-of-the-course" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Previous editions of the course</h1>

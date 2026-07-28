@@ -106,8 +106,11 @@ of the R for mass spectrometry book.
 
 # Software and data
 
-To install all the necessary package, please use
-**R 4.6 or higher** and execute the code chunk below in the RStudio Console/R console:
+1. For the course you need to install **R 4.6 or higher** from [cran](https://cran.r-project.org/). 
+
+2. We also recommend you to use [rstudio](https://posit.co/products/open-source/rstudio) (optional)
+
+3. To install all the necessary package, please use **R 4.6 or higher** and execute the code chunk below in the RStudio Console/R console:
 
 ```{r, eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -141,20 +144,20 @@ BiocManager::install(c(
 ))
 ```
 
-Users that would like to make use of the msqrob2gui should also install:
+4. Users who would like to make use of the msqrob2gui should also install:
 
 ```{r, eval = FALSE}
 BiocManager::install("remotes")
 BiocManager::install("statomics/msqrob2gui")
 ```
 
-You can verify that your installation was successful by running our installation check script in R:
+5. You can verify that your installation was successful by running our installation check script in R:
 
 ```{r, eval = FALSE}
 source("https://raw.githubusercontent.com/statOmics/PDA/refs/heads/master/R/check_installation.R")
 ```
 
-All data for this course can be directly accessed from the web [msqrob2data](https://github.com/statOmics/msqrob2data) if you use R scripting
+6. All data for this course can be directly accessed from the web [msqrob2data](https://github.com/statOmics/msqrob2data) if you use R scripting
 or can be downloaded locally: [Download data](https://github.com/statOmics/msqrob2data/archive/refs/heads/main.zip)
 
 

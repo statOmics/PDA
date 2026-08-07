@@ -223,7 +223,12 @@ window.Quarto = {
   <li><a href="#design" id="toc-design" class="nav-link" data-scroll-target="#design"><span class="header-section-number">1.3.1</span> Design</a></li>
   <li><a href="#summarized-intensity-matrix" id="toc-summarized-intensity-matrix" class="nav-link" data-scroll-target="#summarized-intensity-matrix"><span class="header-section-number">1.3.2</span> Summarized intensity matrix</a></li>
   </ul></li>
-  <li><a href="#hypothesis-testing-a-single-protein" id="toc-hypothesis-testing-a-single-protein" class="nav-link" data-scroll-target="#hypothesis-testing-a-single-protein"><span class="header-section-number">1.4</span> Hypothesis testing: a single protein</a></li>
+  <li><a href="#hypothesis-testing-a-single-protein" id="toc-hypothesis-testing-a-single-protein" class="nav-link" data-scroll-target="#hypothesis-testing-a-single-protein"><span class="header-section-number">1.4</span> Hypothesis testing: a single protein</a>
+  <ul class="collapse">
+  <li><a href="#t-test" id="toc-t-test" class="nav-link" data-scroll-target="#t-test"><span class="header-section-number">1.4.1</span> T-test</a></li>
+  <li><a href="#linear-model" id="toc-linear-model" class="nav-link" data-scroll-target="#linear-model"><span class="header-section-number">1.4.2</span> Linear model</a></li>
+  <li><a href="#null-hypothesis-h_0-and-alternative-hypothesis-h_1" id="toc-null-hypothesis-h_0-and-alternative-hypothesis-h_1" class="nav-link" data-scroll-target="#null-hypothesis-h_0-and-alternative-hypothesis-h_1"><span class="header-section-number">1.4.3</span> Null hypothesis (<span class="math inline">\(H_0\)</span>) and alternative hypothesis (<span class="math inline">\(H_1\)</span>)</a></li>
+  </ul></li>
   <li><a href="#multiple-hypothesis-testing" id="toc-multiple-hypothesis-testing" class="nav-link" data-scroll-target="#multiple-hypothesis-testing"><span class="header-section-number">1.5</span> Multiple hypothesis testing</a>
   <ul class="collapse">
   <li><a href="#multiple-testing" id="toc-multiple-testing" class="nav-link" data-scroll-target="#multiple-testing"><span class="header-section-number">1.5.1</span> Multiple testing</a></li>
@@ -708,8 +713,8 @@ Movie clip
 </div>
 </div>
 </div>
-<section id="t-test" class="level4">
-<h4 class="anchored" data-anchor-id="t-test">T-test</h4>
+<section id="t-test" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="t-test"><span class="header-section-number">1.4.1</span> T-test</h3>
 <p><span class="math display">\[
 \log_2 \text{FC} = \bar{y}_{p1}-\bar{y}_{p2}
 \]</span></p>
@@ -724,8 +729,8 @@ T_g=\frac{\widehat{\text{signal}}}{\widehat{\text{Noise}}}
 \text{se}_{\log_2 \text{FC}}=\text{SD}\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}
 \]</span></p>
 </section>
-<section id="linear-model" class="level4">
-<h4 class="anchored" data-anchor-id="linear-model">Linear model</h4>
+<section id="linear-model" class="level3" data-number="1.4.2">
+<h3 data-number="1.4.2" class="anchored" data-anchor-id="linear-model"><span class="header-section-number">1.4.2</span> Linear model</h3>
 <p><span class="math display">\[
 \begin{array}{lcl}
 y_i &amp;=&amp; \beta_0 + \beta_{D8}x_{i,D8} + \epsilon_i\\
@@ -771,8 +776,8 @@ t=\frac{\log_2\widehat{\text{FC}}}{\text{se}_{\log_2\widehat{\text{FC}}}}=\frac{
 <li><p>How likely is it to observe t = -13.2 when there is no effect of the argP KO on the protein expression?</p></li>
 </ul>
 </section>
-<section id="null-hypothesis-h_0-and-alternative-hypothesis-h_1" class="level4">
-<h4 class="anchored" data-anchor-id="null-hypothesis-h_0-and-alternative-hypothesis-h_1">Null hypothesis (<span class="math inline">\(H_0\)</span>) and alternative hypothesis (<span class="math inline">\(H_1\)</span>)</h4>
+<section id="null-hypothesis-h_0-and-alternative-hypothesis-h_1" class="level3" data-number="1.4.3">
+<h3 data-number="1.4.3" class="anchored" data-anchor-id="null-hypothesis-h_0-and-alternative-hypothesis-h_1"><span class="header-section-number">1.4.3</span> Null hypothesis (<span class="math inline">\(H_0\)</span>) and alternative hypothesis (<span class="math inline">\(H_1\)</span>)</h3>
 <ul>
 <li><p>With data we can never prove a hypothesis (falsification principle of Popper)</p></li>
 <li><p>With data we can only reject a hypothesis</p></li>

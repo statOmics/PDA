@@ -297,7 +297,7 @@ text(8.5,5,"Estimation \n Inference ",col="black",cex=1.2)
 text(7.5,.5,"Data exploration",col="black",cex=1.2)
 ```
 
-#### T-test
+### T-test
 
 
 $$
@@ -318,7 +318,7 @@ $$
 \text{se}_{\log_2 \text{FC}}=\text{SD}\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}
 $$
 
-#### Linear model 
+### Linear model 
 
 $$
 \begin{array}{lcl}
@@ -371,7 +371,7 @@ there is an effect?
 - How likely is it to observe
 t = `r format(summary(lmHlp)$coef[2,3], digit = 3)` when there is no effect of the argP KO on the protein expression?
 
-#### Null hypothesis ($H_0$) and alternative hypothesis ($H_1$)
+### Null hypothesis ($H_0$) and alternative hypothesis ($H_1$)
 
 - With data we can never prove a hypothesis (falsification principle of Popper)
 - With data we can only reject a hypothesis 

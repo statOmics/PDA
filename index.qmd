@@ -144,7 +144,7 @@ BiocManager::install(c(
 ))
 ```
 
-4. Users who would like to make use of the msqrob2gui should also install:
+4. Users who would like to make use of msqrob2gui should also install:
 
 ```{r, eval = FALSE}
 BiocManager::install("remotes")

@@ -239,7 +239,7 @@ qf[["proteins"]] |>
 
 - `r nrow(qf[["proteins"]])` proteins 
 
-### Hypothesis testing: a single protein 
+## Hypothesis testing: a single protein 
 
 
 <details><summary> Movie clip </summary><p><iframe width="560" height="315"

@@ -222,18 +222,18 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#design" id="toc-design" class="nav-link" data-scroll-target="#design"><span class="header-section-number">1.3.1</span> Design</a></li>
   <li><a href="#summarized-intensity-matrix" id="toc-summarized-intensity-matrix" class="nav-link" data-scroll-target="#summarized-intensity-matrix"><span class="header-section-number">1.3.2</span> Summarized intensity matrix</a></li>
-  <li><a href="#hypothesis-testing-a-single-protein" id="toc-hypothesis-testing-a-single-protein" class="nav-link" data-scroll-target="#hypothesis-testing-a-single-protein"><span class="header-section-number">1.3.3</span> Hypothesis testing: a single protein</a></li>
   </ul></li>
-  <li><a href="#multiple-hypothesis-testing" id="toc-multiple-hypothesis-testing" class="nav-link" data-scroll-target="#multiple-hypothesis-testing"><span class="header-section-number">1.4</span> Multiple hypothesis testing</a>
+  <li><a href="#hypothesis-testing-a-single-protein" id="toc-hypothesis-testing-a-single-protein" class="nav-link" data-scroll-target="#hypothesis-testing-a-single-protein"><span class="header-section-number">1.4</span> Hypothesis testing: a single protein</a></li>
+  <li><a href="#multiple-hypothesis-testing" id="toc-multiple-hypothesis-testing" class="nav-link" data-scroll-target="#multiple-hypothesis-testing"><span class="header-section-number">1.5</span> Multiple hypothesis testing</a>
   <ul class="collapse">
-  <li><a href="#multiple-testing" id="toc-multiple-testing" class="nav-link" data-scroll-target="#multiple-testing"><span class="header-section-number">1.4.1</span> Multiple testing</a></li>
+  <li><a href="#multiple-testing" id="toc-multiple-testing" class="nav-link" data-scroll-target="#multiple-testing"><span class="header-section-number">1.5.1</span> Multiple testing</a></li>
   </ul></li>
-  <li><a href="#moderated-statistics" id="toc-moderated-statistics" class="nav-link" data-scroll-target="#moderated-statistics"><span class="header-section-number">1.5</span> Moderated Statistics</a>
+  <li><a href="#moderated-statistics" id="toc-moderated-statistics" class="nav-link" data-scroll-target="#moderated-statistics"><span class="header-section-number">1.6</span> Moderated Statistics</a>
   <ul class="collapse">
-  <li><a href="#empirical-bayes" id="toc-empirical-bayes" class="nav-link" data-scroll-target="#empirical-bayes"><span class="header-section-number">1.5.1</span> Empirical Bayes</a></li>
-  <li><a href="#shrinkage-of-the-variance-and-moderated-t-statistics" id="toc-shrinkage-of-the-variance-and-moderated-t-statistics" class="nav-link" data-scroll-target="#shrinkage-of-the-variance-and-moderated-t-statistics"><span class="header-section-number">1.5.2</span> Shrinkage of the variance and moderated t-statistics</a></li>
+  <li><a href="#empirical-bayes" id="toc-empirical-bayes" class="nav-link" data-scroll-target="#empirical-bayes"><span class="header-section-number">1.6.1</span> Empirical Bayes</a></li>
+  <li><a href="#shrinkage-of-the-variance-and-moderated-t-statistics" id="toc-shrinkage-of-the-variance-and-moderated-t-statistics" class="nav-link" data-scroll-target="#shrinkage-of-the-variance-and-moderated-t-statistics"><span class="header-section-number">1.6.2</span> Shrinkage of the variance and moderated t-statistics</a></li>
   </ul></li>
-  <li><a href="#plots" id="toc-plots" class="nav-link" data-scroll-target="#plots"><span class="header-section-number">1.6</span> Plots</a></li>
+  <li><a href="#plots" id="toc-plots" class="nav-link" data-scroll-target="#plots"><span class="header-section-number">1.7</span> Plots</a></li>
   </ul></li>
   <li><a href="#experimental-design" id="toc-experimental-design" class="nav-link" data-scroll-target="#experimental-design"><span class="header-section-number">2</span> Experimental Design</a>
   <ul class="collapse">
@@ -687,8 +687,9 @@ Click to see code to log-transfrom the data
 <li>1020 proteins</li>
 </ul>
 </section>
-<section id="hypothesis-testing-a-single-protein" class="level3" data-number="1.3.3">
-<h3 data-number="1.3.3" class="anchored" data-anchor-id="hypothesis-testing-a-single-protein"><span class="header-section-number">1.3.3</span> Hypothesis testing: a single protein</h3>
+</section>
+<section id="hypothesis-testing-a-single-protein" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="hypothesis-testing-a-single-protein"><span class="header-section-number">1.4</span> Hypothesis testing: a single protein</h2>
 <details>
 <summary>
 Movie clip
@@ -820,9 +821,8 @@ F-statistic: 175.5 on 1 and 4 DF,  p-value: 0.0001877</code></pre>
 </ul>
 </section>
 </section>
-</section>
-<section id="multiple-hypothesis-testing" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="multiple-hypothesis-testing"><span class="header-section-number">1.4</span> Multiple hypothesis testing</h2>
+<section id="multiple-hypothesis-testing" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="multiple-hypothesis-testing"><span class="header-section-number">1.5</span> Multiple hypothesis testing</h2>
 <details>
 <summary>
 Movie clip
@@ -840,8 +840,8 @@ Movie clip
 <li><p>So an upperbound of the expected FP is <span class="math inline">\(m \times \alpha\)</span> or <span class="math inline">\(1066 \times 0.05=53\)</span>.</p></li>
 </ul>
 <p><span class="math inline">\(\rightarrow\)</span> Hence, we are bound to call many false positive proteins each time we run the experiment.</p>
-<section id="multiple-testing" class="level3" data-number="1.4.1">
-<h3 data-number="1.4.1" class="anchored" data-anchor-id="multiple-testing"><span class="header-section-number">1.4.1</span> Multiple testing</h3>
+<section id="multiple-testing" class="level3" data-number="1.5.1">
+<h3 data-number="1.5.1" class="anchored" data-anchor-id="multiple-testing"><span class="header-section-number">1.5.1</span> Multiple testing</h3>
 <section id="family-wise-error-rate" class="level4">
 <h4 class="anchored" data-anchor-id="family-wise-error-rate">Family-wise error rate</h4>
 <details>
@@ -1168,8 +1168,8 @@ Click to see code
 </section>
 </section>
 </section>
-<section id="moderated-statistics" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="moderated-statistics"><span class="header-section-number">1.5</span> Moderated Statistics</h2>
+<section id="moderated-statistics" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="moderated-statistics"><span class="header-section-number">1.6</span> Moderated Statistics</h2>
 <details>
 <summary>
 Movie clip
@@ -1306,8 +1306,8 @@ Click to see code
 <li>permutation test, but is difficult for more complex designs.</li>
 <li>Allows for Data Dredging because user can choose <span class="math inline">\(S_0\)</span></li>
 </ul>
-<section id="empirical-bayes" class="level3" data-number="1.5.1">
-<h3 data-number="1.5.1" class="anchored" data-anchor-id="empirical-bayes"><span class="header-section-number">1.5.1</span> Empirical Bayes</h3>
+<section id="empirical-bayes" class="level3" data-number="1.6.1">
+<h3 data-number="1.6.1" class="anchored" data-anchor-id="empirical-bayes"><span class="header-section-number">1.6.1</span> Empirical Bayes</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -1422,8 +1422,8 @@ genotypeD8.WP_003038350 0.048997070 genotypeD8 WP_003038350</code></pre>
 <li><p>Borrowing strength to estimate the variance using empirical Bayes solves the issue of returning proteins with a low fold change as significant due to a low variance.</p></li>
 </ul>
 </section>
-<section id="shrinkage-of-the-variance-and-moderated-t-statistics" class="level3" data-number="1.5.2">
-<h3 data-number="1.5.2" class="anchored" data-anchor-id="shrinkage-of-the-variance-and-moderated-t-statistics"><span class="header-section-number">1.5.2</span> Shrinkage of the variance and moderated t-statistics</h3>
+<section id="shrinkage-of-the-variance-and-moderated-t-statistics" class="level3" data-number="1.6.2">
+<h3 data-number="1.6.2" class="anchored" data-anchor-id="shrinkage-of-the-variance-and-moderated-t-statistics"><span class="header-section-number">1.6.2</span> Shrinkage of the variance and moderated t-statistics</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -1440,8 +1440,8 @@ genotypeD8.WP_003038350 0.048997070 genotypeD8 WP_003038350</code></pre>
 </ul>
 </section>
 </section>
-<section id="plots" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="plots"><span class="header-section-number">1.6</span> Plots</h2>
+<section id="plots" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="plots"><span class="header-section-number">1.7</span> Plots</h2>
 <div class="cell">
 <div class="cell-output-display">
 <div>

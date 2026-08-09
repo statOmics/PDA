@@ -253,11 +253,7 @@ window.Quarto = {
   <li><a href="#assess-the-impact-of-blocking-in-the-tutorial-session" id="toc-assess-the-impact-of-blocking-in-the-tutorial-session" class="nav-link" data-scroll-target="#assess-the-impact-of-blocking-in-the-tutorial-session"><span class="header-section-number">2.6.2</span> Assess the impact of blocking in the tutorial session!</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#brunner-et-al." id="toc-brunner-et-al." class="nav-link" data-scroll-target="#brunner-et-al."><span class="header-section-number">3</span> Brunner et al.&nbsp;</a>
-  <ul class="collapse">
-  <li><a href="#reanalysis-of-the-results" id="toc-reanalysis-of-the-results" class="nav-link" data-scroll-target="#reanalysis-of-the-results"><span class="header-section-number">3.1</span> Reanalysis of the results</a></li>
-  </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">4</span> References</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">3</span> References</a></li>
   </ul>
 </nav>
 </nav>
@@ -749,17 +745,18 @@ x_{i,D8} &amp;=&amp; 1 \text{ (D8)}
 \hat \mu_{D8} &amp;=&amp; \hat\beta_0 + \hat{\beta}_{D8}\\
 \log_2 \widehat{\text{FC}} &amp;=&amp; \hat{\beta}_{D8}
 \end{array}
-\]</span></p>
+\]</span> In R</p>
+<pre><code>lm(intensity ~ genotype, data = WP_003023392)</code></pre>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>WP_003023392 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">intensity =</span> <span class="fu">assay</span>(qf[[<span class="st">"proteins"</span>]][<span class="st">"WP_003023392"</span>,]) <span class="sc">|&gt;</span> <span class="fu">c</span>(), </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">genotype =</span> <span class="fu">colData</span>(qf)[,<span class="dv">1</span>]) </span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>WP_003023392 <span class="sc">|&gt;</span> </span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>genotype,<span class="at">y=</span>intensity)) <span class="sc">+</span> </span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Protein WP_003023392"</span>) <span class="sc">+</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>WP_003023392 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">intensity =</span> <span class="fu">assay</span>(qf[[<span class="st">"proteins"</span>]][<span class="st">"WP_003023392"</span>,]) <span class="sc">|&gt;</span> <span class="fu">c</span>(), </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">genotype =</span> <span class="fu">colData</span>(qf)[,<span class="dv">1</span>]) </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>WP_003023392 <span class="sc">|&gt;</span> </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>genotype,<span class="at">y=</span>intensity)) <span class="sc">+</span> </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Protein WP_003023392"</span>) <span class="sc">+</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -793,8 +790,8 @@ t=\frac{\log_2\widehat{\text{FC}}}{\text{se}_{\log_2\widehat{\text{FC}}}}=\frac{
 </center></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(intensity <span class="sc">~</span> genotype, <span class="at">data =</span> WP_003023392)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(intensity <span class="sc">~</span> genotype, <span class="at">data =</span> WP_003023392)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -947,32 +944,32 @@ Click to see code
 </summary>
 <p>
 </p><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ttestMx <span class="ot">&lt;-</span> <span class="cf">function</span>(y,group) {</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    test <span class="ot">&lt;-</span> <span class="fu">try</span>(<span class="fu">t.test</span>(y[group],y[<span class="sc">!</span>group],<span class="at">var.equal=</span><span class="cn">TRUE</span>),<span class="at">silent=</span><span class="cn">TRUE</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is</span>(test,<span class="st">"try-error"</span>)) {</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="fu">c</span>(<span class="at">log2FC=</span><span class="cn">NA</span>,<span class="at">se=</span><span class="cn">NA</span>,<span class="at">tstat=</span><span class="cn">NA</span>,<span class="at">p=</span><span class="cn">NA</span>))</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="fu">c</span>(<span class="at">log2FC=</span> (test<span class="sc">$</span>estimate<span class="sc">%*%</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>)),<span class="at">se=</span>test<span class="sc">$</span>stderr,<span class="at">tstat=</span>test<span class="sc">$</span>statistic,<span class="at">pval=</span>test<span class="sc">$</span>p.value))</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a> }</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a> res <span class="ot">&lt;-</span> <span class="fu">apply</span>(</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assay</span>(qf[[<span class="st">"proteins"</span>]]), </span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, </span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    ttestMx,</span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="fu">colData</span>(qf)<span class="sc">$</span>genotype<span class="sc">==</span><span class="st">"D8"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>()</span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a> <span class="fu">colnames</span>(res) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"logFC"</span>,<span class="st">"se"</span>,<span class="st">"tstat"</span>,<span class="st">"pval"</span>)</span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a> res <span class="ot">&lt;-</span> res <span class="sc">|&gt;</span> </span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>   <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>   <span class="fu">na.exclude</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>   <span class="fu">arrange</span>(pval)</span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a> res<span class="sc">$</span>adjPval <span class="ot">&lt;-</span> <span class="fu">p.adjust</span>(res<span class="sc">$</span>pval, <span class="st">"fdr"</span>)</span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a> alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>adjAlphaForm <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(res),<span class="st">" x "</span>,alpha,<span class="st">"/"</span>,<span class="fu">nrow</span>(res))</span>
-<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>adjAlpha <span class="ot">&lt;-</span> alpha <span class="sc">*</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(res))<span class="sc">/</span><span class="fu">nrow</span>(res) </span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span><span class="st">"pval &lt; adjAlpha"</span> <span class="ot">&lt;-</span> res<span class="sc">$</span>pval <span class="sc">&lt;</span> res<span class="sc">$</span>adjAlpha </span>
-<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span><span class="st">"adjPval &lt; alpha"</span> <span class="ot">&lt;-</span> res<span class="sc">$</span>adjPval <span class="sc">&lt;</span> alpha </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ttestMx <span class="ot">&lt;-</span> <span class="cf">function</span>(y,group) {</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    test <span class="ot">&lt;-</span> <span class="fu">try</span>(<span class="fu">t.test</span>(y[group],y[<span class="sc">!</span>group],<span class="at">var.equal=</span><span class="cn">TRUE</span>),<span class="at">silent=</span><span class="cn">TRUE</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is</span>(test,<span class="st">"try-error"</span>)) {</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="fu">c</span>(<span class="at">log2FC=</span><span class="cn">NA</span>,<span class="at">se=</span><span class="cn">NA</span>,<span class="at">tstat=</span><span class="cn">NA</span>,<span class="at">p=</span><span class="cn">NA</span>))</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="fu">c</span>(<span class="at">log2FC=</span> (test<span class="sc">$</span>estimate<span class="sc">%*%</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>)),<span class="at">se=</span>test<span class="sc">$</span>stderr,<span class="at">tstat=</span>test<span class="sc">$</span>statistic,<span class="at">pval=</span>test<span class="sc">$</span>p.value))</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a> res <span class="ot">&lt;-</span> <span class="fu">apply</span>(</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assay</span>(qf[[<span class="st">"proteins"</span>]]), </span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, </span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    ttestMx,</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="fu">colData</span>(qf)<span class="sc">$</span>genotype<span class="sc">==</span><span class="st">"D8"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>()</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a> <span class="fu">colnames</span>(res) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"logFC"</span>,<span class="st">"se"</span>,<span class="st">"tstat"</span>,<span class="st">"pval"</span>)</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a> res <span class="ot">&lt;-</span> res <span class="sc">|&gt;</span> </span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>   <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>   <span class="fu">na.exclude</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>   <span class="fu">arrange</span>(pval)</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a> res<span class="sc">$</span>adjPval <span class="ot">&lt;-</span> <span class="fu">p.adjust</span>(res<span class="sc">$</span>pval, <span class="st">"fdr"</span>)</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a> alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>adjAlphaForm <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(res),<span class="st">" x "</span>,alpha,<span class="st">"/"</span>,<span class="fu">nrow</span>(res))</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>adjAlpha <span class="ot">&lt;-</span> alpha <span class="sc">*</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(res))<span class="sc">/</span><span class="fu">nrow</span>(res) </span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span><span class="st">"pval &lt; adjAlpha"</span> <span class="ot">&lt;-</span> res<span class="sc">$</span>pval <span class="sc">&lt;</span> res<span class="sc">$</span>adjAlpha </span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span><span class="st">"adjPval &lt; alpha"</span> <span class="ot">&lt;-</span> res<span class="sc">$</span>adjPval <span class="sc">&lt;</span> alpha </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p></p>
 </details>
@@ -1156,12 +1153,12 @@ Click to see code
 </summary>
 <p>
 </p><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>volcanoT <span class="ot">&lt;-</span> <span class="fu">plotVolcano</span>(res) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>volcanoT <span class="ot">&lt;-</span> <span class="fu">plotVolcano</span>(res) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p></p>
 </details>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>volcanoT</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>volcanoT</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1191,31 +1188,31 @@ Click to see code
 </summary>
 <p>
 </p><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>problemPlots <span class="ot">&lt;-</span> <span class="fu">list</span>() </span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>problemPlots[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> res <span class="sc">|&gt;</span> </span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> logFC, <span class="at">y =</span> se, <span class="at">color =</span> adjPval <span class="sc">&lt;</span> <span class="fl">0.05</span>)) <span class="sc">+</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">cex =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">alpha</span>(<span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"red"</span>), <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() </span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>)</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>problemPlots[[i]] <span class="ot">&lt;-</span> <span class="fu">colData</span>(qf) <span class="sc">|&gt;</span> </span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">intensity =</span> qf[[<span class="st">"proteins"</span>]][<span class="fu">rownames</span>(res)[i],] <span class="sc">|&gt;</span> </span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>             <span class="fu">assay</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>             <span class="fu">c</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>genotype,<span class="at">y=</span>intensity)) <span class="sc">+</span></span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">rownames</span>(res)[i]) <span class="sc">+</span></span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="dv">24</span>,<span class="dv">27</span>)) <span class="sc">+</span></span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_minimal</span>() </span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>problemPlots <span class="ot">&lt;-</span> <span class="fu">list</span>() </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>problemPlots[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> res <span class="sc">|&gt;</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> logFC, <span class="at">y =</span> se, <span class="at">color =</span> adjPval <span class="sc">&lt;</span> <span class="fl">0.05</span>)) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">cex =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">alpha</span>(<span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"red"</span>), <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>problemPlots[[i]] <span class="ot">&lt;-</span> <span class="fu">colData</span>(qf) <span class="sc">|&gt;</span> </span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">intensity =</span> qf[[<span class="st">"proteins"</span>]][<span class="fu">rownames</span>(res)[i],] <span class="sc">|&gt;</span> </span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>             <span class="fu">assay</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>             <span class="fu">c</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>genotype,<span class="at">y=</span>intensity)) <span class="sc">+</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">rownames</span>(res)[i]) <span class="sc">+</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="dv">24</span>,<span class="dv">27</span>)) <span class="sc">+</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_minimal</span>() </span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p></p>
 </details>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>problemPlots</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>problemPlots</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]</code></pre>
 </div>
@@ -1263,37 +1260,37 @@ Click to see code
 </summary>
 <p>
 </p><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>simI<span class="ot">&lt;-</span><span class="fu">sapply</span>(res<span class="sc">$</span>se<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span><span class="sc">+</span><span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>),<span class="cf">function</span>(n,mean,sd) <span class="fu">rnorm</span>(n,mean,sd),<span class="at">n=</span><span class="dv">6</span>,<span class="at">mean=</span><span class="dv">0</span>) <span class="sc">|&gt;</span> <span class="fu">t</span>()</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>resSim <span class="ot">&lt;-</span> <span class="fu">apply</span>(</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    simI, </span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, </span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    ttestMx,</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="fu">colData</span>(qf)<span class="sc">$</span>genotype<span class="sc">==</span><span class="st">"D8"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>() </span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">colnames</span>(resSim) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"logFC"</span>,<span class="st">"se"</span>,<span class="st">"tstat"</span>,<span class="st">"pval"</span>)</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a> resSim <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(resSim)</span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a> tstatSimPlot <span class="ot">&lt;-</span> resSim <span class="sc">|&gt;</span> </span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>tstat)) <span class="sc">+</span></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>     <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density.., <span class="at">fill=</span>..count..),<span class="at">bins=</span><span class="dv">30</span>) <span class="sc">+</span></span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>     <span class="fu">stat_function</span>(<span class="at">fun=</span>dt,</span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">color=</span><span class="st">"red"</span>,</span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">args=</span><span class="fu">list</span>(<span class="at">df=</span><span class="dv">4</span>)) <span class="sc">+</span> </span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ylim</span>(<span class="dv">0</span>,.<span class="dv">6</span>) <span class="sc">+</span></span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggtitle</span>(<span class="st">"t-statistic"</span>) <span class="sc">+</span></span>
-<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_minimal</span>()</span>
-<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a> resSim<span class="sc">$</span>C <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span><span class="sc">+</span><span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>) </span>
-<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a> resSim<span class="sc">$</span>sd <span class="ot">&lt;-</span> resSim<span class="sc">$</span>se<span class="sc">/</span>resSim<span class="sc">$</span>C </span>
-<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a> tstatSimperseus <span class="ot">&lt;-</span> resSim <span class="sc">|&gt;</span> </span>
-<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>logFC<span class="sc">/</span>((sd<span class="fl">+.1</span>)<span class="sc">*</span>C))) <span class="sc">+</span></span>
-<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>     <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density.., <span class="at">fill=</span>..count..),<span class="at">bins=</span><span class="dv">30</span>) <span class="sc">+</span></span>
-<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>     <span class="fu">stat_function</span>(<span class="at">fun=</span>dt,</span>
-<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color=</span><span class="st">"red"</span>,</span>
-<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>                  <span class="at">args=</span><span class="fu">list</span>(<span class="at">df=</span><span class="dv">4</span>)) <span class="sc">+</span> </span>
-<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>     <span class="fu">ylim</span>(<span class="dv">0</span>,.<span class="dv">6</span>) <span class="sc">+</span></span>
-<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"perseus"</span>) <span class="sc">+</span></span>
-<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>simI<span class="ot">&lt;-</span><span class="fu">sapply</span>(res<span class="sc">$</span>se<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span><span class="sc">+</span><span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>),<span class="cf">function</span>(n,mean,sd) <span class="fu">rnorm</span>(n,mean,sd),<span class="at">n=</span><span class="dv">6</span>,<span class="at">mean=</span><span class="dv">0</span>) <span class="sc">|&gt;</span> <span class="fu">t</span>()</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>resSim <span class="ot">&lt;-</span> <span class="fu">apply</span>(</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    simI, </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    ttestMx,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="fu">colData</span>(qf)<span class="sc">$</span>genotype<span class="sc">==</span><span class="st">"D8"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>() </span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">colnames</span>(resSim) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"logFC"</span>,<span class="st">"se"</span>,<span class="st">"tstat"</span>,<span class="st">"pval"</span>)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a> resSim <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(resSim)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a> tstatSimPlot <span class="ot">&lt;-</span> resSim <span class="sc">|&gt;</span> </span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>tstat)) <span class="sc">+</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>     <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density.., <span class="at">fill=</span>..count..),<span class="at">bins=</span><span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>     <span class="fu">stat_function</span>(<span class="at">fun=</span>dt,</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">color=</span><span class="st">"red"</span>,</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">args=</span><span class="fu">list</span>(<span class="at">df=</span><span class="dv">4</span>)) <span class="sc">+</span> </span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ylim</span>(<span class="dv">0</span>,.<span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggtitle</span>(<span class="st">"t-statistic"</span>) <span class="sc">+</span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_minimal</span>()</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a> resSim<span class="sc">$</span>C <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span><span class="sc">+</span><span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>) </span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a> resSim<span class="sc">$</span>sd <span class="ot">&lt;-</span> resSim<span class="sc">$</span>se<span class="sc">/</span>resSim<span class="sc">$</span>C </span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a> tstatSimperseus <span class="ot">&lt;-</span> resSim <span class="sc">|&gt;</span> </span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>logFC<span class="sc">/</span>((sd<span class="fl">+.1</span>)<span class="sc">*</span>C))) <span class="sc">+</span></span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>     <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density.., <span class="at">fill=</span>..count..),<span class="at">bins=</span><span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>     <span class="fu">stat_function</span>(<span class="at">fun=</span>dt,</span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color=</span><span class="st">"red"</span>,</span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a>                  <span class="at">args=</span><span class="fu">list</span>(<span class="at">df=</span><span class="dv">4</span>)) <span class="sc">+</span> </span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>     <span class="fu">ylim</span>(<span class="dv">0</span>,.<span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"perseus"</span>) <span class="sc">+</span></span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p></p>
 </details>
@@ -1349,15 +1346,15 @@ Click to see the code
 <p>We will model the data with a different group mean for every genotype. The group is incoded in the variable <code>genotype</code> of the colData. We can specify this model by using a formula with the factor <code>genotype</code> as its predictor: <code>formula = ~genotype</code>.</p>
 <p>Note, that a formula always starts with a symbol ‘~’.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>qf <span class="ot">&lt;-</span> <span class="fu">msqrob</span>(<span class="at">object =</span> qf, <span class="at">i =</span> <span class="st">"proteins"</span>, <span class="at">formula =</span> <span class="sc">~</span>genotype)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>qf <span class="ot">&lt;-</span> <span class="fu">msqrob</span>(<span class="at">object =</span> qf, <span class="at">i =</span> <span class="st">"proteins"</span>, <span class="at">formula =</span> <span class="sc">~</span>genotype)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="2" type="1">
 <li>Inference</li>
 </ol>
 <p>We first explore the design of the model that we specified using the the package <code>ExploreModelMatrix</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ExploreModelMatrix)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">VisualizeDesign</span>(<span class="fu">colData</span>(qf),<span class="sc">~</span>genotype)<span class="sc">$</span>plotlist[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ExploreModelMatrix)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">VisualizeDesign</span>(<span class="fu">colData</span>(qf),<span class="sc">~</span>genotype)<span class="sc">$</span>plotlist[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1380,14 +1377,14 @@ Click to see the code
 <p>Hence, assessing the null hypothesis that there is no differential abundance between D8 and WT can be reformulated as</p>
 <p><span class="math display">\[H_0:  \text{genotypeD8}=0\]</span> We can implement a hypothesis test for each protein in msqrob2 using the code below:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>L <span class="ot">&lt;-</span> <span class="fu">makeContrast</span>(<span class="st">"genotypeD8 = 0"</span>, <span class="at">parameterNames =</span> <span class="fu">c</span>(<span class="st">"genotypeD8"</span>))</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>qf <span class="ot">&lt;-</span> <span class="fu">hypothesisTest</span>(<span class="at">object =</span> qf, <span class="at">i =</span> <span class="st">"proteins"</span>, <span class="at">contrast =</span> L)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>L <span class="ot">&lt;-</span> <span class="fu">makeContrast</span>(<span class="st">"genotypeD8 = 0"</span>, <span class="at">parameterNames =</span> <span class="fu">c</span>(<span class="st">"genotypeD8"</span>))</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>qf <span class="ot">&lt;-</span> <span class="fu">hypothesisTest</span>(<span class="at">object =</span> qf, <span class="at">i =</span> <span class="st">"proteins"</span>, <span class="at">contrast =</span> L)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We can show the list with all significant DE proteins at the 5% FDR using</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">msqrobCollect</span>(qf[[<span class="st">"proteins"</span>]],L) <span class="sc">|&gt;</span> </span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(pval) <span class="sc">|&gt;</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(adjPval<span class="sc">&lt;</span><span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">msqrobCollect</span>(qf[[<span class="st">"proteins"</span>]],L) <span class="sc">|&gt;</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(pval) <span class="sc">|&gt;</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(adjPval<span class="sc">&lt;</span><span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                             logFC         se       df          t         pval
 genotypeD8.WP_003040849 -1.2263612 0.08020151 6.087933 -15.290999 4.358069e-06
@@ -1407,9 +1404,9 @@ genotypeD8.WP_003038350 0.048997070 genotypeD8 WP_003038350</code></pre>
 </div>
 <p>We can also visualise the results using a volcanoplot</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>volcano <span class="ot">&lt;-</span> <span class="fu">plotVolcano</span>(</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rowData</span>(qf[[<span class="st">"proteins"</span>]])<span class="sc">$</span>genotypeD8) <span class="sc">+</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"msqrob2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>volcano <span class="ot">&lt;-</span> <span class="fu">plotVolcano</span>(</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rowData</span>(qf[[<span class="st">"proteins"</span>]])<span class="sc">$</span>genotypeD8) <span class="sc">+</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"msqrob2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p></p>
 </details>
@@ -1643,7 +1640,7 @@ T_g=\frac{\widehat{\text{signal}}}{\widehat{\text{Noise}}}
 <li>All treatments of interest are present within block!</li>
 <li>We can estimate the effect of the treatment within block!</li>
 <li>We can isolate the between block variability from the analysis using linear model: <span class="math display">\[
-y \sim \text{type} + \text{mouse}
+\sim \text{type} + \text{mouse}
 \]</span></li>
 <li>Not possible with perseus!</li>
 </ul>
@@ -1660,36 +1657,8 @@ y \sim \text{type} + \text{mouse}
 </section>
 </section>
 </section>
-<section id="brunner-et-al." class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Brunner et al.&nbsp;</h1>
-<p><img src="./figs/brunner2022PCA.jpg" width="100%"></p>
-<p>Brunner et al.&nbsp;2022. Mol Syst Biol. 18(3): e10798. doi: 10.15252/msb.202110798</p>
-<ul>
-<li>Single cell study on 231 HeLa cells with drug induced cell cycle arrest for which over 2500 proteins where measured with MS-SCP.</li>
-<li>Authors report:</li>
-</ul>
-<p>“The proteomes of the different cell cycle states grouped together in a principal component analysis (PCA) plot”.</p>
-<p>“Our single‐cell data set also highlighted proteins not previously associated with the cell cycle and the G2/M transition”</p>
-<section id="reanalysis-of-the-results" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="reanalysis-of-the-results"><span class="header-section-number">3.1</span> Reanalysis of the results</h2>
-<p>We could reproduce the results:</p>
-<p><img src="./figs/brunnerPCACellCycle.png" width="100%"></p>
-<p>Another way to look at the same plot</p>
-<p><img src="./figs/brunnerPCABatch.png" width="100%"></p>
-<details>
-<summary>
-What happened
-</summary>
-<p>
-</p><p>Confounding between acquisition batch and cell cycle arrest!!</p>
-<p>To consult the statistician after an experiment is finished is often merely to ask him to conduct a post mortem examination. He can perhaps say what the experiment died of. – Ronald Fisher</p>
-<p></p>
-</details>
-<p>Thinking about design before your experiment is key!!!!</p>
-</section>
-</section>
-<section id="references" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> References</h1>
+<section id="references" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> References</h1>
 
 
 </section>

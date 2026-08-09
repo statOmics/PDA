@@ -343,7 +343,11 @@ $$
 \log_2 \widehat{\text{FC}} &=& \hat{\beta}_{D8}
 \end{array}
 $$
+In R
 
+```
+lm(intensity ~ genotype, data = WP_003023392)
+```
 
 ```{r}
 WP_003023392 <- data.frame(
@@ -955,7 +959,7 @@ Duguet et al. (2017) MCP 16(8):1416-1432. doi: 10.1074/mcp.m116.062745
 - We can estimate the effect of the treatment within block!
 - We can isolate the between block variability from the analysis using linear model:
 $$ 
-y \sim \text{type} + \text{mouse}
+\sim \text{type} + \text{mouse}
 $$
 - Not possible with perseus!
 
@@ -967,38 +971,5 @@ $$\updownarrow$$
 
 - Randomized complete block design assessing Treg and Tconv in each mouse
 
-# Brunner et al. 
-
-<img src="./figs/brunner2022PCA.jpg" width="100%">
-
-Brunner et al. 2022. Mol Syst Biol. 18(3): e10798. doi: 10.15252/msb.202110798
-
-- Single cell study on 231 HeLa cells with drug induced cell cycle arrest for which over 2500 proteins where measured with MS-SCP. 
-- Authors report:  
-
-"The proteomes of the different cell cycle states grouped together in a principal component analysis (PCA) plot". 
-
-"Our single‐cell data set also highlighted proteins not previously associated with the cell cycle and the G2/M transition"
-
-## Reanalysis of the results
-
-We could reproduce the results: 
-
-<img src="./figs/brunnerPCACellCycle.png" width="100%">
-
-Another way to look at the same plot
-
-<img src="./figs/brunnerPCABatch.png" width="100%">
-
-<details><summary> What happened </summary><p>
-
-Confounding between acquisition batch and cell cycle arrest!!
-
-To consult the statistician after an experiment is finished is often merely to ask him to conduct a post mortem examination. He can perhaps say what the experiment died of. -- Ronald Fisher
-
-</p></details>
-
-
-Thinking about design before your experiment is key!!!!
 
 # References

@@ -61,11 +61,15 @@ This parts introduces the user to the key concepts for data processing in differ
 
 # Statistical Inference & Design concepts
 
-- [Basics of experimental design (BePA proteomics summer school)](00-experimentalDesign1.html)
-
 - [Basics of Statistical Inference](03-inference.html)
 - [Tutorial Differential Analysis and Design Aspects](03-tutorial-Design.html)
 - [Wrapup Blocking](03-blocking-wrapup.html)
+
+# Course specific content
+
+
+- BePA Proteomics Summer School: [Basics of experimental design](00-experimentalDesign1.html)
+- Brixen Proteomics Summer School 2026: [lecture](brixenLecture.html) 
 
 # Vignettes 
 

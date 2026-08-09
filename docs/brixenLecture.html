@@ -1,0 +1,2403 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Lieven Clement">
+
+<title>Biostatistics - Basics of experimental design, data processing and differential analysis</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./figs/msqrob2.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ac1b6a99fa653f88043b785012da591b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-fa-chalkboard-teacher" role="img">
+</i> 
+ <span class="menu-text">Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-topics">    
+        <li>
+    <a class="dropdown-item" href="./01-dataprocessing.html">
+ <span class="dropdown-text">1. Basic concepts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./02-workflow-optimisation.html">
+ <span class="dropdown-text">1.1 Wrapup Data Processing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./03-inference.html">
+ <span class="dropdown-text">2.1. Inference</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./03-blocking-wrapup.html">
+ <span class="dropdown-text">2.2. Wrapup Blocking</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tutorials" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-fa-chalkboard-teacher" role="img">
+</i> 
+ <span class="menu-text">Tutorials</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tutorials">    
+        <li>
+    <a class="dropdown-item" href="./01-tutorial-data-processing.html">
+ <span class="dropdown-text">1. Tutorial Data Processing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./03-tutorial-Design.html">
+ <span class="dropdown-text">2. Tutorial Differential Analysis and Design</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#motivating-example-brunner-et-al.-2022" id="toc-motivating-example-brunner-et-al.-2022" class="nav-link active" data-scroll-target="#motivating-example-brunner-et-al.-2022"><span class="header-section-number">1</span> Motivating example (Brunner et al.&nbsp;2022)</a>
+  <ul class="collapse">
+  <li><a href="#reanalysis-of-the-results" id="toc-reanalysis-of-the-results" class="nav-link" data-scroll-target="#reanalysis-of-the-results"><span class="header-section-number">1.1</span> Reanalysis of the results</a></li>
+  <li><a href="#why-stats" id="toc-why-stats" class="nav-link" data-scroll-target="#why-stats"><span class="header-section-number">1.2</span> Why stats</a></li>
+  <li><a href="#stages-of-an-experiment" id="toc-stages-of-an-experiment" class="nav-link" data-scroll-target="#stages-of-an-experiment"><span class="header-section-number">1.3</span> Stages of an experiment</a></li>
+  <li><a href="#structure-of-the-lecture" id="toc-structure-of-the-lecture" class="nav-link" data-scroll-target="#structure-of-the-lecture"><span class="header-section-number">1.4</span> Structure of the lecture</a></li>
+  </ul></li>
+  <li><a href="#data-processing" id="toc-data-processing" class="nav-link" data-scroll-target="#data-processing"><span class="header-section-number">2</span> Data Processing</a>
+  <ul class="collapse">
+  <li><a href="#data-background" id="toc-data-background" class="nav-link" data-scroll-target="#data-background"><span class="header-section-number">2.1</span> Data Background</a>
+  <ul class="collapse">
+  <li><a href="#data-acquisition" id="toc-data-acquisition" class="nav-link" data-scroll-target="#data-acquisition"><span class="header-section-number">2.1.1</span> Data acquisition</a></li>
+  <li><a href="#level-of-quantification" id="toc-level-of-quantification" class="nav-link" data-scroll-target="#level-of-quantification"><span class="header-section-number">2.1.2</span> Level of quantification</a></li>
+  <li><a href="#experimental-context" id="toc-experimental-context" class="nav-link" data-scroll-target="#experimental-context"><span class="header-section-number">2.1.3</span> Experimental context</a></li>
+  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation"><span class="header-section-number">2.1.4</span> Evaluation</a></li>
+  </ul></li>
+  <li><a href="#precursor-filtering" id="toc-precursor-filtering" class="nav-link" data-scroll-target="#precursor-filtering"><span class="header-section-number">2.2</span> Precursor Filtering</a></li>
+  <li><a href="#log-transformation" id="toc-log-transformation" class="nav-link" data-scroll-target="#log-transformation"><span class="header-section-number">2.3</span> Log-transformation</a></li>
+  <li><a href="#normalisation" id="toc-normalisation" class="nav-link" data-scroll-target="#normalisation"><span class="header-section-number">2.4</span> Normalisation</a>
+  <ul class="collapse">
+  <li><a href="#heart-example-median-normalisation" id="toc-heart-example-median-normalisation" class="nav-link" data-scroll-target="#heart-example-median-normalisation"><span class="header-section-number">2.4.1</span> Heart Example: Median Normalisation</a></li>
+  <li><a href="#heart-example-median-of-ratio-normalisation" id="toc-heart-example-median-of-ratio-normalisation" class="nav-link" data-scroll-target="#heart-example-median-of-ratio-normalisation"><span class="header-section-number">2.4.2</span> Heart Example: Median of Ratio Normalisation</a></li>
+  </ul></li>
+  <li><a href="#summarisation" id="toc-summarisation" class="nav-link" data-scroll-target="#summarisation"><span class="header-section-number">2.5</span> Summarisation</a>
+  <ul class="collapse">
+  <li><a href="#median-summarisation" id="toc-median-summarisation" class="nav-link" data-scroll-target="#median-summarisation"><span class="header-section-number">2.5.1</span> Median Summarisation</a></li>
+  <li><a href="#maxlfq-summarisation" id="toc-maxlfq-summarisation" class="nav-link" data-scroll-target="#maxlfq-summarisation"><span class="header-section-number">2.5.2</span> MaxLFQ Summarisation</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#statistical-modeling-and-inference" id="toc-statistical-modeling-and-inference" class="nav-link" data-scroll-target="#statistical-modeling-and-inference"><span class="header-section-number">3</span> Statistical Modeling and Inference</a>
+  <ul class="collapse">
+  <li><a href="#motivating-dataset" id="toc-motivating-dataset" class="nav-link" data-scroll-target="#motivating-dataset"><span class="header-section-number">3.1</span> Motivating dataset</a></li>
+  <li><a href="#import-the-data-in-r" id="toc-import-the-data-in-r" class="nav-link" data-scroll-target="#import-the-data-in-r"><span class="header-section-number">3.2</span> Import the data in R</a></li>
+  <li><a href="#preprocessing" id="toc-preprocessing" class="nav-link" data-scroll-target="#preprocessing"><span class="header-section-number">3.3</span> Preprocessing</a></li>
+  <li><a href="#summarized-data-structure" id="toc-summarized-data-structure" class="nav-link" data-scroll-target="#summarized-data-structure"><span class="header-section-number">3.4</span> Summarized data structure</a>
+  <ul class="collapse">
+  <li><a href="#design" id="toc-design" class="nav-link" data-scroll-target="#design"><span class="header-section-number">3.4.1</span> Design</a></li>
+  <li><a href="#summarized-intensity-matrix" id="toc-summarized-intensity-matrix" class="nav-link" data-scroll-target="#summarized-intensity-matrix"><span class="header-section-number">3.4.2</span> Summarized intensity matrix</a></li>
+  </ul></li>
+  <li><a href="#hypothesis-testing-a-single-protein" id="toc-hypothesis-testing-a-single-protein" class="nav-link" data-scroll-target="#hypothesis-testing-a-single-protein"><span class="header-section-number">3.5</span> Hypothesis testing: a single protein</a>
+  <ul class="collapse">
+  <li><a href="#t-test" id="toc-t-test" class="nav-link" data-scroll-target="#t-test"><span class="header-section-number">3.5.1</span> T-test</a></li>
+  <li><a href="#linear-model" id="toc-linear-model" class="nav-link" data-scroll-target="#linear-model"><span class="header-section-number">3.5.2</span> Linear model</a></li>
+  <li><a href="#null-hypothesis-h_0-and-alternative-hypothesis-h_1" id="toc-null-hypothesis-h_0-and-alternative-hypothesis-h_1" class="nav-link" data-scroll-target="#null-hypothesis-h_0-and-alternative-hypothesis-h_1"><span class="header-section-number">3.5.3</span> Null hypothesis (<span class="math inline">\(H_0\)</span>) and alternative hypothesis (<span class="math inline">\(H_1\)</span>)</a></li>
+  </ul></li>
+  <li><a href="#multiple-hypothesis-testing" id="toc-multiple-hypothesis-testing" class="nav-link" data-scroll-target="#multiple-hypothesis-testing"><span class="header-section-number">3.6</span> Multiple hypothesis testing</a>
+  <ul class="collapse">
+  <li><a href="#multiple-testing-false-discovery-rate" id="toc-multiple-testing-false-discovery-rate" class="nav-link" data-scroll-target="#multiple-testing-false-discovery-rate"><span class="header-section-number">3.6.1</span> Multiple testing: False discovery rate</a></li>
+  </ul></li>
+  <li><a href="#moderated-statistics" id="toc-moderated-statistics" class="nav-link" data-scroll-target="#moderated-statistics"><span class="header-section-number">3.7</span> Moderated Statistics</a>
+  <ul class="collapse">
+  <li><a href="#empirical-bayes" id="toc-empirical-bayes" class="nav-link" data-scroll-target="#empirical-bayes"><span class="header-section-number">3.7.1</span> Empirical Bayes</a></li>
+  <li><a href="#shrinkage-of-the-variance-and-moderated-t-statistics" id="toc-shrinkage-of-the-variance-and-moderated-t-statistics" class="nav-link" data-scroll-target="#shrinkage-of-the-variance-and-moderated-t-statistics"><span class="header-section-number">3.7.2</span> Shrinkage of the variance and moderated t-statistics</a></li>
+  </ul></li>
+  <li><a href="#plots" id="toc-plots" class="nav-link" data-scroll-target="#plots"><span class="header-section-number">3.8</span> Plots</a></li>
+  </ul></li>
+  <li><a href="#some-concepts-on-experimental-design" id="toc-some-concepts-on-experimental-design" class="nav-link" data-scroll-target="#some-concepts-on-experimental-design"><span class="header-section-number">4</span> Some Concepts on Experimental Design</a>
+  <ul class="collapse">
+  <li><a href="#random-sampling" id="toc-random-sampling" class="nav-link" data-scroll-target="#random-sampling"><span class="header-section-number">4.1</span> Random Sampling</a></li>
+  <li><a href="#randomisation" id="toc-randomisation" class="nav-link" data-scroll-target="#randomisation"><span class="header-section-number">4.2</span> Randomisation</a></li>
+  <li><a href="#control" id="toc-control" class="nav-link" data-scroll-target="#control"><span class="header-section-number">4.3</span> Control</a></li>
+  <li><a href="#replication-sample-size" id="toc-replication-sample-size" class="nav-link" data-scroll-target="#replication-sample-size"><span class="header-section-number">4.4</span> Replication / Sample size</a></li>
+  <li><a href="#randomized-complete-block-designs" id="toc-randomized-complete-block-designs" class="nav-link" data-scroll-target="#randomized-complete-block-designs"><span class="header-section-number">4.5</span> Randomized complete block designs</a></li>
+  <li><a href="#nature-methods-points-of-significance---blocking" id="toc-nature-methods-points-of-significance---blocking" class="nav-link" data-scroll-target="#nature-methods-points-of-significance---blocking"><span class="header-section-number">4.6</span> Nature methods: Points of significance - Blocking</a>
+  <ul class="collapse">
+  <li><a href="#mouse-example" id="toc-mouse-example" class="nav-link" data-scroll-target="#mouse-example"><span class="header-section-number">4.6.1</span> Mouse example</a></li>
+  <li><a href="#assess-the-impact-of-blocking-in-the-tutorial-session" id="toc-assess-the-impact-of-blocking-in-the-tutorial-session" class="nav-link" data-scroll-target="#assess-the-impact-of-blocking-in-the-tutorial-session"><span class="header-section-number">4.6.2</span> Assess the impact of blocking in the tutorial session!</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">5</span> References</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Biostatistics - Basics of experimental design, data processing and differential analysis</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Lieven Clement <a href="https://orcid.org/0000-0002-9050-4370" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Ghent University
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="motivating-example-brunner-et-al.-2022" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Motivating example (Brunner et al.&nbsp;2022)</h1>
+<p><img src="./figs/brunner2022PCA.jpg" width="100%"></p>
+<p>Brunner et al.&nbsp;2022. Mol Syst Biol. 18(3): e10798. doi: 10.15252/msb.202110798</p>
+<ul>
+<li><p>Single cell study on 231 HeLa cells with drug induced cell cycle arrest for which over 2500 proteins where measured with MS-SCP.</p></li>
+<li><p>Authors report:</p></li>
+</ul>
+<p>“The proteomes of the different cell cycle states grouped together in a principal component analysis (PCA) plot”.</p>
+<p>“Our single‐cell data set also highlighted proteins not previously associated with the cell cycle and the G2/M transition”</p>
+<section id="reanalysis-of-the-results" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="reanalysis-of-the-results"><span class="header-section-number">1.1</span> Reanalysis of the results</h2>
+<p>We could reproduce the results:</p>
+<p><img src="./figs/brunnerPCACellCycle.png" width="100%"></p>
+<p>Another way to look at the same plot</p>
+<p><img src="./figs/brunnerPCABatch.png" width="100%"></p>
+<details>
+<summary>
+What happened
+</summary>
+<p>
+</p><p>Confounding between acquisition batch and cell cycle arrest!!</p>
+<p>To consult the statistician after an experiment is finished is often merely to ask him to conduct a post mortem examination. He can perhaps say what the experiment died of. – Ronald Fisher</p>
+<p></p>
+</details>
+<p>Thinking about design before your experiment is key!!!!</p>
+</section>
+<section id="why-stats" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="why-stats"><span class="header-section-number">1.2</span> Why stats</h2>
+<ul>
+<li>Statistics is the science on
+<ol type="1">
+<li>collecting (experimental design),</li>
+<li>exploring (data exploration) and</li>
+<li>learning from data and to generalize what we observe in the sample towards the population while quantifying, controlling and reporting variability and uncertainty (statistical modelling and statistical inference).</li>
+</ol></li>
+</ul>
+</section>
+<section id="stages-of-an-experiment" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="stages-of-an-experiment"><span class="header-section-number">1.3</span> Stages of an experiment</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="structure-of-the-lecture" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="structure-of-the-lecture"><span class="header-section-number">1.4</span> Structure of the lecture</h2>
+<ol type="1">
+<li>Understand properties of MS-based proteomics data / Data Processing</li>
+<li>Differential Abundance analysis of MS-based proteomics Data / Statistical Modeling &amp; Inference</li>
+<li>Some important aspects of experimental design</li>
+</ol>
+</section>
+</section>
+<section id="data-processing" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Data Processing</h1>
+<section id="data-background" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="data-background"><span class="header-section-number">2.1</span> Data Background</h2>
+<section id="data-acquisition" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="data-acquisition"><span class="header-section-number">2.1.1</span> Data acquisition</h3>
+<section id="data-dependent-acquisition" class="level4">
+<h4 class="anchored" data-anchor-id="data-dependent-acquisition">Data Dependent Acquisition</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/lfq_workflow.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption>Overview of an LFQ-based proteomics workflow.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Peptide Characteristics</p>
+<ul>
+<li>Modifications</li>
+<li>Ionisation Efficiency: huge variability</li>
+<li>Identification
+<ul>
+<li>Misidentification <span class="math inline">\(\rightarrow\)</span> outliers</li>
+<li>MS<span class="math inline">\(^2\)</span> selection on peptide abundance</li>
+<li>Context depending missingness</li>
+<li>Non-random missingness</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><span class="math inline">\(\rightarrow\)</span> Unbalanced pepide identifications across samples and messy data</p>
+</section>
+<section id="data-independent-acquisition" class="level4">
+<h4 class="anchored" data-anchor-id="data-independent-acquisition">Data Independent Acquisition</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./figs/dia.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>Data-independent acquisition.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>m/z range into sequential windows (e.g., 400–425, 425–450 m/z)</p></li>
+<li><p>MS2 spectra are complex as many peptides mixed</p></li>
+<li><p>Deconvolution of the MS2 signal</p></li>
+<li><p>With dedicated software such as Spectronaut or DIA-NN</p>
+<ul>
+<li>Identification based on spectral libraries</li>
+<li>Library free: FASTA database to predict in silico spectra, retention times, and ion mobilities, which are then used to search the DIA data</li>
+<li>Use of decoys sequences to estimate false discovery rate of ID</li>
+</ul></li>
+<li><p>Quantification using MS2 and/or MS1 peaks</p></li>
+</ul>
+</section>
+</section>
+<section id="level-of-quantification" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="level-of-quantification"><span class="header-section-number">2.1.2</span> Level of quantification</h3>
+<ul>
+<li>MS-based proteomics returns peptides or precursors: pieces of proteins</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/challenges_peptides.png" class="img-fluid figure-img" width="256"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Quantification commonly required on the protein level</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/challenges_proteins.png" class="img-fluid figure-img" width="258"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="experimental-context" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="experimental-context"><span class="header-section-number">2.1.3</span> Experimental context</h3>
+<ul>
+<li><p>In-house DIA spike-in study to illustrate the analysis (subset of Staes et al. <span class="citation" data-cites="Staes2024">(<a href="#ref-Staes2024" role="doc-biblioref">Staes et al. 2024</a>)</span>).</p></li>
+<li><p>spiked digested UPS proteins in yeast background at the following ratio’s <span class="math inline">\(\rightarrow\)</span> yeast:ups ratio 10:1, 10:2, 10:4, 10:8, 10:10</p></li>
+<li><p>Each sample was analyzed in triplicate</p></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/cptacLayoutLudger.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Here use the data from the middle 3 spike-in ratio’s (10:2, 10:4 and 10:8)</li>
+<li>Searched using DIA-NN 2.2.0.</li>
+</ul>
+</section>
+<section id="evaluation" class="level3" data-number="2.1.4">
+<h3 data-number="2.1.4" class="anchored" data-anchor-id="evaluation"><span class="header-section-number">2.1.4</span> Evaluation</h3>
+<ul>
+<li>Top list</li>
+<li>Volcano plots</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenVolcanoMedRatMaxLFQ.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="precursor-filtering" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="precursor-filtering"><span class="header-section-number">2.2</span> Precursor Filtering</h2>
+<ul>
+<li>Remove questionable identifications: Low ID Q-value, Decoys, Contaminants, …</li>
+<li>Only keep Proteotypic precursors</li>
+<li>Remove precursors/PSMs with many missing values</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenMissingness.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="log-transformation" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="log-transformation"><span class="header-section-number">2.3</span> Log-transformation</h2>
+<ul>
+<li>Precursor: ADSRDPASDQMQHWK, charge-state 3 from UPS|P04040ups|CATA_HUMAN_UPS</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenLogNeed.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Plot upon log2 -transformation</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenLog.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Mean-variance relation</li>
+<li>Solved by log2 tranformation</li>
+</ul>
+<p><span class="math display">\[log_2FC_{b-a} = log_2b - log_2a = log_2 \frac{b}{a}\]</span></p>
+</section>
+<section id="normalisation" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="normalisation"><span class="header-section-number">2.4</span> Normalisation</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenNormNeeded.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Even in clean synthetic data set <span class="math inline">\(\rightarrow\)</span> marginal precursor intensity distributions across samples not well aligned.</p>
+<p><span class="math inline">\(\rightarrow\)</span> Can cause power loss &amp; bias</p>
+<p>Median centering is a popular choice, often works well in very clean datasets but more advance normalisation often needed in real data.</p>
+<p>Here, we will use the Median of Ratios method of DESeq2, which was originally developed for RNA-seq data analysis and can also correct for differences in composition of the proteomes in the different samples. The method:</p>
+<ol type="1">
+<li>First calculates pseudo-reference sample (row-wise mean of log2 intensities, which corresponds to the log2 transformed geometric mean).</li>
+<li>Then calculates log2 ratios of each sample w.r.t. the pseudo-reference.</li>
+<li>Finally the column wise median of these log2 ratios is taken to obtain the sample based normalisation factor on the log2 scale.</li>
+</ol>
+<p>The figure below illustrates the procedure on a small toy example with four features (rows) and three samples (columns).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-mor-illustration" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mor-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="brixenLecture_files/figure-html/fig-mor-illustration-1.png" class="img-fluid figure-img" width="1008">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mor-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Illustration of the median-of-ratios normalisation on a toy example with four features and three samples. Starting from the matrix of log2 intensities (left), a pseudo-reference sample is obtained by taking the row-wise (feature-wise) mean. Log2 fold changes of every sample relative to this reference are then calculated (middle). Finally, the sample-specific normalisation factor is obtained as the median of these log2 fold changes over all features (right).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Also takes difference in compositionality into account.</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenNorm.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="heart-example-median-normalisation" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="heart-example-median-normalisation"><span class="header-section-number">2.4.1</span> Heart Example: Median Normalisation</h3>
+<ul>
+<li>PXD006675 on PRIDE: Doll S, Dre, B, en M, Geyer PE, Itzhak DN, Braun C, Doppler SA, Meier F, Deutsch MA, Lahm H, Lange R, Krane M, Mann M, Region and cell-type resolved quantitative proteomic map of the human heart. Nat Commun, 8(1):1469(2017)</li>
+</ul>
+<p>Here, proteomes of the atrium and ventriculum in the left and the right heart region are profiled for 3 patients</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenHeartMedian.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="heart-example-median-of-ratio-normalisation" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="heart-example-median-of-ratio-normalisation"><span class="header-section-number">2.4.2</span> Heart Example: Median of Ratio Normalisation</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenHeartMedRat.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Why?</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenHeartMissingness.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="summarisation" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="summarisation"><span class="header-section-number">2.5</span> Summarisation</h2>
+<ul>
+<li><p>Summarise/Aggregate precursor-level intensities into a protein expression value.</p></li>
+<li><p>Peptide-level data for one of the spiked UPS proteins.</p></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenSumNeed.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol type="1">
+<li>Protein can consist of many precursors,</li>
+<li>Different precursors have different intensities within the same sample <span class="math inline">\(\rightarrow\)</span> different properties / ionisation efficiency</li>
+<li>Context dependent missingness</li>
+<li>Often outliers, e.g.&nbsp;due to misidentification or fluctuations during MS acquisition.</li>
+</ol>
+<ul>
+<li>Summarization should account for precursor species!</li>
+<li>Popular choice: maxLFQ</li>
+</ul>
+<ol type="1">
+<li><p>Calculates all pairwise log ratio’s between samples only using their shared precursors. Particularly, it uses the median of the log ratio’s between the shared precursors s, i.e.&nbsp; <span class="math display">\[r_{ij} = median(y_{sj}-y_{si})\]</span>.</p></li>
+<li><p>Estimates the summaries by solving</p></li>
+</ol>
+<p><span class="math display">\[
+\sum_i\sum_j(y^{prot}_j - y^{prot}_i - r_{ij})^2
+\]</span></p>
+<section id="median-summarisation" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="median-summarisation"><span class="header-section-number">2.5.1</span> Median Summarisation</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenVolcanoMedRatMedian.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="maxlfq-summarisation" class="level3" data-number="2.5.2">
+<h3 data-number="2.5.2" class="anchored" data-anchor-id="maxlfq-summarisation"><span class="header-section-number">2.5.2</span> MaxLFQ Summarisation</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenVolcanoMedRatMaxLFQ.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Why?</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenSummarisationExplained.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="statistical-modeling-and-inference" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Statistical Modeling and Inference</h1>
+<section id="motivating-dataset" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="motivating-dataset"><span class="header-section-number">3.1</span> Motivating dataset</h2>
+<details>
+<summary>
+Movie clip
+</summary>
+<p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/TW5rk1y7aOc" frameborder="0" style="display: block; margin: auto;" allow="autoplay; encrypted-media" allowfullscreen="">
+</iframe>
+</p>
+</details>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/francisella.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/tularemia_lesion.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Pathogen: causes tularemia</li>
+<li>Metabolic adaptation key for intracellular life cycle of pathogenic microorganisms.</li>
+<li>Upon entry into host cells quick phasomal escape and active multiplication in cytosolic compartment.</li>
+<li>Franciscella is auxotroph for several amino acids, including arginine.</li>
+<li>Inactivation of arginine transporter delayed bacterial phagosomal escape and intracellular multiplication.</li>
+<li>Experiment to assess difference in proteome using 3 WT vs 3 ArgP KO mutants</li>
+</ul>
+</section>
+<section id="import-the-data-in-r" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="import-the-data-in-r"><span class="header-section-number">3.2</span> Import the data in R</h2>
+<details>
+<summary>
+Click to see code
+</summary>
+<p>
+</p><ol type="1">
+<li>Load libraries</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(limma)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(QFeatures)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(msqrob2)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="2" type="1">
+<li>We use a peptides.txt file from MS-data quantified with maxquant that contains MS1 intensities summarized at the peptide level.</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>peptidesFile <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/statOmics/PDA22GTPB/data/quantification/francisella/peptides.txt"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="3" type="1">
+<li>Maxquant stores the intensity data for the different samples in columnns that start with Intensity. We can retreive the column names with the intensity data with the code below:</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ecols <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"Intensity</span><span class="sc">\\</span><span class="st">."</span>, <span class="fu">names</span>(<span class="fu">read.delim</span>(peptidesFile)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="4" type="1">
+<li>Read the data and store it in QFeatures object</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>qf <span class="ot">&lt;-</span> <span class="fu">readQFeatures</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">assayData =</span> <span class="fu">read.delim</span>(peptidesFile),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fnames =</span> <span class="dv">1</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">quantCols =</span>  ecols,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">"peptideRaw"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="5" type="1">
+<li>Update data with information on design</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colData</span>(qf)<span class="sc">$</span>genotype <span class="ot">&lt;-</span> qf[[<span class="dv">1</span>]] <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">substr</span>(<span class="dv">12</span>,<span class="dv">13</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.factor</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relevel</span>(<span class="st">"WT"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colData</span>(qf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>DataFrame with 6 rows and 1 column
+                         genotype
+                         &lt;factor&gt;
+Intensity.1WT_20_2h_n3_3       WT
+Intensity.1WT_20_2h_n4_3       WT
+Intensity.1WT_20_2h_n5_3       WT
+Intensity.3D8_20_2h_n3_3       D8
+Intensity.3D8_20_2h_n4_3       D8
+Intensity.3D8_20_2h_n5_3       D8</code></pre>
+</div>
+</div>
+<p></p>
+</details>
+</section>
+<section id="preprocessing" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="preprocessing"><span class="header-section-number">3.3</span> Preprocessing</h2>
+<details>
+<summary>
+Click to see code to log-transfrom the data
+</summary>
+<p>
+</p><ol type="1">
+<li>Log transform</li>
+</ol>
+<ul>
+<li>peptides with zero intensities are missing peptides and should be represent with a <code>NA</code> value rather than <code>0</code>.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>qf <span class="ot">&lt;-</span> <span class="fu">zeroIsNA</span>(qf, <span class="st">"peptideRaw"</span>) <span class="co"># convert 0 to NA</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Logtransform data with base 2</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>qf <span class="ot">&lt;-</span> <span class="fu">logTransform</span>(qf, <span class="at">base =</span> <span class="dv">2</span>, <span class="at">i =</span> <span class="st">"peptideRaw"</span>, <span class="at">name =</span> <span class="st">"peptides_log"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="2" type="1">
+<li>Filtering</li>
+</ol>
+<p>Only use proteotypic proteins</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>qf <span class="ot">&lt;-</span> <span class="fu">filterFeatures</span>(qf, <span class="sc">~</span> <span class="sc">!</span><span class="fu">grepl</span>(<span class="at">pattern =</span> <span class="st">";"</span>, Proteins))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Remove reverse sequences (decoys) and contaminants. Note that this is indicated by the column names Reverse and depending on the version of maxQuant with Potential.contaminants or Contaminants.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>qf <span class="ot">&lt;-</span> <span class="fu">filterFeatures</span>(qf,<span class="sc">~</span>Reverse <span class="sc">!=</span> <span class="st">"+"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>qf <span class="ot">&lt;-</span> <span class="fu">filterFeatures</span>(qf,<span class="sc">~</span> Contaminant <span class="sc">!=</span> <span class="st">"+"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>We keep peptides that were observed at last 4 times out of the <span class="math inline">\(n
+= 6\)</span> samples, so that we can estimate the peptide characteristics.</li>
+</ul>
+<p>We tolerate the following proportion of NAs: <span class="math inline">\(\text{pNA} = \frac{(n - 4)}{n} = 0.33\)</span>, so we keep peptides that are observed in at least 66% of the samples. This is an arbitrary value that may need to be adjusted depending on the experiment and the data set.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>nObs <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">ncol</span>(qf[[<span class="st">"peptides_log"</span>]])</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>(qf <span class="ot">&lt;-</span> <span class="fu">filterNA</span>(qf, <span class="at">i =</span> <span class="st">"peptides_log"</span>, <span class="at">pNA =</span> (n <span class="sc">-</span> nObs) <span class="sc">/</span> n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>An instance of class QFeatures (type: bulk) with 2 sets:
+
+ [1] peptideRaw: SummarizedExperiment with 10461 rows and 6 columns 
+ [2] peptides_log: SummarizedExperiment with 5052 rows and 6 columns </code></pre>
+</div>
+</div>
+<p>We keep 5052 peptides upon filtering.</p>
+<ol start="3" type="1">
+<li>Normalization by median centering</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>qf <span class="ot">&lt;-</span>  <span class="fu">sweep</span>( <span class="co">#4. Subtract log2 norm factor column-by-column (MARGIN = 2)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  qf,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">MARGIN =</span> <span class="dv">2</span>, </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">STATS =</span> <span class="fu">nfLogMedianOfRatios</span>(qf, <span class="at">i=</span><span class="st">"peptides_log"</span>), <span class="co">#1.</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">i =</span> <span class="st">"peptides_log"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">"peptides_norm"</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="4" type="1">
+<li>Summarization. We use maxLFQ from the iq package.</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>qf <span class="ot">&lt;-</span> <span class="fu">aggregateFeatures</span>(qf,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">i =</span> <span class="st">"peptides_norm"</span>, </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">fcol =</span> <span class="st">"Proteins"</span>, </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"proteins"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> <span class="cf">function</span>(X) iq<span class="sc">::</span><span class="fu">maxLFQ</span>(X)<span class="sc">$</span>estimate</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+</div>
+</div>
+<p>Plot of preprocessed data</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>qf[, , <span class="st">"peptides_norm"</span>] <span class="sc">|&gt;</span> <span class="co">#1.</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">longForm</span>(<span class="at">colvars =</span> <span class="fu">c</span>( <span class="st">"genotype"</span>)) <span class="sc">|&gt;</span>  <span class="co">#2. </span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">|&gt;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="co">#3.</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> value,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">colour =</span> genotype,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">group =</span> colname) <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Peptide-level"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>qf[, , <span class="st">"proteins"</span>] <span class="sc">|&gt;</span> <span class="co">#1.</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">longForm</span>(<span class="at">colvars =</span> <span class="fu">c</span>( <span class="st">"genotype"</span>)) <span class="sc">|&gt;</span>  <span class="co">#2. </span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">|&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="co">#3.</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> value,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">colour =</span> genotype,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">group =</span> colname) <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Protein-level"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-35-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p>
+</details>
+</section>
+<section id="summarized-data-structure" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="summarized-data-structure"><span class="header-section-number">3.4</span> Summarized data structure</h2>
+<section id="design" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="design"><span class="header-section-number">3.4.1</span> Design</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>qf <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colData</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">genotype</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Intensity.1WT_20_2h_n3_3</td>
+<td style="text-align: left;">WT</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Intensity.1WT_20_2h_n4_3</td>
+<td style="text-align: left;">WT</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Intensity.1WT_20_2h_n5_3</td>
+<td style="text-align: left;">WT</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Intensity.3D8_20_2h_n3_3</td>
+<td style="text-align: left;">D8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Intensity.3D8_20_2h_n4_3</td>
+<td style="text-align: left;">D8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Intensity.3D8_20_2h_n5_3</td>
+<td style="text-align: left;">D8</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>WT vs KO</li>
+<li>3 vs 3 repeats</li>
+</ul>
+</section>
+<section id="summarized-intensity-matrix" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="summarized-intensity-matrix"><span class="header-section-number">3.4.2</span> Summarized intensity matrix</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>qf[[<span class="st">"proteins"</span>]] <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assay</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Intensity.1WT_20_2h_n3_3</th>
+<th style="text-align: right;">Intensity.1WT_20_2h_n4_3</th>
+<th style="text-align: right;">Intensity.1WT_20_2h_n5_3</th>
+<th style="text-align: right;">Intensity.3D8_20_2h_n3_3</th>
+<th style="text-align: right;">Intensity.3D8_20_2h_n4_3</th>
+<th style="text-align: right;">Intensity.3D8_20_2h_n5_3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">WP_003013731</td>
+<td style="text-align: right;">25.91971</td>
+<td style="text-align: right;">26.03992</td>
+<td style="text-align: right;">26.27133</td>
+<td style="text-align: right;">25.93598</td>
+<td style="text-align: right;">26.19855</td>
+<td style="text-align: right;">26.22295</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">WP_003013909</td>
+<td style="text-align: right;">25.87033</td>
+<td style="text-align: right;">25.65042</td>
+<td style="text-align: right;">25.74652</td>
+<td style="text-align: right;">26.07970</td>
+<td style="text-align: right;">25.90919</td>
+<td style="text-align: right;">26.03624</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">WP_003014068</td>
+<td style="text-align: right;">26.79067</td>
+<td style="text-align: right;">26.76619</td>
+<td style="text-align: right;">27.08102</td>
+<td style="text-align: right;">26.62292</td>
+<td style="text-align: right;">26.80336</td>
+<td style="text-align: right;">26.77253</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">WP_003014122</td>
+<td style="text-align: right;">25.30922</td>
+<td style="text-align: right;">24.96019</td>
+<td style="text-align: right;">25.18033</td>
+<td style="text-align: right;">24.92020</td>
+<td style="text-align: right;">24.80622</td>
+<td style="text-align: right;">24.86137</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">WP_003014123</td>
+<td style="text-align: right;">25.86714</td>
+<td style="text-align: right;">25.66709</td>
+<td style="text-align: right;">25.77431</td>
+<td style="text-align: right;">25.70902</td>
+<td style="text-align: right;">25.71849</td>
+<td style="text-align: right;">25.53778</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">WP_003014302</td>
+<td style="text-align: right;">27.85088</td>
+<td style="text-align: right;">27.93109</td>
+<td style="text-align: right;">27.87884</td>
+<td style="text-align: right;">28.01439</td>
+<td style="text-align: right;">28.02191</td>
+<td style="text-align: right;">28.05122</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>1020 proteins</li>
+</ul>
+</section>
+</section>
+<section id="hypothesis-testing-a-single-protein" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="hypothesis-testing-a-single-protein"><span class="header-section-number">3.5</span> Hypothesis testing: a single protein</h2>
+<details>
+<summary>
+Movie clip
+</summary>
+<p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/myP6SUlSwsM" frameborder="0" style="display: block; margin: auto;" allow="autoplay; encrypted-media" allowfullscreen="">
+</iframe>
+</p>
+</details>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="t-test" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="t-test"><span class="header-section-number">3.5.1</span> T-test</h3>
+<p><span class="math display">\[
+\log_2 \text{FC} = \bar{y}_{p1}-\bar{y}_{p2}
+\]</span></p>
+<p><span class="math display">\[
+T_g=\frac{\log_2 \widehat{\text{FC}}}{\text{se}_{\log_2 \widehat{\text{FC}}}}
+\]</span></p>
+<p><span class="math display">\[
+T_g=\frac{\widehat{\text{signal}}}{\widehat{\text{Noise}}}
+\]</span></p>
+<p>If we can assume equal variance in both treatment groups:</p>
+<p><span class="math display">\[
+\text{se}_{\log_2 \text{FC}}=\text{SD}\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}
+\]</span></p>
+</section>
+<section id="linear-model" class="level3" data-number="3.5.2">
+<h3 data-number="3.5.2" class="anchored" data-anchor-id="linear-model"><span class="header-section-number">3.5.2</span> Linear model</h3>
+<p><span class="math display">\[
+\begin{array}{lcl}
+y_i &amp;=&amp; \beta_0 + \beta_{D8}x_{i,D8} + \epsilon_i\\
+\epsilon_i &amp;\sim&amp; N(0,\sigma^2)\\
+\end{array}
+\]</span> - <span class="math inline">\(x_{i,D8}\)</span> is dummy variable</p>
+<p><span class="math display">\[
+\begin{array}{lcl}
+x_{i,D8} &amp;=&amp; 0 \text{ (WT)}\\
+x_{i,D8} &amp;=&amp; 1 \text{ (D8)}
+\end{array}
+\]</span> - <span class="math inline">\(\log_2\)</span> FC?</p>
+<p><span class="math display">\[
+\begin{array}{lcl}
+\hat \mu_{WT} &amp;=&amp; \hat\beta_0 \\  
+\hat \mu_{D8} &amp;=&amp; \hat\beta_0 + \hat{\beta}_{D8}\\
+\log_2 \widehat{\text{FC}} &amp;=&amp; \hat{\beta}_{D8}
+\end{array}
+\]</span> In R</p>
+<pre><code>lm(intensity ~ genotype, data = WP_003023392)</code></pre>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>WP_003023392 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">intensity =</span> <span class="fu">assay</span>(qf[[<span class="st">"proteins"</span>]][<span class="st">"WP_003023392"</span>,]) <span class="sc">|&gt;</span> <span class="fu">c</span>(), </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">genotype =</span> <span class="fu">colData</span>(qf)[,<span class="dv">1</span>]) </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>WP_003023392 <span class="sc">|&gt;</span> </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>genotype,<span class="at">y=</span>intensity)) <span class="sc">+</span> </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Protein WP_003023392"</span>) <span class="sc">+</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">\[
+t=\frac{\log_2\widehat{\text{FC}}}{\text{se}_{\log_2\widehat{\text{FC}}}}=\frac{-1.37}{0.103}=-13.2
+\]</span></p>
+<ul>
+<li><p>Is t = -13.2 indicating that there is an effect?</p></li>
+<li><p>How likely is it to observe t = -13.2 when there is no effect of the argP KO on the protein expression?</p></li>
+</ul>
+</section>
+<section id="null-hypothesis-h_0-and-alternative-hypothesis-h_1" class="level3" data-number="3.5.3">
+<h3 data-number="3.5.3" class="anchored" data-anchor-id="null-hypothesis-h_0-and-alternative-hypothesis-h_1"><span class="header-section-number">3.5.3</span> Null hypothesis (<span class="math inline">\(H_0\)</span>) and alternative hypothesis (<span class="math inline">\(H_1\)</span>)</h3>
+<ul>
+<li><p>With data we can never prove a hypothesis (falsification principle of Popper)</p></li>
+<li><p>With data we can only reject a hypothesis</p></li>
+<li><p>In general we start from <em>alternative hypothese</em> <span class="math inline">\(H_1\)</span>: we want to show an effect of the KO on a protein</p></li>
+</ul>
+<center>
+<span class="math inline">\(H_1\)</span>: On average the protein abundance in WT is different from that in KO
+</center>
+<ul>
+<li>But, we will assess this by falsifying the opposite:
+<center>
+<span class="math inline">\(H_0\)</span>: On average the protein abundance in WT is equal to that in KO&lt;-
+</center></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(intensity <span class="sc">~</span> genotype, <span class="at">data =</span> WP_003023392)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = intensity ~ genotype, data = WP_003023392)
+
+Residuals:
+       1        2        3        4        5        6 
+ 0.07266 -0.12677  0.05411  0.03622 -0.15565  0.11943 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 26.10746    0.07308  357.27 3.68e-10 ***
+genotypeD8  -1.36902    0.10334  -13.25 0.000188 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1266 on 4 degrees of freedom
+Multiple R-squared:  0.9777,    Adjusted R-squared:  0.9721 
+F-statistic: 175.5 on 1 and 4 DF,  p-value: 0.0001877</code></pre>
+</div>
+</div>
+<ul>
+<li><p>How likely is it to observe an equal or more extreme effect than the one observed in the sample when the null hypothesis is true?</p></li>
+<li><p>When we make assumptions about the distribution of our test statistic we can quantify this probability: <em>p-value</em>. The p-value will only be calculated correctly if the underlying assumptions hold!</p></li>
+<li><p>When we repeat the experiment, the probability to observe a fold change for this gene that is more extreme than a 2.58 fold (<span class="math inline">\(\log_2 FC=-1.37\)</span>) down or up regulation by random change (if <span class="math inline">\(H_0\)</span> is true) is 2 out of 10000.<br>
+</p></li>
+<li><p>If the p-value is below a significance threshold <span class="math inline">\(\alpha\)</span> we reject the null hypothesis. <em>We control the probability on a false positive result at the <span class="math inline">\(\alpha\)</span>-level (type I error)</em></p></li>
+<li><p>Note, that the p-values are uniform under the null hypothesis, i.e.&nbsp;when <span class="math inline">\(H_0\)</span> is true all p-values are equally likely.</p></li>
+</ul>
+</section>
+</section>
+<section id="multiple-hypothesis-testing" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="multiple-hypothesis-testing"><span class="header-section-number">3.6</span> Multiple hypothesis testing</h2>
+<details>
+<summary>
+Movie clip
+</summary>
+<p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/cLn-CFyA6ps" frameborder="0" style="display: block; margin: auto;" allow="autoplay; encrypted-media" allowfullscreen="">
+</iframe>
+</p>
+</details>
+<ul>
+<li><p>Consider testing DA for all <span class="math inline">\(m=1066\)</span> proteins simultaneously</p></li>
+<li><p>What if we assess each individual test at level <span class="math inline">\(\alpha\)</span>? <span class="math inline">\(\rightarrow\)</span> Probability to have a false positive (FP) among all m simultatenous test <span class="math inline">\(&gt;&gt;&gt;  \alpha= 0.05\)</span></p></li>
+<li><p>Indeed for each non DA protein we have a probability of 5% to return a FP.</p></li>
+<li><p>In a typical experiment the majority of the proteins are non DA.</p></li>
+<li><p>So an upperbound of the expected FP is <span class="math inline">\(m \times \alpha\)</span> or <span class="math inline">\(1066 \times 0.05=53\)</span>.</p></li>
+</ul>
+<p><span class="math inline">\(\rightarrow\)</span> Hence, we are bound to call many false positive proteins each time we run the experiment.</p>
+<section id="multiple-testing-false-discovery-rate" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="multiple-testing-false-discovery-rate"><span class="header-section-number">3.6.1</span> Multiple testing: False discovery rate</h3>
+<details>
+<summary>
+Movie clip
+</summary>
+<p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/envDqvEwRcc" frameborder="0" style="display: block; margin: auto;" allow="autoplay; encrypted-media" allowfullscreen="">
+</iframe>
+</p>
+</details>
+<ul>
+<li>FDR: Expected proportion of false positives on the total number of positives you return.</li>
+<li>An FDR of 1% means that on average we expect 1% false positive proteins in the list of proteins that are called significant.</li>
+<li>Defined by Benjamini and Hochberg in their seminal paper Benjamini, Y. and Hochberg, Y. (1995). “Controlling the false discovery rate: a practical and powerful approach to multiple testing”. Journal of the Royal Statistical Society Series B, 57 (1): 289–300.</li>
+</ul>
+<p>The <strong>False Discovery Proportion (FDP)</strong> is the fraction of false positives that are returned, i.e.&nbsp;</p>
+<p><span class="math display">\[
+FDP = \frac{FP}{R}
+\]</span></p>
+<ul>
+<li>However, this quantity cannot be observed because in practice we only know the number of proteins for which we rejected <span class="math inline">\(H_0\)</span>, <span class="math inline">\(R\)</span>.</li>
+<li>But, we do not know the number of false positives, <span class="math inline">\(FP\)</span>.</li>
+</ul>
+<p>Therefore, Benjamini and Hochberg, 1995, defined The <strong>False Discovery Rate (FDR)</strong> as <span class="math display">\[
+   \text{FDR} = \text{E}\left[\frac{FP}{R}\right] =\text{E}\left[\text{FDP}\right]
+\]</span> the expected FDP.</p>
+<ul>
+<li>Controlling the FDR allows for more discoveries (i.e.&nbsp;longer lists with significant results), while the fraction of false discoveries among the significant results in well controlled on average. As a consequence, more of the true positive hypotheses will be detected.</li>
+</ul>
+<section id="intuition-of-bh-fdr-procedure" class="level4">
+<h4 class="anchored" data-anchor-id="intuition-of-bh-fdr-procedure">Intuition of BH-FDR procedure</h4>
+<p>Consider <span class="math inline">\(m = 1000\)</span> tests</p>
+<ul>
+<li><p>Suppose that a researcher rejects all null hypotheses for which <span class="math inline">\(p &lt; 0.01\)</span>.</p></li>
+<li><p>If we use <span class="math inline">\(p &lt; 0.01\)</span>, we expect <span class="math inline">\(0.01 \times m_0\)</span> tests to return false positives.</p></li>
+<li><p>A conservative estimate of the number of false positives that we can expect can be obtained by considering that the null hypotheses are true for all features, <span class="math inline">\(m_0 = m =  1000\)</span>.</p></li>
+<li><p>We then would expect <span class="math inline">\(0.01 \times 1000 = 10\)</span> false positives (<span class="math inline">\(FP=10\)</span>).</p></li>
+<li><p>Suppose that the researcher found 200 genes with <span class="math inline">\(p&lt;0.01\)</span> (<span class="math inline">\(R=200\)</span>).</p></li>
+<li><p>The proportion of false positive results (FDP = false positive proportion) among the list of <span class="math inline">\(R=200\)</span> genes can then be estimated as</p></li>
+</ul>
+<p><span class="math display">\[
+   \widehat{\text{FDP}}=\frac{\widehat{FP}}{R}=\frac{10}{200}=\frac{0.01 \times 1000}{200} = 0.05.
+\]</span></p>
+</section>
+<section id="benjamini-and-hochberg-1995-procedure-for-controlling-the-fdr-at-alpha" class="level4">
+<h4 class="anchored" data-anchor-id="benjamini-and-hochberg-1995-procedure-for-controlling-the-fdr-at-alpha">Benjamini and Hochberg (1995) procedure for controlling the FDR at <span class="math inline">\(\alpha\)</span></h4>
+<ol type="1">
+<li><p>Let <span class="math inline">\(p_{(1)}\leq \ldots \leq p_{(m)}\)</span> denote the ordered <span class="math inline">\(p\)</span>-values.</p></li>
+<li><p>Find the largest integer <span class="math inline">\(k\)</span> so that <span class="math display">\[
+\frac{p_{(k)} \times m}{k} \leq \alpha
+\]</span> <span class="math display">\[\text{or}\]</span> <span class="math display">\[
+p_{(k)} \leq k \times \alpha/m
+\]</span></p></li>
+<li><p>If such a <span class="math inline">\(k\)</span> exists, reject the <span class="math inline">\(k\)</span> null hypotheses associated with <span class="math inline">\(p_{(1)}, \ldots, p_{(k)}\)</span>. Otherwise none of the null hypotheses is rejected.</p></li>
+</ol>
+<p>The adjusted <span class="math inline">\(p\)</span>-value (also known as the <span class="math inline">\(q\)</span>-value in FDR literature): <span class="math display">\[
+   q_{(i)}=\tilde{p}_{(i)} = \min\left[\min_{j=i,\ldots, m}\left(m p_{(j)}/j\right), 1 \right].
+\]</span> In the hypothetical example above: <span class="math inline">\(k=200\)</span>, <span class="math inline">\(p_{(k)}=0.01\)</span>, <span class="math inline">\(m=1000\)</span> and <span class="math inline">\(\alpha=0.05\)</span>.</p>
+</section>
+<section id="francisella-example" class="level4">
+<h4 class="anchored" data-anchor-id="francisella-example">Francisella Example</h4>
+<details>
+<summary>
+Movie clip
+</summary>
+<p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/B3BmnOLkYg4" frameborder="0" style="display: block; margin: auto;" allow="autoplay; encrypted-media" allowfullscreen="">
+</iframe>
+</p>
+</details>
+<details>
+<summary>
+Click to see code
+</summary>
+<p>
+</p><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ttestMx <span class="ot">&lt;-</span> <span class="cf">function</span>(y,group) {</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    test <span class="ot">&lt;-</span> <span class="fu">try</span>(<span class="fu">t.test</span>(y[group],y[<span class="sc">!</span>group],<span class="at">var.equal=</span><span class="cn">TRUE</span>),<span class="at">silent=</span><span class="cn">TRUE</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is</span>(test,<span class="st">"try-error"</span>)) {</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="fu">c</span>(<span class="at">log2FC=</span><span class="cn">NA</span>,<span class="at">se=</span><span class="cn">NA</span>,<span class="at">tstat=</span><span class="cn">NA</span>,<span class="at">p=</span><span class="cn">NA</span>))</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="fu">c</span>(<span class="at">log2FC=</span> (test<span class="sc">$</span>estimate<span class="sc">%*%</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>)),<span class="at">se=</span>test<span class="sc">$</span>stderr,<span class="at">tstat=</span>test<span class="sc">$</span>statistic,<span class="at">pval=</span>test<span class="sc">$</span>p.value))</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a> res <span class="ot">&lt;-</span> <span class="fu">apply</span>(</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assay</span>(qf[[<span class="st">"proteins"</span>]]), </span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, </span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    ttestMx,</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="fu">colData</span>(qf)<span class="sc">$</span>genotype<span class="sc">==</span><span class="st">"D8"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>()</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a> <span class="fu">colnames</span>(res) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"logFC"</span>,<span class="st">"se"</span>,<span class="st">"tstat"</span>,<span class="st">"pval"</span>)</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a> res <span class="ot">&lt;-</span> res <span class="sc">|&gt;</span> </span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>   <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>   <span class="fu">na.exclude</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>   <span class="fu">arrange</span>(pval)</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a> res<span class="sc">$</span>adjPval <span class="ot">&lt;-</span> <span class="fu">p.adjust</span>(res<span class="sc">$</span>pval, <span class="st">"fdr"</span>)</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a> alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>adjAlphaForm <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(res),<span class="st">" x "</span>,alpha,<span class="st">"/"</span>,<span class="fu">nrow</span>(res))</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>adjAlpha <span class="ot">&lt;-</span> alpha <span class="sc">*</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(res))<span class="sc">/</span><span class="fu">nrow</span>(res) </span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span><span class="st">"pval &lt; adjAlpha"</span> <span class="ot">&lt;-</span> res<span class="sc">$</span>pval <span class="sc">&lt;</span> res<span class="sc">$</span>adjAlpha </span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span><span class="st">"adjPval &lt; alpha"</span> <span class="ot">&lt;-</span> res<span class="sc">$</span>adjPval <span class="sc">&lt;</span> alpha </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p>
+</details>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 14%">
+<col style="width: 9%">
+<col style="width: 15%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">logFC</th>
+<th style="text-align: right;">pval</th>
+<th style="text-align: right;">adjPval</th>
+<th style="text-align: left;">adjAlphaForm</th>
+<th style="text-align: right;">adjAlpha</th>
+<th style="text-align: left;">pval &lt; adjAlpha</th>
+<th style="text-align: left;">adjPval &lt; alpha</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">WP_003034781</td>
+<td style="text-align: right;">0.4224142</td>
+<td style="text-align: right;">0.0000022</td>
+<td style="text-align: right;">0.0022721</td>
+<td style="text-align: left;">1 x 0.05/1020</td>
+<td style="text-align: right;">0.0000490</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">WP_003040849</td>
+<td style="text-align: right;">-1.2263612</td>
+<td style="text-align: right;">0.0000076</td>
+<td style="text-align: right;">0.0026390</td>
+<td style="text-align: left;">2 x 0.05/1020</td>
+<td style="text-align: right;">0.0000980</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">WP_011733723</td>
+<td style="text-align: right;">-0.3258931</td>
+<td style="text-align: right;">0.0000078</td>
+<td style="text-align: right;">0.0026390</td>
+<td style="text-align: left;">3 x 0.05/1020</td>
+<td style="text-align: right;">0.0001471</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">WP_003041244</td>
+<td style="text-align: right;">0.2057070</td>
+<td style="text-align: right;">0.0000791</td>
+<td style="text-align: right;">0.0201736</td>
+<td style="text-align: left;">4 x 0.05/1020</td>
+<td style="text-align: right;">0.0001961</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">WP_003038430</td>
+<td style="text-align: right;">-0.3836478</td>
+<td style="text-align: right;">0.0001838</td>
+<td style="text-align: right;">0.0280097</td>
+<td style="text-align: left;">5 x 0.05/1020</td>
+<td style="text-align: right;">0.0002451</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">WP_003023392</td>
+<td style="text-align: right;">-1.3690155</td>
+<td style="text-align: right;">0.0001877</td>
+<td style="text-align: right;">0.0280097</td>
+<td style="text-align: left;">6 x 0.05/1020</td>
+<td style="text-align: right;">0.0002941</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">WP_011733588</td>
+<td style="text-align: right;">-0.3823744</td>
+<td style="text-align: right;">0.0001922</td>
+<td style="text-align: right;">0.0280097</td>
+<td style="text-align: left;">7 x 0.05/1020</td>
+<td style="text-align: right;">0.0003431</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">WP_011733645</td>
+<td style="text-align: right;">0.3040827</td>
+<td style="text-align: right;">0.0002362</td>
+<td style="text-align: right;">0.0301195</td>
+<td style="text-align: left;">8 x 0.05/1020</td>
+<td style="text-align: right;">0.0003922</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">WP_004339068</td>
+<td style="text-align: right;">0.1975424</td>
+<td style="text-align: right;">0.0006535</td>
+<td style="text-align: right;">0.0730468</td>
+<td style="text-align: left;">9 x 0.05/1020</td>
+<td style="text-align: right;">0.0004412</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">WP_003018840</td>
+<td style="text-align: right;">-0.5013825</td>
+<td style="text-align: right;">0.0007161</td>
+<td style="text-align: right;">0.0730468</td>
+<td style="text-align: left;">10 x 0.05/1020</td>
+<td style="text-align: right;">0.0004902</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+...</code></pre>
+</div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 13%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 20%">
+<col style="width: 10%">
+<col style="width: 7%">
+<col style="width: 7%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">WP_003022463</td>
+<td style="text-align: right;">-0.0003682</td>
+<td style="text-align: right;">0.9989893</td>
+<td style="text-align: right;">0.9999324</td>
+<td style="text-align: left;">1019 x 0.05/1020</td>
+<td style="text-align: right;">0.049951</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">WP_003033335</td>
+<td style="text-align: right;">-0.0000299</td>
+<td style="text-align: right;">0.9999324</td>
+<td style="text-align: right;">0.9999324</td>
+<td style="text-align: left;">1020 x 0.05/1020</td>
+<td style="text-align: right;">0.050000</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="results" class="level4">
+<h4 class="anchored" data-anchor-id="results">Results</h4>
+<details>
+<summary>
+Click to see code
+</summary>
+<p>
+</p><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>volcanoT <span class="ot">&lt;-</span> <span class="fu">plotVolcano</span>(res) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p>
+</details>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>volcanoT</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="moderated-statistics" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="moderated-statistics"><span class="header-section-number">3.7</span> Moderated Statistics</h2>
+<details>
+<summary>
+Movie clip
+</summary>
+<p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_Q11LXDy0xU" frameborder="0" style="display: block; margin: auto;" allow="autoplay; encrypted-media" allowfullscreen="">
+</iframe>
+</p>
+</details>
+<p>Problems with ordinary t-test</p>
+<details>
+<summary>
+Click to see code
+</summary>
+<p>
+</p><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>problemPlots <span class="ot">&lt;-</span> <span class="fu">list</span>() </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>problemPlots[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> res <span class="sc">|&gt;</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> logFC, <span class="at">y =</span> se, <span class="at">color =</span> adjPval <span class="sc">&lt;</span> <span class="fl">0.05</span>)) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">cex =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">alpha</span>(<span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"red"</span>), <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>problemPlots[[i]] <span class="ot">&lt;-</span> <span class="fu">colData</span>(qf) <span class="sc">|&gt;</span> </span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">intensity =</span> qf[[<span class="st">"proteins"</span>]][<span class="fu">rownames</span>(res)[i],] <span class="sc">|&gt;</span> </span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>             <span class="fu">assay</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>             <span class="fu">c</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>genotype,<span class="at">y=</span>intensity)) <span class="sc">+</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">rownames</span>(res)[i]) <span class="sc">+</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="dv">24</span>,<span class="dv">27</span>)) <span class="sc">+</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_minimal</span>() </span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p>
+</details>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>problemPlots</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[2]]</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-47-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[3]]</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-47-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="empirical-bayes" class="level3" data-number="3.7.1">
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="empirical-bayes"><span class="header-section-number">3.7.1</span> Empirical Bayes</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/limmaShrinkage.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure courtesy to Rafael Irizarry</p>
+<p><span class="math display">\[
+   T_g^{mod} = \frac{\bar{Y}_{g1} - \bar{Y}_{g2}}{C \quad \tilde{S}_g} ,
+\]</span></p>
+<ul>
+<li><strong>empirical Bayes</strong> theory provides formal framework for borrowing strength across proteins,</li>
+<li>Implemented in popular bioconductor package <strong>limma</strong> and <strong>msqrob2</strong></li>
+</ul>
+<p><span class="math display">\[
+  \tilde{S}_g=\sqrt{\frac{d_gS_g^2+d_0S_0^2}{d_g+d_0}},
+\]</span></p>
+<ul>
+<li><span class="math inline">\(S_0^2\)</span>: common variance (over all proteins)</li>
+<li>Moderated t-statistic is t-distributed with <span class="math inline">\(d_0+d_g\)</span> degrees of freedom.</li>
+<li>Note that the degrees of freedom increase by borrowing strength across proteins!</li>
+</ul>
+<details>
+<summary>
+Click to see the code
+</summary>
+<p>
+</p><ol type="1">
+<li>We model the protein level expression values using the <code>msqrob</code> function. By default <code>msqrob2</code> estimates the model parameters using robust regression.</li>
+</ol>
+<p>We will model the data with a different group mean for every genotype. The group is incoded in the variable <code>genotype</code> of the colData. We can specify this model by using a formula with the factor <code>genotype</code> as its predictor: <code>formula = ~genotype</code>.</p>
+<p>Note, that a formula always starts with a symbol ‘~’.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>qf <span class="ot">&lt;-</span> <span class="fu">msqrob</span>(<span class="at">object =</span> qf, <span class="at">i =</span> <span class="st">"proteins"</span>, <span class="at">formula =</span> <span class="sc">~</span>genotype)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="2" type="1">
+<li>Inference</li>
+</ol>
+<p>We first explore the design of the model that we specified using the the package <code>ExploreModelMatrix</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ExploreModelMatrix)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">VisualizeDesign</span>(<span class="fu">colData</span>(qf),<span class="sc">~</span>genotype)<span class="sc">$</span>plotlist[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We have two model parameters, the (Intercept) and genotypeD8. This results in a model with two group means:</p>
+<ol type="1">
+<li>For the wild type (WT) the expected value (mean) of the log2 transformed intensity y for a protein will be modelled using</li>
+</ol>
+<p><span class="math display">\[\text{E}[Y\vert \text{genotype}=\text{WT}] = \text{(Intercept)}\]</span></p>
+<ol start="2" type="1">
+<li>For the knockout genotype D8 the expected value (mean) of the log2 transformed intensity y for a protein will be modelled using</li>
+</ol>
+<p><span class="math display">\[\text{E}[Y\vert \text{genotype}=\text{D8}] = \text{(Intercept)} + \text{genotypeD8}\]</span></p>
+<p>The average log2FC between D8 and WT is thus <span class="math display">\[\log_2\text{FC}_{D8-WT}= \text{E}[Y\vert \text{genotype}=\text{D8}] - \text{E}[Y\vert \text{genotype}=\text{WT}] = \text{genotypeD8}
+\]</span></p>
+<p>Hence, assessing the null hypothesis that there is no differential abundance between D8 and WT can be reformulated as</p>
+<p><span class="math display">\[H_0:  \text{genotypeD8}=0\]</span> We can implement a hypothesis test for each protein in msqrob2 using the code below:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>L <span class="ot">&lt;-</span> <span class="fu">makeContrast</span>(<span class="st">"genotypeD8 = 0"</span>, <span class="at">parameterNames =</span> <span class="fu">c</span>(<span class="st">"genotypeD8"</span>))</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>qf <span class="ot">&lt;-</span> <span class="fu">hypothesisTest</span>(<span class="at">object =</span> qf, <span class="at">i =</span> <span class="st">"proteins"</span>, <span class="at">contrast =</span> L)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We can show the list with all significant DE proteins at the 5% FDR using</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">msqrobCollect</span>(qf[[<span class="st">"proteins"</span>]],L) <span class="sc">|&gt;</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(pval) <span class="sc">|&gt;</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(adjPval<span class="sc">&lt;</span><span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                             logFC         se       df          t         pval
+genotypeD8.WP_003040849 -1.2263612 0.08020151 6.087933 -15.290999 4.358069e-06
+genotypeD8.WP_003023392 -1.3690155 0.11105902 6.087933 -12.326919 1.560512e-05
+genotypeD8.WP_003033719 -1.1615474 0.12602389 5.828253  -9.216882 1.087304e-04
+genotypeD8.WP_003026016 -0.9540456 0.11530658 6.080135  -8.273991 1.573910e-04
+genotypeD8.WP_003033046 -0.8219170 0.10214460 5.815009  -8.046603 2.307079e-04
+genotypeD8.WP_003038350  0.8077325 0.10952806 6.087933   7.374663 2.978545e-04
+                            adjPval   contrast      feature
+genotypeD8.WP_003040849 0.004301414 genotypeD8 WP_003040849
+genotypeD8.WP_003023392 0.007701128 genotypeD8 WP_003023392
+genotypeD8.WP_003033719 0.035772317 genotypeD8 WP_003033719
+genotypeD8.WP_003026016 0.038836240 genotypeD8 WP_003026016
+genotypeD8.WP_003033046 0.045541744 genotypeD8 WP_003033046
+genotypeD8.WP_003038350 0.048997070 genotypeD8 WP_003038350</code></pre>
+</div>
+</div>
+<p>We can also visualise the results using a volcanoplot</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>volcano <span class="ot">&lt;-</span> <span class="fu">plotVolcano</span>(</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rowData</span>(qf[[<span class="st">"proteins"</span>]])<span class="sc">$</span>genotypeD8) <span class="sc">+</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"msqrob2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p>
+</details>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-54-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>The volcano plot opens up when using the EB variance estimator</p></li>
+<li><p>Borrowing strength to estimate the variance using empirical Bayes solves the issue of returning proteins with a low fold change as significant due to a low variance.</p></li>
+</ul>
+</section>
+<section id="shrinkage-of-the-variance-and-moderated-t-statistics" class="level3" data-number="3.7.2">
+<h3 data-number="3.7.2" class="anchored" data-anchor-id="shrinkage-of-the-variance-and-moderated-t-statistics"><span class="header-section-number">3.7.2</span> Shrinkage of the variance and moderated t-statistics</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-55-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Small variances are shrunken towards the common variance resulting in large EB variance estimates</li>
+<li>Large variances are shrunken towards the common variance resulting in smaller EB variance estimates</li>
+<li>Pooled degrees of freedom of the EB variance estimator are larger because information is borrowed across proteins to estimate the variance</li>
+</ul>
+</section>
+</section>
+<section id="plots" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="plots"><span class="header-section-number">3.8</span> Plots</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-56-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-6.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-7.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-8.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-9.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-10.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-11.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-12.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="some-concepts-on-experimental-design" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Some Concepts on Experimental Design</h1>
+<section id="random-sampling" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="random-sampling"><span class="header-section-number">4.1</span> Random Sampling</h2>
+<ul>
+<li><p>Random sampling is closely related to the concept of the population or the scope of the study.</p></li>
+<li><p>Based on a sample of subjects, the researchers want to come to conclusions that hold for</p>
+<ul>
+<li>all kinds of people</li>
+<li>people with hypertension</li>
+</ul></li>
+<li><p>Scope of the study should be well specified before the start of the study.</p></li>
+<li><p>Representative sample: For the statistical analysis to be valid, it is required that the subjects are selected completely at random from the population to which we want to generalize our conclusions.</p></li>
+<li><p>Selecting completely at random from a population implies:</p>
+<ul>
+<li>all subjects in the population should have the same probability of being selected in the sample,</li>
+<li>the selection of a subject in the sample should be independent from the selection of the other subjects in the sample.</li>
+</ul></li>
+</ul>
+</section>
+<section id="randomisation" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="randomisation"><span class="header-section-number">4.2</span> Randomisation</h2>
+<ul>
+<li>Make sure that groups are comparable / Avoid systematic differences between groups</li>
+<li>Randomisation: treatments of interest are attributed at random to the experimental units (subjects, animals, plants, cages, …)</li>
+</ul>
+</section>
+<section id="control" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="control"><span class="header-section-number">4.3</span> Control</h2>
+<p>Good control is nessecary</p>
+<p><span class="math inline">\(\rightarrow\)</span> Placebo controlled double blind experiments<br>
+<span class="math inline">\(\rightarrow\)</span> Injection of control animal with blank containing same solvents, etc.</p>
+</section>
+<section id="replication-sample-size" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="replication-sample-size"><span class="header-section-number">4.4</span> Replication / Sample size</h2>
+<p>Within an experiment: Enables to estimate uncertainty / biological variability</p>
+<ul>
+<li><p>Replication is essential for quantifying the noise</p></li>
+<li><p>Noise: biological and technical in nature</p></li>
+</ul>
+<p>Between experiments: Any true finding should be reproducible</p>
+<ul>
+<li><p>Genuine replicates include all sources of variability: technical + biological</p></li>
+<li><p>Technical replicates are important if you assess new technologies</p></li>
+</ul>
+<details>
+<summary>
+Movie clip
+</summary>
+<p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/uELgkzDjVRY" frameborder="0" style="display: block; margin: auto;" allow="autoplay; encrypted-media" allowfullscreen="">
+</iframe>
+</p>
+</details>
+<p><span class="math display">\[
+\log_2 \text{FC} = \bar{y}_{p1}-\bar{y}_{p2}
+\]</span></p>
+<p><span class="math display">\[
+T_g=\frac{\log_2 \text{FC}}{\text{se}_{\log_2 \text{FC}}}
+\]</span></p>
+<p><span class="math display">\[
+T_g=\frac{\widehat{\text{signal}}}{\widehat{\text{Noise}}}
+\]</span></p>
+<p>If we can assume equal variance in both treatment groups:</p>
+<p><span class="math display">\[
+\text{se}_{\log_2 \text{FC}}=\text{SD}\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}
+\]</span></p>
+<p><span class="math inline">\(\rightarrow\)</span> if number of bio-repeats increases we have a higher power!</p>
+<ul>
+<li>cfr. Study of tamoxifen treated Estrogen Recepter (ER) positive breast cancer patients (tutorial)</li>
+</ul>
+</section>
+<section id="randomized-complete-block-designs" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="randomized-complete-block-designs"><span class="header-section-number">4.5</span> Randomized complete block designs</h2>
+<p><span class="math display">\[\sigma^2= \sigma^2_{bio}+\sigma^2_\text{lab} +\sigma^2_\text{extraction} + \sigma^2_\text{run} + \ldots\]</span></p>
+<ul>
+<li>Biological: fluctuations in protein level between mice, fluctations in protein level between cells, …</li>
+<li>Technical: cage effect, lab effect, week effect, plasma extraction, MS-run, …</li>
+</ul>
+</section>
+<section id="nature-methods-points-of-significance---blocking" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="nature-methods-points-of-significance---blocking"><span class="header-section-number">4.6</span> Nature methods: Points of significance - Blocking</h2>
+<p><a href="https://www.nature.com/articles/nmeth.3005.pdf">https://www.nature.com/articles/nmeth.3005.pdf</a></p>
+<section id="mouse-example" class="level3" data-number="4.6.1">
+<h3 data-number="4.6.1" class="anchored" data-anchor-id="mouse-example"><span class="header-section-number">4.6.1</span> Mouse example</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/mouseTcell_RCB_design.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Duguet et al.&nbsp;(2017) MCP 16(8):1416-1432. doi: 10.1074/mcp.m116.062745</p>
+<ul>
+<li>All treatments of interest are present within block!</li>
+<li>We can estimate the effect of the treatment within block!</li>
+<li>We can isolate the between block variability from the analysis using linear model: <span class="math display">\[
+\sim \text{type} + \text{mouse}
+\]</span></li>
+<li>Not possible with perseus!</li>
+</ul>
+</section>
+<section id="assess-the-impact-of-blocking-in-the-tutorial-session" class="level3" data-number="4.6.2">
+<h3 data-number="4.6.2" class="anchored" data-anchor-id="assess-the-impact-of-blocking-in-the-tutorial-session"><span class="header-section-number">4.6.2</span> Assess the impact of blocking in the tutorial session!</h3>
+<ul>
+<li>Completely randomized design with only one cell type per mouse (Treg and Tconv)</li>
+</ul>
+<p><span class="math display">\[\updownarrow\]</span></p>
+<ul>
+<li>Randomized complete block design assessing Treg and Tconv in each mouse</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="references" class="level1" data-number="5">
+
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">5 References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Staes2024" class="csl-entry" role="listitem">
+Staes, An, Teresa Mendes Maia, Sara Dufour, et al. 2024. <span>“Benefit of in Silico Predicted Spectral Libraries in Data‑independent Acquisition Data Analysis Workflows.”</span> <em>Journal of Proteome Research</em> 23 (6): 2078–89. <a href="https://doi.org/10.1021/acs.jproteome.4c00048">https://doi.org/10.1021/acs.jproteome.4c00048</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

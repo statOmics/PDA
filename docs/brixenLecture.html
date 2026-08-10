@@ -246,7 +246,6 @@ window.Quarto = {
   <li><a href="#data-acquisition" id="toc-data-acquisition" class="nav-link" data-scroll-target="#data-acquisition"><span class="header-section-number">2.1.1</span> Data acquisition</a></li>
   <li><a href="#level-of-quantification" id="toc-level-of-quantification" class="nav-link" data-scroll-target="#level-of-quantification"><span class="header-section-number">2.1.2</span> Level of quantification</a></li>
   <li><a href="#experimental-context" id="toc-experimental-context" class="nav-link" data-scroll-target="#experimental-context"><span class="header-section-number">2.1.3</span> Experimental context</a></li>
-  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation"><span class="header-section-number">2.1.4</span> Evaluation</a></li>
   </ul></li>
   <li><a href="#precursor-filtering" id="toc-precursor-filtering" class="nav-link" data-scroll-target="#precursor-filtering"><span class="header-section-number">2.2</span> Precursor Filtering</a></li>
   <li><a href="#log-transformation" id="toc-log-transformation" class="nav-link" data-scroll-target="#log-transformation"><span class="header-section-number">2.3</span> Log-transformation</a></li>
@@ -511,22 +510,6 @@ What happened
 <li>Searched using DIA-NN 2.2.0.</li>
 </ul>
 </section>
-<section id="evaluation" class="level3" data-number="2.1.4">
-<h3 data-number="2.1.4" class="anchored" data-anchor-id="evaluation"><span class="header-section-number">2.1.4</span> Evaluation</h3>
-<ul>
-<li>Top list</li>
-<li>Volcano plots</li>
-</ul>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="./figs/brixenVolcanoMedRatMaxLFQ.jpg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
 </section>
 <section id="precursor-filtering" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="precursor-filtering"><span class="header-section-number">2.2</span> Precursor Filtering</h2>
@@ -544,6 +527,7 @@ What happened
 </div>
 </div>
 </div>
+<p><strong><a href="https://www.pnas.org/content/107/21/9546">Bourgon <em>et al.</em> (2010)</a> showed that filtering is only appropriate if the statistic used for filtering is independent of the statistic used for hypothesis testing under the null hypothesis.</strong></p>
 </section>
 <section id="log-transformation" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="log-transformation"><span class="header-section-number">2.3</span> Log-transformation</h2>
@@ -611,7 +595,7 @@ Figure&nbsp;1: Illustration of the median-of-ratios normalisation on a toy examp
 </div>
 </div>
 <ul>
-<li>Also takes difference in compositionality into account.</li>
+<li>Median of Ratio Normalisation also takes difference in compositionality between samples into account.</li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
@@ -655,6 +639,26 @@ Figure&nbsp;1: Illustration of the median-of-ratios normalisation on a toy examp
 <div>
 <figure class="figure">
 <p><img src="./figs/brixenHeartMissingness.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Median Normalisation</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenHeartNormalisationExplainedMedian.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Median of Ratio Normalisation</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenHeartNormalisationExplainedMedRat.jpg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -934,7 +938,7 @@ Click to see code to log-transfrom the data
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -952,7 +956,7 @@ Click to see code to log-transfrom the data
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-35-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-36-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1118,7 +1122,7 @@ Movie clip
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1174,7 +1178,7 @@ x_{i,D8} &amp;=&amp; 1 \text{ (D8)}
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1550,7 +1554,7 @@ Click to see code
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1607,7 +1611,7 @@ Click to see code
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1618,7 +1622,7 @@ Click to see code
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-47-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-48-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1629,7 +1633,7 @@ Click to see code
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-47-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-48-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1684,7 +1688,7 @@ Click to see the code
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1740,7 +1744,7 @@ genotypeD8.WP_003038350 0.048997070 genotypeD8 WP_003038350</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-54-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-55-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1756,7 +1760,7 @@ genotypeD8.WP_003038350 0.048997070 genotypeD8 WP_003038350</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-55-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-56-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1774,7 +1778,7 @@ genotypeD8.WP_003038350 0.048997070 genotypeD8 WP_003038350</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-56-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1783,84 +1787,84 @@ genotypeD8.WP_003038350 0.048997070 genotypeD8 WP_003038350</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-4.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-4.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-5.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-5.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-6.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-6.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-7.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-7.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-8.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-8.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-9.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-9.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-10.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-10.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-11.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-11.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-12.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-12.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>

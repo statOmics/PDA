@@ -198,16 +198,6 @@ knitr::include_graphics("./figs/cptacLayoutLudger.png")
 - Here use the data from the middle 3 spike-in ratio's (10:2, 10:4 and 10:8) 
 - Searched using DIA-NN 2.2.0.
 
-
-### Evaluation 
-
-- Top list
-- Volcano plots
-
-```{r echo=FALSE}
-knitr::include_graphics("./figs/brixenVolcanoMedRatMaxLFQ.jpg")
-```
-
 ## Precursor Filtering
 
 - Remove questionable identifications: Low ID Q-value, Decoys, Contaminants, ...
@@ -217,6 +207,8 @@ knitr::include_graphics("./figs/brixenVolcanoMedRatMaxLFQ.jpg")
 ```{r echo=FALSE}
 knitr::include_graphics("./figs/brixenMissingness.jpg")
 ```
+
+**[Bourgon *et al.* (2010)](https://www.pnas.org/content/107/21/9546) showed that filtering is only appropriate if the statistic used for filtering is independent of the statistic used for hypothesis testing under the null hypothesis.**
 
 ## Log-transformation
 
@@ -381,7 +373,7 @@ ggplot() +
   theme(plot.margin = margin(10, 10, 10, 30))
 ```
 
-- Also takes difference in compositionality into account. 
+- Median of Ratio Normalisation also takes difference in compositionality between samples into account. 
 
 ```{r echo=FALSE}
 knitr::include_graphics("./figs/brixenNorm.jpg")
@@ -410,6 +402,18 @@ Why?
 
 ```{r echo=FALSE}
 knitr::include_graphics("./figs/brixenHeartMissingness.jpg")
+```
+
+Median Normalisation 
+
+```{r echo=FALSE}
+knitr::include_graphics("./figs/brixenHeartNormalisationExplainedMedian.jpg")
+```
+
+Median of Ratio Normalisation
+
+```{r echo=FALSE}
+knitr::include_graphics("./figs/brixenHeartNormalisationExplainedMedRat.jpg")
 ```
 
 ## Summarisation

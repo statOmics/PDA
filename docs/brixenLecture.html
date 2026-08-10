@@ -297,7 +297,6 @@ window.Quarto = {
   <li><a href="#nature-methods-points-of-significance---blocking" id="toc-nature-methods-points-of-significance---blocking" class="nav-link" data-scroll-target="#nature-methods-points-of-significance---blocking"><span class="header-section-number">4.6</span> Nature methods: Points of significance - Blocking</a>
   <ul class="collapse">
   <li><a href="#mouse-example" id="toc-mouse-example" class="nav-link" data-scroll-target="#mouse-example"><span class="header-section-number">4.6.1</span> Mouse example</a></li>
-  <li><a href="#assess-the-impact-of-blocking-in-the-tutorial-session" id="toc-assess-the-impact-of-blocking-in-the-tutorial-session" class="nav-link" data-scroll-target="#assess-the-impact-of-blocking-in-the-tutorial-session"><span class="header-section-number">4.6.2</span> Assess the impact of blocking in the tutorial session!</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">5</span> References</a></li>
@@ -1597,7 +1596,7 @@ Click to see code
 <span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>genotype,<span class="at">y=</span>intensity)) <span class="sc">+</span></span>
 <span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
 <span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">rownames</span>(res)[i]) <span class="sc">+</span></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="dv">24</span>,<span class="dv">27</span>)) <span class="sc">+</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="fl">25.8</span>,<span class="fl">27.4</span>)) <span class="sc">+</span></span>
 <span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_minimal</span>() </span>
 <span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -1966,24 +1965,110 @@ T_g=\frac{\widehat{\text{signal}}}{\widehat{\text{Noise}}}
 </div>
 </div>
 <p>Duguet et al.&nbsp;(2017) MCP 16(8):1416-1432. doi: 10.1074/mcp.m116.062745</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenMouseBlockingOrigMDS.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="subsampling-to-show-impact-of-design" class="level4">
+<h4 class="anchored" data-anchor-id="subsampling-to-show-impact-of-design">Subsampling to show impact of design</h4>
+<p>Completely randomised design (CRD):</p>
+<ul>
+<li>4 mice vs 4 mice</li>
+<li>Only one cell type per mouse</li>
+<li>Linear model:</li>
+</ul>
+<p><span class="math display">\[
+\sim \text{type}
+\]</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenMouseBlockingCRD4vs4MDS.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenMouseBlockingCRD4vs4Means.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Randomised complete block design:</p>
+<ul>
+<li>4 mice</li>
+<li>Both regulatory and ordinary T-cells per mouse</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenMouseBlockingRCB4MDS.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 <ul>
 <li>All treatments of interest are present within block!</li>
 <li>We can estimate the effect of the treatment within block!</li>
 <li>We can isolate the between block variability from the analysis using linear model: <span class="math display">\[
 \sim \text{type} + \text{mouse}
 \]</span></li>
-<li>Not possible with perseus!</li>
+</ul>
+<p>RCB design (blocking):</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenMouseBlockingRCB4Means.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="results-1" class="level4">
+<h4 class="anchored" data-anchor-id="results-1">Results</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenMouseBlockingVolcano.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenMouseBlockingVariances1.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Advantage if block effect/variability between mice is large. Big reduction in residual errors.<br>
+</li>
+<li>Otherwise loss in degrees of freedom (more model parameters have to be estimated).</li>
+</ul>
+<p><span class="math display">\[
+\text{SD}_\text{res} = \frac{\sum e_i^2}{n-p}
+\]</span></p>
+<p>with <span class="math inline">\(n-p\)</span> equals</p>
+<ul>
+<li>8-5 = 3 for RCB and</li>
+<li>8 - 2 = 6 for CRD.</li>
 </ul>
 </section>
-<section id="assess-the-impact-of-blocking-in-the-tutorial-session" class="level3" data-number="4.6.2">
-<h3 data-number="4.6.2" class="anchored" data-anchor-id="assess-the-impact-of-blocking-in-the-tutorial-session"><span class="header-section-number">4.6.2</span> Assess the impact of blocking in the tutorial session!</h3>
-<ul>
-<li>Completely randomized design with only one cell type per mouse (Treg and Tconv)</li>
-</ul>
-<p><span class="math display">\[\updownarrow\]</span></p>
-<ul>
-<li>Randomized complete block design assessing Treg and Tconv in each mouse</li>
-</ul>
 </section>
 </section>
 </section>

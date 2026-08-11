@@ -185,7 +185,7 @@ knitr::include_graphics("./figs/challenges_proteins.png")
 
 ### Experimental context 
 
-- In-house DIA spike-in study to illustrate the analysis (subset of Staes et al. [@Staes2024]). 
+- In-house DIA spike-in study to illustrate the analysis (subset of [@Staes2024]). 
 - spiked digested UPS proteins in yeast background at the following ratio's 
 $\rightarrow$ yeast:ups ratio 10:1, 10:2, 10:4, 10:8, 10:10
 
@@ -203,6 +203,7 @@ knitr::include_graphics("./figs/cptacLayoutLudger.png")
 - Remove questionable identifications: Low ID Q-value, Decoys, Contaminants, ...
 - Only keep Proteotypic precursors
 - Remove precursors/PSMs with many missing values
+- ...
 
 ```{r echo=FALSE}
 knitr::include_graphics("./figs/brixenMissingness.jpg")
@@ -224,8 +225,8 @@ Plot upon log2 -transformation
 knitr::include_graphics("./figs/brixenLog.jpg")
 ```
 
-- Mean-variance relation 
-- Solved by log2 tranformation
+- Mean-variance relation $\rightarrow$ Solved by log2 tranformation
+- Other property of log transformation: 
 
 $$log_2FC_{b-a} = log_2b - log_2a = log_2 \frac{b}{a}$$
 
@@ -240,19 +241,59 @@ distributions across samples not well aligned.
 
 $\rightarrow$ Can cause power loss  & bias 
 
-Median centering is a popular choice, often works well in very clean datasets but more advance normalisation often needed in real data. 
+### Median centering
 
-Here, we will use the Median of Ratios method of DESeq2, which was originally 
-developed for RNA-seq data analysis and can also correct for differences in 
-composition of the proteomes in the different samples. 
+- Is a popular choice 
+- Often works well in very clean datasets 
+- But more advance normalisation often needed in real data. 
+
+#### Spike-in
+
+```{r echo=FALSE}
+knitr::include_graphics("./figs/brixenNormMedian.jpg")
+```
+
+#### Heart Example: Median Normalisation
+
+- PXD006675 on PRIDE: Doll S, Dre, B, en M, Geyer PE, Itzhak DN, Braun C, Doppler SA, Meier F, Deutsch MA, Lahm H, Lange R, Krane M, Mann M, Region and cell-type resolved quantitative proteomic map of the human heart. Nat Commun, 8(1):1469(2017)
+
+- 3 patients
+- proteomes from biopsies of atrium and ventriculum in the left
+and the right heart region 
+- DDA
+
+```{r echo=FALSE}
+knitr::include_graphics("./figs/brixenHeartNormalisationEffect.jpg")
+```
+
+```{r echo=FALSE}
+knitr::include_graphics("./figs/brixenHeartMedian.jpg")
+```
+
+
+Why? 
+
+```{r echo=FALSE}
+knitr::include_graphics("./figs/brixenHeartMissingness.jpg")
+```
+
+Median Normalisation 
+
+```{r echo=FALSE}
+knitr::include_graphics("./figs/brixenHeartNormalisationExplainedMedian.jpg")
+```
+
+### Median of Ratios method 
+
+- Borrowed from DESeq2: originally developed for RNA-seq data analysis 
+- Also correct for differences in 
+composition of the proteomes in the different samples.
+
 The method: 
 
-1. First calculates pseudo-reference sample (row-wise mean of log2 intensities, which corresponds to the log2 transformed geometric mean).
-2. Then calculates log2 ratios of each sample w.r.t. the pseudo-reference.
-3. Finally the column wise median of these log2 ratios is taken to obtain  the sample based normalisation factor on the log2 scale.
-
-The figure below illustrates the procedure on a small toy example with
-four features (rows) and three samples (columns).
+1. Calculates pseudo-reference sample (row-wise mean of log2 intensities, which corresponds to the log2 transformed geometric mean).
+2. Calculates log2 ratios of each sample w.r.t. the pseudo-reference.
+3. Column wise median of these log2 ratios is taken as the sample based normalisation factor on the log2 scale.
 
 ```{r fig-mor-illustration, echo = FALSE, fig.width = 10.5, fig.height = 4.6, fig.cap = "Illustration of the median-of-ratios normalisation on a toy example with four features and three samples. Starting from the matrix of log2 intensities (left), a pseudo-reference sample is obtained by taking the row-wise (feature-wise) mean. Log2 fold changes of every sample relative to this reference are then calculated (middle). Finally, the sample-specific normalisation factor is obtained as the median of these log2 fold changes over all features (right)."}
 set.seed(2)
@@ -372,49 +413,31 @@ ggplot() +
   theme_void() +
   theme(plot.margin = margin(10, 10, 10, 30))
 ```
-
-- Median of Ratio Normalisation also takes difference in compositionality between samples into account. 
+#### Spike-in
 
 ```{r echo=FALSE}
 knitr::include_graphics("./figs/brixenNorm.jpg")
 ```
 
-
-### Heart Example: Median Normalisation
-
-- PXD006675 on PRIDE: Doll S, Dre, B, en M, Geyer PE, Itzhak DN, Braun C, Doppler SA, Meier F, Deutsch MA, Lahm H, Lange R, Krane M, Mann M, Region and cell-type resolved quantitative proteomic map of the human heart. Nat Commun, 8(1):1469(2017)
-
-Here, proteomes of the atrium and ventriculum in the left
-and the right heart region are profiled for 3 patients 
+#### Heart Example: Median of Ratio Normalisation
 
 
 ```{r echo=FALSE}
-knitr::include_graphics("./figs/brixenHeartMedian.jpg")
+knitr::include_graphics("./figs/brixenHeartNormalisationExplainedMedRat.jpg")
 ```
 
-### Heart Example: Median of Ratio Normalisation
 
 ```{r echo=FALSE}
 knitr::include_graphics("./figs/brixenHeartMedRat.jpg")
 ```
 
-Why? 
+
+compared to median normalisation:
 
 ```{r echo=FALSE}
-knitr::include_graphics("./figs/brixenHeartMissingness.jpg")
+knitr::include_graphics("./figs/brixenHeartMedian.jpg")
 ```
 
-Median Normalisation 
-
-```{r echo=FALSE}
-knitr::include_graphics("./figs/brixenHeartNormalisationExplainedMedian.jpg")
-```
-
-Median of Ratio Normalisation
-
-```{r echo=FALSE}
-knitr::include_graphics("./figs/brixenHeartNormalisationExplainedMedRat.jpg")
-```
 
 ## Summarisation
 
@@ -429,10 +452,11 @@ knitr::include_graphics("./figs/brixenSumNeed.jpg")
 ```
 
 
-1. Protein can consist of many precursors,
-2. Different precursors have different intensities within the same sample $\rightarrow$ different properties / ionisation efficiency
-3. Context dependent missingness
-4. Often outliers, e.g. due to misidentification or fluctuations during MS acquisition.
+1. Protein can consist of many precursors
+2. Huge effect of precursor species
+3. Effect of spike-in concentration
+4. Context dependent missingness
+5. Often outliers, e.g. misidentification or fluctuations during MS acquisition.
 
 
 - Summarization should account for precursor species! 
@@ -453,6 +477,8 @@ $$
 ```{r echo=FALSE}
 knitr::include_graphics("./figs/brixenVolcanoMedRatMedian.jpg")
 ```
+
+- Does not account for precursor species!
 
 
 ### MaxLFQ Summarisation 
@@ -743,7 +769,7 @@ text(7.5,.5,"Data exploration",col="black",cex=1.2)
 
 
 $$
- \log_2 \text{FC} = \bar{y}_{p1}-\bar{y}_{p2}
+\text{Effect size:} \log_2 \text{FC} = \bar{y}_{p1}-\bar{y}_{p2}
 $$
 
 $$
@@ -785,13 +811,10 @@ $$
 \log_2 \widehat{\text{FC}} &=& \hat{\beta}_{D8}
 \end{array}
 $$
-In R
 
-```
-lm(intensity ~ genotype, data = WP_003023392)
-```
 
-```{r}
+
+```{r echo = FALSE}
 WP_003023392 <- data.frame(
     intensity = assay(qf[["proteins"]]["WP_003023392",]) |> c(), 
     genotype = colData(qf)[,1]) 
@@ -803,19 +826,23 @@ WP_003023392 |>
   theme_minimal()
 ```
 
-```{r echo=FALSE}
-lmHlp <- lm(intensity ~ genotype, data = WP_003023392)
+In R
+
+```{r}
+lm1  <- lm(intensity ~ genotype, data = WP_003023392)
+summary(lm1)
 ```
 
+
 $$
-t=\frac{\log_2\widehat{\text{FC}}}{\text{se}_{\log_2\widehat{\text{FC}}}}=\frac{`r format(summary(lmHlp)$coef[2,1], digit = 3)`}{`r format(summary(lmHlp)$coef[2,2], digit = 3)`}=`r format(summary(lmHlp)$coef[2,3], digit = 3)`
+t=\frac{\log_2\widehat{\text{FC}}}{\text{se}_{\log_2\widehat{\text{FC}}}}=\frac{`r format(summary(lm1)$coef[2,1], digit = 3)`}{`r format(summary(lm1)$coef[2,2], digit = 3)`}=`r format(summary(lm1)$coef[2,3], digit = 3)`
 $$
 
-- Is t = `r format(summary(lmHlp)$coef[2,3], digit = 3)` indicating that
+- Is t = `r format(summary(lm1)$coef[2,3], digit = 3)` indicating that
 there is an effect?
 
 - How likely is it to observe
-t = `r format(summary(lmHlp)$coef[2,3], digit = 3)` when there is no effect of the argP KO on the protein expression?
+t = `r format(summary(lm1)$coef[2,3], digit = 3)` when there is no effect of the argP KO on the protein expression?
 
 ### Null hypothesis ($H_0$) and alternative hypothesis ($H_1$)
 
@@ -842,7 +869,7 @@ summary(lm1)
 - How likely is it to observe an equal or more extreme effect than the one observed in the sample when the null hypothesis is true?
 - When we make assumptions about the distribution of our test statistic we can quantify this probability: *p-value*. 
 The p-value will only be calculated correctly if the underlying assumptions hold!
-- When we repeat the experiment, the probability to observe a fold change for this gene that is more extreme than a `r format(2^abs(lmHlp$coef[2]),digits=3)` fold ($\log_2 FC=`r format(lmHlp$coef[2],digits=3)`$) down or up regulation by random change (if $H_0$ is true) is `r round(summary(lmHlp)$coef[2,4]*1e4,0)` out of 10000.  
+- When we repeat the experiment, the probability to observe a fold change for this protein that is more extreme than a `r format(2^abs(lm1$coef[2]),digits=3)` fold ($\log_2 FC=`r format(lm1$coef[2],digits=3)`$) down or up regulation by random change (if $H_0$ is true) is `r round(summary(lm1)$coef[2,4]*1e4,0)` out of 10000.  
 - If the p-value is below a significance threshold $\alpha$ we reject the null hypothesis. *We control the probability on a false positive result at the $\alpha$-level (type I error)*
 
 - Note, that the p-values are uniform under the null hypothesis, i.e. when $H_0$ is true all p-values are equally likely. 
@@ -857,14 +884,14 @@ style="display: block; margin: auto;"
 allow="autoplay; encrypted-media" allowfullscreen></iframe></p></details>
 
 
-- Consider testing DA for all $m=1066$ proteins simultaneously
+- Consider testing DA for all $m=1020$ proteins simultaneously
 - What if we assess each individual test at level $\alpha$?
 $\rightarrow$ Probability to have a false positive (FP) among all m simultatenous
 test $>>>  \alpha= 0.05$
 
 - Indeed for each non DA protein we have a probability of 5% to return a FP.
 - In a typical experiment the majority of the proteins are non DA. 
-- So an upperbound of the expected FP is $m \times \alpha$ or $1066 \times 0.05=`r round(1066*0.05,0)`$. 
+- So an upperbound of the expected FP is $m \times \alpha$ or $1020 \times 0.05=`r round(1020*0.05,0)`$. 
 
 $\rightarrow$ Hence, we are bound to call many false positive proteins each time we run the experiment.
 
@@ -910,9 +937,9 @@ Consider $m = 1000$ tests
 - A conservative estimate of the number of false positives that we can expect can be obtained by considering that the null hypotheses are true for all features, $m_0 = m =  1000$. 
 - We then would expect $0.01 \times 1000 = 10$ false positives ($FP=10$).
 
-- Suppose that the researcher found 200 genes with $p<0.01$ ($R=200$).
+- Suppose that the researcher found 200 proteins with $p<0.01$ ($R=200$).
 
-- The proportion of false positive results (FDP = false positive proportion) among the list of $R=200$ genes can then be estimated as
+- The proportion of false positive results (FDP = false positive proportion) among the list of $R=200$ proteins can then be estimated as
 
 $$
    \widehat{\text{FDP}}=\frac{\widehat{FP}}{R}=\frac{10}{200}=\frac{0.01 \times 1000}{200} = 0.05.
@@ -1054,18 +1081,19 @@ knitr::include_graphics("./figs/limmaShrinkage.png")
 Figure courtesy to Rafael Irizarry
 
 $$
-   T_g^{mod} = \frac{\bar{Y}_{g1} - \bar{Y}_{g2}}{C \quad \tilde{S}_g} ,
+   T_p^{mod} = \frac{\log_2 \widehat{\text{FC}}
+}{C \quad \tilde{S}_p} ,
  $$
 
 - **empirical Bayes** theory provides formal framework for borrowing strength across proteins,
 - Implemented in popular bioconductor package **limma** and **msqrob2**
 
 $$
-  \tilde{S}_g=\sqrt{\frac{d_gS_g^2+d_0S_0^2}{d_g+d_0}},
+  \tilde{S}_p=\sqrt{\frac{d_pS_p^2+d_0S_0^2}{d_p+d_0}},
 $$
 
 - $S_0^2$: common variance (over all proteins) 
-- Moderated t-statistic is t-distributed with $d_0+d_g$ degrees of freedom. 
+- Moderated t-statistic is t-distributed with $d_0+d_p$ degrees of freedom. 
 - Note that the degrees of freedom increase by borrowing strength across proteins!
 
 <details><summary> Click to see the code </summary><p>   
@@ -1160,7 +1188,7 @@ qplot(
   theme_minimal()
 ```
 
-- Small variances are shrunken towards the common variance resulting in large EB variance estimates
+- Small variances are shrunken towards the common variance resulting in larger EB variance estimates
 - Large variances are shrunken towards the common variance resulting in smaller EB variance estimates 
 - Pooled degrees of freedom of the EB variance estimator are larger because information is borrowed across proteins to estimate the variance
 
@@ -1372,12 +1400,45 @@ knitr::include_graphics("./figs/brixenMouseBlockingVariances1.jpg")
 - Otherwise loss in degrees of freedom (more model parameters have to be estimated). 
 
 $$
-\text{SD}_\text{res} = \frac{\sum e_i^2}{n-p}
+\text{SD}_\text{res} = \sqrt{\frac{\sum e_i^2}{n-p}}
 $$ 
 
 with $n-p$ equals 
 
 - 8-5 = 3 for RCB and 
 - 8 - 2 = 6 for CRD. 
+
+# Take home messages
+
+- Explore your data in every stage of the analysis
+
+- Data processing:
+
+    - Avoid imputation
+    - Filtering
+    - log2 transformation: mean-variance + log FC
+    - More advanced normalisation methods that can account for compositional differences are often needed for real data
+    - Summarisation should account for differences in precursor/peptide characteristics
+
+
+- Statistical modeling and inference: 
+
+    - Carefully think about sources of variation in experiment
+    - Translate research question in contrast/effect size
+    - Multiple testing
+    - Empirical Bayes: stabilise variance estimation
+    - Critically explore results
+    
+- Experimental design:
+
+    - Thinking about experimental design and data analysis prior to the experiment is key!
+    - Random sampling
+    - Randomisation
+    - Good control
+    - Sample size 
+    - Blocking: very powerful approach to isolate important sources of variability from the experiment. 
+        
+        - Both biological, e.g. animal, cell culture
+        - Technical, e.g. batch effects, ... 
 
 # References

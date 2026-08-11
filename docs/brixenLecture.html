@@ -251,8 +251,8 @@ window.Quarto = {
   <li><a href="#log-transformation" id="toc-log-transformation" class="nav-link" data-scroll-target="#log-transformation"><span class="header-section-number">2.3</span> Log-transformation</a></li>
   <li><a href="#normalisation" id="toc-normalisation" class="nav-link" data-scroll-target="#normalisation"><span class="header-section-number">2.4</span> Normalisation</a>
   <ul class="collapse">
-  <li><a href="#heart-example-median-normalisation" id="toc-heart-example-median-normalisation" class="nav-link" data-scroll-target="#heart-example-median-normalisation"><span class="header-section-number">2.4.1</span> Heart Example: Median Normalisation</a></li>
-  <li><a href="#heart-example-median-of-ratio-normalisation" id="toc-heart-example-median-of-ratio-normalisation" class="nav-link" data-scroll-target="#heart-example-median-of-ratio-normalisation"><span class="header-section-number">2.4.2</span> Heart Example: Median of Ratio Normalisation</a></li>
+  <li><a href="#median-centering" id="toc-median-centering" class="nav-link" data-scroll-target="#median-centering"><span class="header-section-number">2.4.1</span> Median centering</a></li>
+  <li><a href="#median-of-ratios-method" id="toc-median-of-ratios-method" class="nav-link" data-scroll-target="#median-of-ratios-method"><span class="header-section-number">2.4.2</span> Median of Ratios method</a></li>
   </ul></li>
   <li><a href="#summarisation" id="toc-summarisation" class="nav-link" data-scroll-target="#summarisation"><span class="header-section-number">2.5</span> Summarisation</a>
   <ul class="collapse">
@@ -299,7 +299,8 @@ window.Quarto = {
   <li><a href="#mouse-example" id="toc-mouse-example" class="nav-link" data-scroll-target="#mouse-example"><span class="header-section-number">4.6.1</span> Mouse example</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">5</span> References</a></li>
+  <li><a href="#take-home-messages" id="toc-take-home-messages" class="nav-link" data-scroll-target="#take-home-messages"><span class="header-section-number">5</span> Take home messages</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">6</span> References</a></li>
   </ul>
 </nav>
 </nav>
@@ -491,7 +492,7 @@ What happened
 <section id="experimental-context" class="level3" data-number="2.1.3">
 <h3 data-number="2.1.3" class="anchored" data-anchor-id="experimental-context"><span class="header-section-number">2.1.3</span> Experimental context</h3>
 <ul>
-<li><p>In-house DIA spike-in study to illustrate the analysis (subset of Staes et al. <span class="citation" data-cites="Staes2024">(<a href="#ref-Staes2024" role="doc-biblioref">Staes et al. 2024</a>)</span>).</p></li>
+<li><p>In-house DIA spike-in study to illustrate the analysis (subset of <span class="citation" data-cites="Staes2024">(<a href="#ref-Staes2024" role="doc-biblioref">Staes et al. 2024</a>)</span>).</p></li>
 <li><p>spiked digested UPS proteins in yeast background at the following ratio’s <span class="math inline">\(\rightarrow\)</span> yeast:ups ratio 10:1, 10:2, 10:4, 10:8, 10:10</p></li>
 <li><p>Each sample was analyzed in triplicate</p></li>
 </ul>
@@ -516,6 +517,7 @@ What happened
 <li>Remove questionable identifications: Low ID Q-value, Decoys, Contaminants, …</li>
 <li>Only keep Proteotypic precursors</li>
 <li>Remove precursors/PSMs with many missing values</li>
+<li>…</li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
@@ -553,8 +555,8 @@ What happened
 </div>
 </div>
 <ul>
-<li>Mean-variance relation</li>
-<li>Solved by log2 tranformation</li>
+<li>Mean-variance relation <span class="math inline">\(\rightarrow\)</span> Solved by log2 tranformation</li>
+<li>Other property of log transformation:</li>
 </ul>
 <p><span class="math display">\[log_2FC_{b-a} = log_2b - log_2a = log_2 \frac{b}{a}\]</span></p>
 </section>
@@ -571,63 +573,47 @@ What happened
 </div>
 <p>Even in clean synthetic data set <span class="math inline">\(\rightarrow\)</span> marginal precursor intensity distributions across samples not well aligned.</p>
 <p><span class="math inline">\(\rightarrow\)</span> Can cause power loss &amp; bias</p>
-<p>Median centering is a popular choice, often works well in very clean datasets but more advance normalisation often needed in real data.</p>
-<p>Here, we will use the Median of Ratios method of DESeq2, which was originally developed for RNA-seq data analysis and can also correct for differences in composition of the proteomes in the different samples. The method:</p>
-<ol type="1">
-<li>First calculates pseudo-reference sample (row-wise mean of log2 intensities, which corresponds to the log2 transformed geometric mean).</li>
-<li>Then calculates log2 ratios of each sample w.r.t. the pseudo-reference.</li>
-<li>Finally the column wise median of these log2 ratios is taken to obtain the sample based normalisation factor on the log2 scale.</li>
-</ol>
-<p>The figure below illustrates the procedure on a small toy example with four features (rows) and three samples (columns).</p>
-<div class="cell">
-<div class="cell-output-display">
-<div id="fig-mor-illustration" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-mor-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="brixenLecture_files/figure-html/fig-mor-illustration-1.png" class="img-fluid figure-img" width="1008">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mor-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Illustration of the median-of-ratios normalisation on a toy example with four features and three samples. Starting from the matrix of log2 intensities (left), a pseudo-reference sample is obtained by taking the row-wise (feature-wise) mean. Log2 fold changes of every sample relative to this reference are then calculated (middle). Finally, the sample-specific normalisation factor is obtained as the median of these log2 fold changes over all features (right).
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
+<section id="median-centering" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="median-centering"><span class="header-section-number">2.4.1</span> Median centering</h3>
 <ul>
-<li>Median of Ratio Normalisation also takes difference in compositionality between samples into account.</li>
+<li>Is a popular choice</li>
+<li>Often works well in very clean datasets</li>
+<li>But more advance normalisation often needed in real data.</li>
 </ul>
+<section id="spike-in" class="level4">
+<h4 class="anchored" data-anchor-id="spike-in">Spike-in</h4>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="./figs/brixenNorm.jpg" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<section id="heart-example-median-normalisation" class="level3" data-number="2.4.1">
-<h3 data-number="2.4.1" class="anchored" data-anchor-id="heart-example-median-normalisation"><span class="header-section-number">2.4.1</span> Heart Example: Median Normalisation</h3>
-<ul>
-<li>PXD006675 on PRIDE: Doll S, Dre, B, en M, Geyer PE, Itzhak DN, Braun C, Doppler SA, Meier F, Deutsch MA, Lahm H, Lange R, Krane M, Mann M, Region and cell-type resolved quantitative proteomic map of the human heart. Nat Commun, 8(1):1469(2017)</li>
-</ul>
-<p>Here, proteomes of the atrium and ventriculum in the left and the right heart region are profiled for 3 patients</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="./figs/brixenHeartMedian.jpg" class="img-fluid figure-img"></p>
+<p><img src="./figs/brixenNormMedian.jpg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="heart-example-median-of-ratio-normalisation" class="level3" data-number="2.4.2">
-<h3 data-number="2.4.2" class="anchored" data-anchor-id="heart-example-median-of-ratio-normalisation"><span class="header-section-number">2.4.2</span> Heart Example: Median of Ratio Normalisation</h3>
+<section id="heart-example-median-normalisation" class="level4">
+<h4 class="anchored" data-anchor-id="heart-example-median-normalisation">Heart Example: Median Normalisation</h4>
+<ul>
+<li><p>PXD006675 on PRIDE: Doll S, Dre, B, en M, Geyer PE, Itzhak DN, Braun C, Doppler SA, Meier F, Deutsch MA, Lahm H, Lange R, Krane M, Mann M, Region and cell-type resolved quantitative proteomic map of the human heart. Nat Commun, 8(1):1469(2017)</p></li>
+<li><p>3 patients</p></li>
+<li><p>proteomes from biopsies of atrium and ventriculum in the left and the right heart region</p></li>
+<li><p>DDA</p></li>
+</ul>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="./figs/brixenHeartMedRat.jpg" class="img-fluid figure-img"></p>
+<p><img src="./figs/brixenHeartNormalisationEffect.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenHeartMedian.jpg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -652,7 +638,48 @@ Figure&nbsp;1: Illustration of the median-of-ratios normalisation on a toy examp
 </div>
 </div>
 </div>
-<p>Median of Ratio Normalisation</p>
+</section>
+</section>
+<section id="median-of-ratios-method" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="median-of-ratios-method"><span class="header-section-number">2.4.2</span> Median of Ratios method</h3>
+<ul>
+<li>Borrowed from DESeq2: originally developed for RNA-seq data analysis</li>
+<li>Also correct for differences in composition of the proteomes in the different samples.</li>
+</ul>
+<p>The method:</p>
+<ol type="1">
+<li>Calculates pseudo-reference sample (row-wise mean of log2 intensities, which corresponds to the log2 transformed geometric mean).</li>
+<li>Calculates log2 ratios of each sample w.r.t. the pseudo-reference.</li>
+<li>Column wise median of these log2 ratios is taken as the sample based normalisation factor on the log2 scale.</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-mor-illustration" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mor-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="brixenLecture_files/figure-html/fig-mor-illustration-1.png" class="img-fluid figure-img" width="1008">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mor-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Illustration of the median-of-ratios normalisation on a toy example with four features and three samples. Starting from the matrix of log2 intensities (left), a pseudo-reference sample is obtained by taking the row-wise (feature-wise) mean. Log2 fold changes of every sample relative to this reference are then calculated (middle). Finally, the sample-specific normalisation factor is obtained as the median of these log2 fold changes over all features (right).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="spike-in-1" class="level4">
+<h4 class="anchored" data-anchor-id="spike-in-1">Spike-in</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenNorm.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="heart-example-median-of-ratio-normalisation" class="level4">
+<h4 class="anchored" data-anchor-id="heart-example-median-of-ratio-normalisation">Heart Example: Median of Ratio Normalisation</h4>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -662,6 +689,26 @@ Figure&nbsp;1: Illustration of the median-of-ratios normalisation on a toy examp
 </div>
 </div>
 </div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenHeartMedRat.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>compared to median normalisation:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./figs/brixenHeartMedian.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 <section id="summarisation" class="level2" data-number="2.5">
@@ -680,10 +727,11 @@ Figure&nbsp;1: Illustration of the median-of-ratios normalisation on a toy examp
 </div>
 </div>
 <ol type="1">
-<li>Protein can consist of many precursors,</li>
-<li>Different precursors have different intensities within the same sample <span class="math inline">\(\rightarrow\)</span> different properties / ionisation efficiency</li>
+<li>Protein can consist of many precursors</li>
+<li>Huge effect of precursor species</li>
+<li>Effect of spike-in concentration</li>
 <li>Context dependent missingness</li>
-<li>Often outliers, e.g.&nbsp;due to misidentification or fluctuations during MS acquisition.</li>
+<li>Often outliers, e.g.&nbsp;misidentification or fluctuations during MS acquisition.</li>
 </ol>
 <ul>
 <li>Summarization should account for precursor species!</li>
@@ -707,6 +755,9 @@ Figure&nbsp;1: Illustration of the median-of-ratios normalisation on a toy examp
 </div>
 </div>
 </div>
+<ul>
+<li>Does not account for precursor species!</li>
+</ul>
 </section>
 <section id="maxlfq-summarisation" class="level3" data-number="2.5.2">
 <h3 data-number="2.5.2" class="anchored" data-anchor-id="maxlfq-summarisation"><span class="header-section-number">2.5.2</span> MaxLFQ Summarisation</h3>
@@ -937,7 +988,7 @@ Click to see code to log-transfrom the data
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -955,7 +1006,7 @@ Click to see code to log-transfrom the data
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-36-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-39-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1121,7 +1172,7 @@ Movie clip
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1129,7 +1180,7 @@ Movie clip
 <section id="t-test" class="level3" data-number="3.5.1">
 <h3 data-number="3.5.1" class="anchored" data-anchor-id="t-test"><span class="header-section-number">3.5.1</span> T-test</h3>
 <p><span class="math display">\[
-\log_2 \text{FC} = \bar{y}_{p1}-\bar{y}_{p2}
+\text{Effect size:} \log_2 \text{FC} = \bar{y}_{p1}-\bar{y}_{p2}
 \]</span></p>
 <p><span class="math display">\[
 T_g=\frac{\log_2 \widehat{\text{FC}}}{\text{se}_{\log_2 \widehat{\text{FC}}}}
@@ -1162,24 +1213,39 @@ x_{i,D8} &amp;=&amp; 1 \text{ (D8)}
 \hat \mu_{D8} &amp;=&amp; \hat\beta_0 + \hat{\beta}_{D8}\\
 \log_2 \widehat{\text{FC}} &amp;=&amp; \hat{\beta}_{D8}
 \end{array}
-\]</span> In R</p>
-<pre><code>lm(intensity ~ genotype, data = WP_003023392)</code></pre>
+\]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>WP_003023392 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">intensity =</span> <span class="fu">assay</span>(qf[[<span class="st">"proteins"</span>]][<span class="st">"WP_003023392"</span>,]) <span class="sc">|&gt;</span> <span class="fu">c</span>(), </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">genotype =</span> <span class="fu">colData</span>(qf)[,<span class="dv">1</span>]) </span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>WP_003023392 <span class="sc">|&gt;</span> </span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>genotype,<span class="at">y=</span>intensity)) <span class="sc">+</span> </span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Protein WP_003023392"</span>) <span class="sc">+</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+</div>
+<p>In R</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>lm1  <span class="ot">&lt;-</span> <span class="fu">lm</span>(intensity <span class="sc">~</span> genotype, <span class="at">data =</span> WP_003023392)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = intensity ~ genotype, data = WP_003023392)
+
+Residuals:
+       1        2        3        4        5        6 
+ 0.07266 -0.12677  0.05411  0.03622 -0.15565  0.11943 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 26.10746    0.07308  357.27 3.68e-10 ***
+genotypeD8  -1.36902    0.10334  -13.25 0.000188 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1266 on 4 degrees of freedom
+Multiple R-squared:  0.9777,    Adjusted R-squared:  0.9721 
+F-statistic: 175.5 on 1 and 4 DF,  p-value: 0.0001877</code></pre>
 </div>
 </div>
 <p><span class="math display">\[
@@ -1233,7 +1299,7 @@ F-statistic: 175.5 on 1 and 4 DF,  p-value: 0.0001877</code></pre>
 <ul>
 <li><p>How likely is it to observe an equal or more extreme effect than the one observed in the sample when the null hypothesis is true?</p></li>
 <li><p>When we make assumptions about the distribution of our test statistic we can quantify this probability: <em>p-value</em>. The p-value will only be calculated correctly if the underlying assumptions hold!</p></li>
-<li><p>When we repeat the experiment, the probability to observe a fold change for this gene that is more extreme than a 2.58 fold (<span class="math inline">\(\log_2 FC=-1.37\)</span>) down or up regulation by random change (if <span class="math inline">\(H_0\)</span> is true) is 2 out of 10000.<br>
+<li><p>When we repeat the experiment, the probability to observe a fold change for this protein that is more extreme than a 2.58 fold (<span class="math inline">\(\log_2 FC=-1.37\)</span>) down or up regulation by random change (if <span class="math inline">\(H_0\)</span> is true) is 2 out of 10000.<br>
 </p></li>
 <li><p>If the p-value is below a significance threshold <span class="math inline">\(\alpha\)</span> we reject the null hypothesis. <em>We control the probability on a false positive result at the <span class="math inline">\(\alpha\)</span>-level (type I error)</em></p></li>
 <li><p>Note, that the p-values are uniform under the null hypothesis, i.e.&nbsp;when <span class="math inline">\(H_0\)</span> is true all p-values are equally likely.</p></li>
@@ -1252,11 +1318,11 @@ Movie clip
 </p>
 </details>
 <ul>
-<li><p>Consider testing DA for all <span class="math inline">\(m=1066\)</span> proteins simultaneously</p></li>
+<li><p>Consider testing DA for all <span class="math inline">\(m=1020\)</span> proteins simultaneously</p></li>
 <li><p>What if we assess each individual test at level <span class="math inline">\(\alpha\)</span>? <span class="math inline">\(\rightarrow\)</span> Probability to have a false positive (FP) among all m simultatenous test <span class="math inline">\(&gt;&gt;&gt;  \alpha= 0.05\)</span></p></li>
 <li><p>Indeed for each non DA protein we have a probability of 5% to return a FP.</p></li>
 <li><p>In a typical experiment the majority of the proteins are non DA.</p></li>
-<li><p>So an upperbound of the expected FP is <span class="math inline">\(m \times \alpha\)</span> or <span class="math inline">\(1066 \times 0.05=53\)</span>.</p></li>
+<li><p>So an upperbound of the expected FP is <span class="math inline">\(m \times \alpha\)</span> or <span class="math inline">\(1020 \times 0.05=51\)</span>.</p></li>
 </ul>
 <p><span class="math inline">\(\rightarrow\)</span> Hence, we are bound to call many false positive proteins each time we run the experiment.</p>
 <section id="multiple-testing-false-discovery-rate" class="level3" data-number="3.6.1">
@@ -1297,8 +1363,8 @@ FDP = \frac{FP}{R}
 <li><p>If we use <span class="math inline">\(p &lt; 0.01\)</span>, we expect <span class="math inline">\(0.01 \times m_0\)</span> tests to return false positives.</p></li>
 <li><p>A conservative estimate of the number of false positives that we can expect can be obtained by considering that the null hypotheses are true for all features, <span class="math inline">\(m_0 = m =  1000\)</span>.</p></li>
 <li><p>We then would expect <span class="math inline">\(0.01 \times 1000 = 10\)</span> false positives (<span class="math inline">\(FP=10\)</span>).</p></li>
-<li><p>Suppose that the researcher found 200 genes with <span class="math inline">\(p&lt;0.01\)</span> (<span class="math inline">\(R=200\)</span>).</p></li>
-<li><p>The proportion of false positive results (FDP = false positive proportion) among the list of <span class="math inline">\(R=200\)</span> genes can then be estimated as</p></li>
+<li><p>Suppose that the researcher found 200 proteins with <span class="math inline">\(p&lt;0.01\)</span> (<span class="math inline">\(R=200\)</span>).</p></li>
+<li><p>The proportion of false positive results (FDP = false positive proportion) among the list of <span class="math inline">\(R=200\)</span> proteins can then be estimated as</p></li>
 </ul>
 <p><span class="math display">\[
    \widehat{\text{FDP}}=\frac{\widehat{FP}}{R}=\frac{10}{200}=\frac{0.01 \times 1000}{200} = 0.05.
@@ -1553,7 +1619,7 @@ Click to see code
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1610,7 +1676,7 @@ Click to see code
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1621,7 +1687,7 @@ Click to see code
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-48-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-51-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1632,7 +1698,7 @@ Click to see code
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-48-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-51-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1650,18 +1716,19 @@ Click to see code
 </div>
 <p>Figure courtesy to Rafael Irizarry</p>
 <p><span class="math display">\[
-   T_g^{mod} = \frac{\bar{Y}_{g1} - \bar{Y}_{g2}}{C \quad \tilde{S}_g} ,
+   T_p^{mod} = \frac{\log_2 \widehat{\text{FC}}
+}{C \quad \tilde{S}_p} ,
 \]</span></p>
 <ul>
 <li><strong>empirical Bayes</strong> theory provides formal framework for borrowing strength across proteins,</li>
 <li>Implemented in popular bioconductor package <strong>limma</strong> and <strong>msqrob2</strong></li>
 </ul>
 <p><span class="math display">\[
-  \tilde{S}_g=\sqrt{\frac{d_gS_g^2+d_0S_0^2}{d_g+d_0}},
+  \tilde{S}_p=\sqrt{\frac{d_pS_p^2+d_0S_0^2}{d_p+d_0}},
 \]</span></p>
 <ul>
 <li><span class="math inline">\(S_0^2\)</span>: common variance (over all proteins)</li>
-<li>Moderated t-statistic is t-distributed with <span class="math inline">\(d_0+d_g\)</span> degrees of freedom.</li>
+<li>Moderated t-statistic is t-distributed with <span class="math inline">\(d_0+d_p\)</span> degrees of freedom.</li>
 <li>Note that the degrees of freedom increase by borrowing strength across proteins!</li>
 </ul>
 <details>
@@ -1687,7 +1754,7 @@ Click to see the code
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-54-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1743,7 +1810,7 @@ genotypeD8.WP_003038350 0.048997070 genotypeD8 WP_003038350</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-55-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1759,13 +1826,13 @@ genotypeD8.WP_003038350 0.048997070 genotypeD8 WP_003038350</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-56-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-59-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <ul>
-<li>Small variances are shrunken towards the common variance resulting in large EB variance estimates</li>
+<li>Small variances are shrunken towards the common variance resulting in larger EB variance estimates</li>
 <li>Large variances are shrunken towards the common variance resulting in smaller EB variance estimates</li>
 <li>Pooled degrees of freedom of the EB variance estimator are larger because information is borrowed across proteins to estimate the variance</li>
 </ul>
@@ -1777,7 +1844,7 @@ genotypeD8.WP_003038350 0.048997070 genotypeD8 WP_003038350</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-57-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-60-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1786,84 +1853,84 @@ genotypeD8.WP_003038350 0.048997070 genotypeD8 WP_003038350</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-61-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-61-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-61-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-4.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-61-4.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-5.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-61-5.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-6.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-61-6.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-7.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-61-7.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-8.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-61-8.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-9.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-61-9.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-10.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-61-10.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-11.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-61-11.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="brixenLecture_files/figure-html/unnamed-chunk-58-12.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="brixenLecture_files/figure-html/unnamed-chunk-61-12.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -2061,7 +2128,7 @@ T_g=\frac{\widehat{\text{signal}}}{\widehat{\text{Noise}}}
 <li>Otherwise loss in degrees of freedom (more model parameters have to be estimated).</li>
 </ul>
 <p><span class="math display">\[
-\text{SD}_\text{res} = \frac{\sum e_i^2}{n-p}
+\text{SD}_\text{res} = \sqrt{\frac{\sum e_i^2}{n-p}}
 \]</span></p>
 <p>with <span class="math inline">\(n-p\)</span> equals</p>
 <ul>
@@ -2072,14 +2139,49 @@ T_g=\frac{\widehat{\text{signal}}}{\widehat{\text{Noise}}}
 </section>
 </section>
 </section>
-<section id="references" class="level1" data-number="5">
+<section id="take-home-messages" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Take home messages</h1>
+<ul>
+<li><p>Explore your data in every stage of the analysis</p></li>
+<li><p>Data processing:</p>
+<ul>
+<li>Avoid imputation</li>
+<li>Filtering</li>
+<li>log2 transformation: mean-variance + log FC</li>
+<li>More advanced normalisation methods that can account for compositional differences are often needed for real data</li>
+<li>Summarisation should account for differences in precursor/peptide characteristics</li>
+</ul></li>
+<li><p>Statistical modeling and inference:</p>
+<ul>
+<li>Carefully think about sources of variation in experiment</li>
+<li>Translate research question in contrast/effect size</li>
+<li>Multiple testing</li>
+<li>Empirical Bayes: stabilise variance estimation</li>
+<li>Critically explore results</li>
+</ul></li>
+<li><p>Experimental design:</p>
+<ul>
+<li><p>Thinking about experimental design and data analysis prior to the experiment is key!</p></li>
+<li><p>Random sampling</p></li>
+<li><p>Randomisation</p></li>
+<li><p>Good control</p></li>
+<li><p>Sample size</p></li>
+<li><p>Blocking: very powerful approach to isolate important sources of variability from the experiment.</p>
+<ul>
+<li>Both biological, e.g.&nbsp;animal, cell culture</li>
+<li>Technical, e.g.&nbsp;batch effects, …</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="references" class="level1" data-number="6">
 
 
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">5 References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">6 References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-Staes2024" class="csl-entry" role="listitem">
 Staes, An, Teresa Mendes Maia, Sara Dufour, et al. 2024. <span>“Benefit of in Silico Predicted Spectral Libraries in Data‑independent Acquisition Data Analysis Workflows.”</span> <em>Journal of Proteome Research</em> 23 (6): 2078–89. <a href="https://doi.org/10.1021/acs.jproteome.4c00048">https://doi.org/10.1021/acs.jproteome.4c00048</a>.
 </div>

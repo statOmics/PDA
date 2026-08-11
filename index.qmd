@@ -6,12 +6,14 @@ code-tools: false
 This course provides comprehensive hands-on tutorials on how to apply the
 `msqrob2` software for the statistical analysis of mass spectrometry
 (MS)-based proteomics data.  
-The course first introduces general concepts of
-statistical proteomics data analysis and `msqrob2`. Further
+The course introduces general concepts of
+proteomics data processing, statistical data analysis for proteomics  and a brief introduction to our software tool `msqrob2`. 
+
+When you want to learn more on proteomics data analysis we refer you to [msqrob2book](https://statomics.github.io/msqrob2book/), an e-book that we developed for the decennial of our msqrob2 package.  
+It repeats the general concepts and further
 chapters will demonstrate the application of `msqrob2` for assessing
 different biological questions starting from datasets with different
-experimental designs, acquisition strategies, instruments, and search
-engines. The book aims to help proteomics researchers and data analysists tailoring their statistical analysis workflow to their specific datasets and research questions.
+experimental designs, acquisition strategies, instruments, and searchengines. The book aims to help proteomics researchers and data analysists tailoring their statistical analysis workflow to their specific datasets and research questions.
 
 ```{r, echo = FALSE, out.width = "30%", fig.cap = "The sticker is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/)."}
 knitr::include_graphics("figs/msqrob2.png")

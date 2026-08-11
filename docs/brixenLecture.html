@@ -733,17 +733,6 @@ Figure&nbsp;1: Illustration of the median-of-ratios normalisation on a toy examp
 <li>Context dependent missingness</li>
 <li>Often outliers, e.g.&nbsp;misidentification or fluctuations during MS acquisition.</li>
 </ol>
-<ul>
-<li>Summarization should account for precursor species!</li>
-<li>Popular choice: maxLFQ</li>
-</ul>
-<ol type="1">
-<li><p>Calculates all pairwise log ratio’s between samples only using their shared precursors. Particularly, it uses the median of the log ratio’s between the shared precursors s, i.e.&nbsp; <span class="math display">\[r_{ij} = median(y_{sj}-y_{si})\]</span>.</p></li>
-<li><p>Estimates the summaries by solving</p></li>
-</ol>
-<p><span class="math display">\[
-\sum_i\sum_j(y^{prot}_j - y^{prot}_i - r_{ij})^2
-\]</span></p>
 <section id="median-summarisation" class="level3" data-number="2.5.1">
 <h3 data-number="2.5.1" class="anchored" data-anchor-id="median-summarisation"><span class="header-section-number">2.5.1</span> Median Summarisation</h3>
 <div class="cell">
@@ -756,11 +745,23 @@ Figure&nbsp;1: Illustration of the median-of-ratios normalisation on a toy examp
 </div>
 </div>
 <ul>
-<li>Does not account for precursor species!</li>
+<li>Problematic</li>
+<li>Biased FC <span class="math inline">\(\rightarrow\)</span> Does not account for precursor species. Missingness.</li>
 </ul>
 </section>
 <section id="maxlfq-summarisation" class="level3" data-number="2.5.2">
 <h3 data-number="2.5.2" class="anchored" data-anchor-id="maxlfq-summarisation"><span class="header-section-number">2.5.2</span> MaxLFQ Summarisation</h3>
+<ul>
+<li>Summarization should account for precursor species!</li>
+<li>Popular choice: maxLFQ</li>
+</ul>
+<ol type="1">
+<li><p>Calculates all pairwise log ratio’s between samples only using their shared precursors. Particularly, it uses the median of the log ratio’s between the shared precursors s, i.e.&nbsp; <span class="math display">\[r_{ij} = median(y_{sj}-y_{si})\]</span>.</p></li>
+<li><p>Estimates the summaries by solving</p></li>
+</ol>
+<p><span class="math display">\[
+\sum_i\sum_j(y^{prot}_j - y^{prot}_i - r_{ij})^2
+\]</span></p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -1261,7 +1262,7 @@ t=\frac{\log_2\widehat{\text{FC}}}{\text{se}_{\log_2\widehat{\text{FC}}}}=\frac{
 <ul>
 <li><p>With data we can never prove a hypothesis (falsification principle of Popper)</p></li>
 <li><p>With data we can only reject a hypothesis</p></li>
-<li><p>In general we start from <em>alternative hypothese</em> <span class="math inline">\(H_1\)</span>: we want to show an effect of the KO on a protein</p></li>
+<li><p>In general we start from <em>alternative hypothese</em> <span class="math inline">\(H_1\)</span>: we want to show an effect of the KO on abundance of a protein</p></li>
 </ul>
 <center>
 <span class="math inline">\(H_1\)</span>: On average the protein abundance in WT is different from that in KO

@@ -459,6 +459,19 @@ knitr::include_graphics("./figs/brixenSumNeed.jpg")
 5. Often outliers, e.g. misidentification or fluctuations during MS acquisition.
 
 
+### Median Summarisation 
+
+```{r echo=FALSE}
+knitr::include_graphics("./figs/brixenVolcanoMedRatMedian.jpg")
+```
+
+- Problematic
+- Biased FC
+$\rightarrow$ Does not account for precursor species. Missingness.
+
+
+### MaxLFQ Summarisation 
+
 - Summarization should account for precursor species! 
 - Popular choice: maxLFQ 
 
@@ -471,17 +484,6 @@ $$r_{ij} = median(y_{sj}-y_{si})$$.
 $$
 \sum_i\sum_j(y^{prot}_j - y^{prot}_i - r_{ij})^2
 $$
-
-### Median Summarisation 
-
-```{r echo=FALSE}
-knitr::include_graphics("./figs/brixenVolcanoMedRatMedian.jpg")
-```
-
-- Does not account for precursor species!
-
-
-### MaxLFQ Summarisation 
 
 ```{r echo=FALSE}
 knitr::include_graphics("./figs/brixenVolcanoMedRatMaxLFQ.jpg")
@@ -849,7 +851,7 @@ t = `r format(summary(lm1)$coef[2,3], digit = 3)` when there is no effect of the
 - With data we can never prove a hypothesis (falsification principle of Popper)
 - With data we can only reject a hypothesis 
 
-- In general we start from *alternative hypothese* $H_1$: we want to show an effect of the KO on a protein
+- In general we start from *alternative hypothese* $H_1$: we want to show an effect of the KO on abundance of a protein
 
 <center>
 $H_1$: On average the protein abundance in WT is different from that in KO

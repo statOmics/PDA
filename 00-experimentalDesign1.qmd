@@ -32,7 +32,7 @@ Brunner et al. 2022. Mol Syst Biol. 18(3): e10798. doi: 10.15252/msb.202110798
 
 ## Reanalysis of the results
 
-We could reproduce the results: 
+We can reproduce the results ([Vanderaa and Gatto 2022](https://uclouvain-cbio.github.io/SCP.replication/articles/brunner2022.html)): 
 
 <img src="./figs/brunnerPCACellCycle.png" width="100%">
 

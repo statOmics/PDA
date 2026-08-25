@@ -38,12 +38,9 @@ In this vignette we will demonstrate how to perform  `msqrob`'s summarisation
 based workflow  starting from a Maxquant search on a subset of the cptac 
 spike-in study.
 
-Examples on our peptide-based workflows and on the analysis of more complex 
-designs can be found on our companion website 
+Technical details on our methods, and, examples on the analysis of more complex 
+designs and on our peptide-based workflows can be found on our companion website 
 [msqrob2 book](https://statomics.github.io/msqrob2book).
-
-Technical details on our methods can be found in [@goeminne2016], 
-[@goeminne2020], [@sticker2020] and [@vandenbulcke2025].
 
 # Background
 

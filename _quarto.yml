@@ -1,6 +1,12 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - "*.qmd"
+    - "!forllustrationInCourse/"
+    
+  resources:
+    - mathjax-local/
 
 website:
   favicon: figs/msqrob2.png
@@ -37,6 +43,10 @@ execute:
 
 format:
   html:
+    embed-resources: true
+    html-math-method:
+      method: mathjax
+      url: "mathjax-local/tex-chtml-full.js"
     theme:
       - cosmo
       - custom.scss

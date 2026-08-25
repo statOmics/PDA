@@ -42,8 +42,8 @@ Examples on our peptide-based workflows and on the analysis of more complex
 designs can be found on our companion website 
 [msqrob2 book](https://statomics.github.io/msqrob2book).
 
-Technical details on our methods can be found in [@goeminne2016-tr], 
-[@Goeminne2020], [@sticker2020-rl] and [@Vandenbulcke2025-sj].
+Technical details on our methods can be found in [@Goeminne2016-tr],
+[@Goeminne2020], [@Sticker2020-rl] and [@Vandenbulcke2025-sj].
 
 # Background
 
@@ -56,7 +56,7 @@ Two different spike-in concentrations were used:
 6A (0.25 fmol UPS1 proteins/$\mu$L) and 6B (0.74 fmol UPS1 proteins/$\mu$L) [5].
 We limited ourselves to the data of LTQ-Orbitrap W at site 56.
 The data were searched with MaxQuant version 1.5.2.8, and
-detailed search settings were described in @goeminne2016-tr.
+detailed search settings were described in @Goeminne2016-tr.
 Three replicates are available for each concentration.
 
 
